@@ -1,11 +1,11 @@
 ## project output
-paper.pdf
-paper_compressed.pdf
+/build/*
+
 #cover letter.docx
 
 ## figure data
-*.mat
-*.fig
+#*.mat
+#*.fig
 /figures/__pycache__/
 
 ## Core latex/pdflatex auxiliary files:
