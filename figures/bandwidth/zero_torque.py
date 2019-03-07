@@ -15,8 +15,9 @@ pgf_with_custom_preamble = {
     "pgf.preamble": [
         r"\usepackage{amsmath}",
         r"\usepackage{fontspec}",
+        r"\setmainfont{Avenir Next}",
         r"\setsansfont{Avenir Next}",
-        r"\setmainfont{Times}",
+        r"\usepackage{units}",
     ]
 }
 mpl.rcParams.update(pgf_with_custom_preamble)
@@ -40,86 +41,91 @@ colors_light.append('#FFDBA3')
 
 data = sio.loadmat('zero_torque_data.mat')
 
-fig = plt.figure(figsize = (6,3))
-ax = []
-ax.append(fig.add_subplot(221))
-ax.append(fig.add_subplot(222, sharey = ax[0]))
-ax.append(fig.add_subplot(223, sharex = ax[0]))
-ax.append(fig.add_subplot(224, sharex = ax[1], sharey = ax[2]))
-ax.append(ax[0].twinx())
-ax.append(ax[1].twinx())
-for axis in ax[:-1]:
+fig, ax = plt.subplots(2, 2, figsize=(4.5,3), sharex='col', sharey='row')
+ax_twin = []
+ax_twin.append(ax[0,0].twinx())
+ax_twin.append(ax[0,1].twinx())
+
+for axis in ax.flatten():
     axis.spines['top'].set_visible(False)
     axis.spines['right'].set_visible(False)
-ax[-1].spines['top'].set_visible(False)
+    axis.spines['bottom'].set_visible(False)
+    axis.spines['left'].set_visible(False)
 
-ax[0].plot(data['knee_time'], data['knee_angle_filt'] - 
+for axis in ax_twin:
+    axis.spines['top'].set_visible(False)
+    axis.spines['right'].set_visible(False)
+    axis.spines['bottom'].set_visible(False)
+    axis.spines['left'].set_visible(False)
+
+ax[0,0].plot(data['knee_time'], data['knee_angle_filt'] - 
     data['knee_angle_filt'][0], color=colors[0])
-ax[0].set_ylabel('Angle (deg)', color=colors[0])
-ax[0].tick_params('y', colors=colors[0])
-ax[0].spines['left'].set_color(colors[0])
+ax[0,0].set_ylabel('Angle (deg)', color=colors[0])
+ax[0,0].tick_params('y', colors=colors[0])
 
-ax[4].plot(data['knee_pks_time'], data['knee_freq'], color=colors[1])
+ax_twin[0].plot(data['knee_pks_time'], data['knee_freq'], color=colors[1])
 
-ax[1].plot(data['ankle_time'], data['ankle_angle_filt'] -
+ax[0,1].plot(data['ankle_time'], data['ankle_angle_filt'] -
     data['ankle_angle_filt'][0], color=colors[0])
 
-ax[5].plot(data['ankle_pks_time'], data['ankle_freq'], color=colors[1])
-ax[5].set_ylabel('Approx Freq (Hz)', color=colors[1])
-ax[5].tick_params('y', colors=colors[1])
-ax[5].spines['right'].set_color(colors[1])
+ax_twin[1].plot(data['ankle_pks_time'], data['ankle_freq'], color=colors[1])
+ax_twin[1].set_ylabel('Approx Freq (Hz)', color=colors[1])
+ax_twin[1].tick_params('y', colors=colors[1])
 
-ax[2].plot(data['knee_time'], data['knee_torque_measured_filt'], 
-    color = 'black')
-ax[2].set_ylabel('Measured\nTorque (N-m)')
+line_props_torque_measured = {'color':'black','linewidth':0.25}
+ax[1,0].plot(data['knee_time'], data['knee_torque_measured_filt'], 
+    **line_props_torque_measured)
+ax[1,0].set_ylabel('Measured\nTorque (N-m)')
 
-ax[3].plot(data['ankle_time'], data['ankle_torque_measured_filt'], 
-    color = 'black')
+ax[1,1].plot(data['ankle_time'], data['ankle_torque_measured_filt'], 
+    **line_props_torque_measured)
 
-ax[2].set_xlabel('Time (s)')
-ax[3].set_xlabel('Time (s)')
+ax[1,0].set_xlabel('Time (s)')
+ax[1,1].set_xlabel('Time (s)')
 
 #turn off bottom axes on top row
-for i in [0 ,1, 4, 5]:
-    ax[i].spines['bottom'].set_visible(False)
-    ax[i].get_xaxis().set_visible(False)
+for axis in ax[0,:].flatten():
+    axis.get_xaxis().set_visible(False)
+
+for axis in ax[:,1].flatten():
+    axis.get_yaxis().set_visible(False)
+
+for axis in ax_twin:
+    axis.get_xaxis().set_visible(False)
 
 #turn off y axes on right column
-for i in [1, 3, 4]:
-    ax[i].spines['left'].set_visible(False)
-    ax[i].get_yaxis().set_visible(False)
+ax_twin[0].get_yaxis().set_visible(False)
 
-ax[5].spines['left'].set_visible(False)
-
-for axis in ax:
-    axis.tick_params('y', which='both',direction='out')
+for axis in ax.flatten():
+    axis.tick_params('x', which='both',direction='out')
     axis.tick_params('y', which='both',direction='out')
 
-ax[0].set_yticks([-25, 0, 25])
-ax[0].spines['left'].set_bounds(-25, 25)
+for axis in ax_twin:
+    axis.tick_params('x', which='both',direction='out')
+    axis.tick_params('y', which='both',direction='out')
 
-ax[4].set_ylim(0, 4.3)
-ax[5].set_ylim(0, 4.3)
-ax[5].set_yticks([0, 2, 4])
-ax[5].spines['right'].set_bounds(0, 4)
+ax[0,0].set_yticks([-25, 0, 25])
 
-ax[2].set_yticks([-20, 0, 20])
-ax[2].spines['left'].set_bounds(-20, 20)
+ax_twin[0].set_ylim(0, 4.3)
+ax_twin[1].set_ylim(0, 4.3)
+ax_twin[1].set_yticks([0, 2, 4])
 
-ax[2].set_xticks(np.arange(0, 40, 10))
-ax[2].spines['bottom'].set_bounds(0, 30)
-ax[3].set_xticks(np.arange(0, 50, 10))
-ax[3].spines['bottom'].set_bounds(0, 40)
+ax[1,0].set_yticks([-20, 0, 20])
 
-ax[0].set_title('Knee')
-ax[1].set_title('Ankle')
+fig.savefig('zero_torque.pdf', bbox_inches='tight')
+
+ax[0,0].set_xticks(np.arange(0, 40, 10))
+ax[1,1].set_xticks(np.arange(0, 50, 10))
+
+ax[0,0].set_title('Knee')
+ax[0,1].set_title('Ankle')
 fig.suptitle('Zero Torque Tracking', y = 1.05)
 
 fig.subplots_adjust(hspace = 0.4)
 
 #adjust label pos
 #adjust label pos
-for axis in ax:
+for axis in ax.flatten():
     inv_data = axis.transData.inverted()
     inv_axes = axis.transAxes.inverted()
 
@@ -127,36 +133,37 @@ for axis in ax:
         ylabelpos_axes = axis.yaxis.get_label().get_position()
         ylabelpos_display = axis.transAxes.transform(ylabelpos_axes)
         ylabelpos_data = inv_data.transform(ylabelpos_display)
-        ylabelpos_data[1] = np.array(axis.spines['left'].get_bounds()).mean()
+        ylabelpos_data[1] = (axis.get_yticks()[0] + axis.get_yticks()[-1])/2.0
         ylabelpos_display = axis.transData.transform(ylabelpos_data)
         ylabelpos_axes = inv_axes.transform(ylabelpos_display)
         axis.yaxis.get_label().set_position(ylabelpos_axes)
     except:
         pass
-    
+
     try:
         xlabelpos_axes = axis.xaxis.get_label().get_position()
         xlabelpos_display = axis.transAxes.transform(xlabelpos_axes)
         xlabelpos_data = inv_data.transform(xlabelpos_display)
-        xlabelpos_data[0] = np.array(axis.spines['bottom'].get_bounds()).mean()
+        xlabelpos_data[0] = (axis.get_xticks()[0] + axis.get_xticks()[-1])/2.0
         xlabelpos_display = axis.transData.transform(xlabelpos_data)
         xlabelpos_axes = inv_axes.transform(xlabelpos_display)
         axis.xaxis.get_label().set_position(xlabelpos_axes)
     except:
         pass
 
-'''
-ylabel_pos0 = ax[0].yaxis.get_label().get_position()
-ylabel_pos2 = ax[2].yaxis.get_label().get_position()
+for axis in ax_twin:
+    inv_data = axis.transData.inverted()
+    inv_axes = axis.transAxes.inverted()
 
-ax[0].yaxis.set_label_coords(-0.2, ylabel_pos0[1])
-ax[2].yaxis.set_label_coords(-0.2, ylabel_pos2[1])
+    try:
+        ylabelpos_axes = axis.yaxis.get_label().get_position()
+        ylabelpos_display = axis.transAxes.transform(ylabelpos_axes)
+        ylabelpos_data = inv_data.transform(ylabelpos_display)
+        ylabelpos_data[1] = (axis.get_yticks()[0] + axis.get_yticks()[-1])/2.0
+        ylabelpos_display = axis.transData.transform(ylabelpos_data)
+        ylabelpos_axes = inv_axes.transform(ylabelpos_display)
+        axis.yaxis.get_label().set_position(ylabelpos_axes)
+    except:
+        pass
 
-ax[2].legend(['20 N-m', 'RMS stance torque (11.5 N-m)'], fontsize=8,
-    frameon=False, loc='upper center', bbox_to_anchor=(0.5, -0.3))
-ax[3].legend(['20 N-m', 'RMS stance torque (55.6 N-m)'], fontsize=8,
-    frameon=False, loc='upper center', bbox_to_anchor=(0.5, -0.3))
-'''
-
-#fig.savefig('zero_torque.pdf', bbox_inches='tight')
-fig.savefig('zero_torque.png', dpi=300, bbox_inches='tight')
+fig.savefig('../zero_torque.pdf', bbox_inches='tight')
