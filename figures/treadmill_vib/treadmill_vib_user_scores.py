@@ -5,6 +5,7 @@ import scipy.io as sio
 import pdb
 mpl.use("pgf")
 import matplotlib.pyplot as plt
+import matplotlib.transforms as transforms
 import pandas
 import sys
 from palettable.cartocolors.qualitative import Prism_9 as color_pallette
@@ -29,38 +30,37 @@ mpl.rcParams.update(pgf_with_custom_preamble)
 #colors = [color_pallette.mpl_colors[i] 
 #    for i in range(len(color_pallette.mpl_colors)) if i != 7]
 colors = color_pallette.mpl_colors
+colors.append((0., 0., 0.))
 
-data = sio.loadmat('treadmill_vib/count_data.mat')
+data = sio.loadmat('treadmill_vib/count_data.mat', squeeze_me=True)
 
-'''
-fig, ax = plt.subplots(1, 1, figsize=(4.5,2))
+fig, ax = plt.subplots(1, 1, figsize=(4.5,3))
 
-ax.set_ylabel('Number of Falls')
+ax.set_ylabel('User Rating')
 
-num_subjects = 8
+num_subjects = 10
 bar_color = [0.75, 0.75, 0.75]
-x_pos = np.arange(0,3)
+x_pos = np.array((0, 1, 2, 4, 5, 6))
 rand_scatter_pts = 0.05*np.random.randn(num_subjects)
 
-#add num falls
-ax.bar(x_pos, data['all_falls_median'].flatten(), color = bar_color,
-    tick_label=('GP-EKF','NM','IMP'))
+ax.bar(x_pos, np.median(data['user_scores'], 0), color = bar_color,
+    tick_label=('No Pros','NM','IMP','No Pros','NM','IMP'))
 add_barplot_sigstars(ax, data['condition_combinations']-1, 
-    data['p_values_falls'].flatten(), np.max(data['all_falls']))
+    data['p_values_user_scores'], x_pos, star_loc='3x3')
 
-subject_list = np.concatenate((np.arange(1,8), [0]))
-marker_able = 'o'
-marker_exp = 's'
-scatter_opts = {'s':16, 'zorder':10}
-for i in range(3):
-    for sub in subject_list:
-        if sub==0:
-            marker = marker_exp
-        else:
-            marker = marker_able
+subject_list = range(num_subjects)
+scatter_opts = {'s':10, 'zorder':10,'marker':'o'}
+for i in range(6):
+    ax.scatter(x_pos[i] + rand_scatter_pts, data['user_scores'][:,i], 
+        color=colors, **scatter_opts)
 
-        ax.scatter(x_pos[i] + rand_scatter_pts[sub], data['all_falls'][sub,i], 
-            marker=marker, color=colors[sub], **scatter_opts)
+trans = transforms.blended_transform_factory(ax.transData, ax.transAxes)
+group_label_props = {'horizontalalignment':'center', 
+    'verticalalignment':'center', 'fontsize':6, 'transform':trans,
+    'clip_on':False}
+group_label_pos = -0.2;
+ax.text(1, group_label_pos, 'No Disturbance', **group_label_props)
+ax.text(5, group_label_pos, 'With Disturbance', **group_label_props)
 
 #turn off all spines
 ax.spines['top'].set_visible(False)
@@ -70,7 +70,7 @@ ax.spines['left'].set_visible(False)
 
 ax.tick_params('x', which='both',length=0)
 
-#ax[0,0].set_yticks(np.arange(0, 16, 4))
+ax.set_yticks(np.arange(0, 12, 2))
 
 #center all axis labels in bounds
 
@@ -100,9 +100,9 @@ except:
     pass
 
 fig.align_ylabels()
-#fig.subplots_adjust(hspace = 0.5, wspace = 0.2)
+fig.subplots_adjust(bottom=-group_label_pos)
+
 plt.tight_layout()
 
-fig.savefig('treadmill_vib_num_falls.pdf', bbox_inches='tight')
+fig.savefig('treadmill_vib_user_scores.pdf', bbox_inches='tight')
 plt.close(fig)
-'''
