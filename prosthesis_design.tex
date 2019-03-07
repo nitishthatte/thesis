@@ -8,7 +8,7 @@
     prosthesis includes series elastic actuators to enable accurate torque
     control and a unidirectional parallel ankle spring to offset the required
     angle torque.}\label{fig:prosthesis_render_annotated}
-\end{marginfigure} 
+\end{marginfigure}
 
 \newthought{To test our proposed Neuromuscular control approach}, and its
 ability to help subjects maintain or recover their balance, we build a custom
@@ -34,21 +34,21 @@ tethered devices. To ensure a reasonable overall weight the device's batteries,
 motor drivers, and computers are off-board. With this design, we expect to be
 able to test control ideas without encountering hardware performance limitations
 as with a tethered device. At the same time the device is capable of functioning
-outside of the lab environment like a standalone prosthesis. 
+outside of the lab environment like a standalone prosthesis.
 
 \begin{table*}
     \centering
     \begin{tabular}{lccc}
         \toprule
-        Specification         & Desired Value & Theoretical Value 
+        Specification         & Desired Value & Theoretical Value
             & Achieved Value\\
-        \midrule                  
+        \midrule
         Maximum Knee Torque   & $\unit[160]{N \cdot m}$ 
             & $\unit[170]{N \cdot m}$ & \\
-        Maximum Knee Speed    & \unitfrac[1.80]{rev}{s} 
+        Maximum Knee Speed    & \unitfrac[1.80]{rev}{s}
             & \unitfrac[1.93]{rev}{sec} & \\
         Knee Torque Bandwidth & \unit[4]{Hz} & \unit[11.7]{Hz} & \\
-        Maximum Ankle Torque  & $\unit[200]{N \cdot m}$ 
+        Maximum Ankle Torque  & $\unit[200]{N \cdot m}$
             & $\unit[170 \ (+120^*)]{N \cdot m}$ & \\
         Maximum Ankle Speed   & \unitfrac[1.14]{rev}{s} 
             & \unitfrac[1.22]{rev}{s} & \\
@@ -295,3 +295,21 @@ the required torque bandwidth of \unit[3.5]{Hz} given by \citet{au2008powered}
 \citet{winter2009biomechanics}).
 
 \section{Transfemoral Prosthesis Performance Evaluation}\label{sec:pros_perf_eval}
+
+\begin{figure}[htb]
+    \centering 
+    \includegraphics[width=\textwidth]{bode_plot_fixed_labels}
+    \caption{Experimentally obtained bode plots of knee and ankle actuator
+    torque. Knee is phase limited at \unit[24]{Hz} while the ankle is gain
+    limited at \unit[7]{Hz}.}\label{fig:pros_design_bode_plots}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering 
+    \includegraphics[width=\textwidth]{zero_torque}
+    \caption{Zero torque tracking of knee and ankle joints. The prosthesis was
+    fixed to a rigid mount and commanded to maintain zero net joint torque while
+    the knee and ankle joints were manually oscillated (blue) by hand at
+    increasingly fast rate (purple). The resulting measured torque is shown in
+    the second row of axes in black.}\label{fig:pros_design_bode_plots}
+\end{figure}

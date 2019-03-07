@@ -3,11 +3,9 @@ import matplotlib.transforms as transforms
 import numpy as np
 import pdb
 
-def add_barplot_sigstars(ax, condition_combs, pvalues, max_data):
+def add_barplot_sigstars(ax, condition_combs, pvalues, xloc, sig_space=0.1,
+    linewidth=1, color='k', star_loc='stacked'):
 
-    yloc = 1.1
-    linewidth = 1
-    color = 'k'
     trans = transforms.blended_transform_factory(ax.transData, ax.transAxes)
 
     line_props = {'color':color, 'linewidth':linewidth , 'marker':TICKDOWN, 
@@ -17,18 +15,31 @@ def add_barplot_sigstars(ax, condition_combs, pvalues, max_data):
         'verticalalignment':'center', 'fontsize':10, 'transform':trans,
         'clip_on':False}
 
-
     #add significane test resutls
     num_comps = pvalues.shape[0]
-    if num_comps == 3:
+
+
+    y_bottom = 1.1
+    if star_loc == 'stacked':
+        xloc = xloc[condition_combs]
+        yloc = np.linspace(y_bottom, y_bottom+sig_space*(num_comps-1), num_comps)
+    if star_loc == '3x3':
         if pvalues[0] < 0.05 and pvalues[2] < 0.05:
-            xloc = np.array(([0, 0.9], [0, 2], [1.1, 2]))
+            x01 = [0, 0.9]
+            x12 = [1.1, 2]
         else:
-            xloc = np.array(([0, 1], [0, 2], [1, 2]))
-        yloc = np.array([1.1, 1.2, 1.1])
-    elif num_comps == 1:
-        xloc = np.array([[0, 1]])
-        yloc = np.array([1.1])
+            x01 = [0, 1]
+            x12 = [1, 2]
+
+        if pvalues[3] < 0.05 and pvalues[5] < 0.05:
+            x34 = [4, 4.9]
+            x45 = [5.1, 6]
+        else:
+            x34 = [4, 5]
+            x45 = [5, 6]
+        xloc = np.array((x01, [0, 2], x12, x34, [4, 6], x45, [0, 4], [1, 5], 
+            [2, 6]))
+        yloc = 1.1 + sig_space*np.array((0, 1, 0, 0, 1, 0, 2, 3, 4))
 
     for i, comp in enumerate(condition_combs):
         if pvalues[i] < 0.05:
