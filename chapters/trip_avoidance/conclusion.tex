@@ -1,0 +1,15 @@
+\section{Conclusion} 
+\label{sec:conclusion}
+This paper presents a model predictive controller that addresses the
+problem of trip avoidance for a powered transfemoral prosthesis. Our
+controller estimates hip height and hip angle using an Extended
+Kalman Filter, predicts future hip angles and hip height using
+sparse Gaussian Processes, and plans ankle
+and knee trajectories using a fast quadratic program solver. We
+tested our system by having an able-bodied subject purposefully lower
+their hip on each swing while the prosthesis randomly used either our
+controller or a standard minimum jerk controller. We showed that our
+system reduced the rate of tripping by 68\% over the standard minimum
+jerk controller and reduced the severity of toe-scuffing. To the best
+of our knowledge, this controller is the first to incorporate real-time
+visual input while planning motion for a prosthesis during gait. 

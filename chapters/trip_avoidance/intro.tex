@@ -1,0 +1,79 @@
+\section{Introduction}
+Lower limb amputees using state of the art commercial prostheses face a number
+of gait deficiencies that negatively impact their quality of
+life~\citep{gauthier1999enabling}. Of acute significance among these
+deficiencies are the increased risk of falling and the related injuries, which
+can lead to amputees avoiding activity out of a fear
+falling~\citep{miller2001prevalence}.  As falls and their avoidance are linked
+to swing leg placement in locomotion, active swing control strategies could help
+to substantially reduce the risk of falling. However, current swing controllers
+of transfemoral prostheses do little to proactively minimize this risk. 
+
+Existing swing phase control approaches for powered prostheses predominantly
+seek to reproduce the average swing phase behavior of the human leg. Whether the
+approach is based on trajectory planning~\citep{lenzi2014speed}, impedance
+control~\citep{sup2009preliminary}, or phase-based
+control~\citep{quintero2016preliminary}, they all treat the swing phase motion
+as an ``open loop'' problem with respect to trip hazards, as none of the
+approaches take the location of the heel and toe of the prosthetic foot with
+respect to the ground explicitly into account. Therefore, current swing control
+strategies neglect a clear advantage that robotic prostheses can have over their
+passive counterparts: the ability to sense and act upon environmental
+information. 
+
+%neuromuscular control~\citep{desai2012robust},
+
+In this work, we develop a swing control strategy to reactively avoid trips with
+powered transfemoral prostheses that uses visual information about the
+environment and an estimate of the prosthesis configuration. Some previous
+studies have explored incorporating visual feedback into the control of leg
+prostheses. For example, \citet{scandaroli2009estimation} developed a state
+estimator and controller that allowed the ankle joint of a prosthesis to conform
+to the slope of the ground under the foot. To address the problem of terrain
+recognition, \citet{zhang2011preliminary} developed a classifier using a LIDAR
+and an IMU to discriminate between terrains such as flat ground and steps. More
+recently, \citet{liu2016development} combined this terrain classifier with a
+Bayesian intent classifier (based on \citep{du2012toward}) to develop an
+environment-aware locomotion mode recognition system. In addition, RGBD sensors
+have been explored as a source of rich environmental information for legged
+assistance, including gait recognition \citep{massalin2017user} and stair
+detection \citep{krausz2015depth,duan2018real}. However, none of these previous
+studies have implemented a control strategy that uses environmental
+information to reactively govern the motion of a powered prosthesis in
+real-time. 
+
+We present such a real-time reactive control of a powered prosthesis that
+combines three building blocks. First, we use an extended Kalman filter (EKF)
+that fuses measurements from an IMU, a LIDAR, and encoders on the prosthesis to
+estimate the current pose of the prosthetic leg with respect to the ground.
+Second, we predict likely future leg trajectories with sparse Gaussian process
+models learned online during swing. Finally, we use the leg pose estimate and
+trajectory predictions in a fast quadratic-program planner to reactively
+generate in real time leg joint trajectories that avoid premature toe and heel
+contact with the ground. To evaluate the proposed control, we compare our method
+for trip avoidance to a standard non-reactive minimum-jerk trajectory planning
+approach in a prosthesis walking experiment designed to elicit trips.
+
+\begin{comment}
+The motion planning algorithm must account for
+human strategies for collision avoidance to ensure natural motion. A study of
+the kinematics of obstacle clearance by Austin et al. [] showed that the
+heel-contact distant is invariant to the obstacle height, however angular
+velocity increases as the time of impact is critical to the gait. This also
+borne out by the observation that knee and ankle flexion increased with larger
+obstacle heights, possibly to return the leg to the ground quickly.
+
+When designing an environment-aware motion planning algorithm, vision can be
+considered to be one of the most essential inputs. Patla et al. [] showed
+subjects failing nearly 50\% of the time attempting to negotiate an obstacle
+with their vision occluded, concluding that their incorrect foot placement was
+the main factor for the trips. 
+
+it is known that human
+
+% An additional consideration would be the response time to the detection of an obstacle. As shown by Weerdesteyn et al. [], adjustments to gait as a response to obstacles occur significantly faster than those done as a result of a voluntary action. 
+\end{comment}
+
+
+
+

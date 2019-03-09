@@ -1,0 +1,78 @@
+\section{Discussion}
+
+We presented initial work toward a real-time reactive control of powered
+prostheses to help amputees avoid tripping in the swing phase of gait. At any
+time during swing, the proposed control uses a laser range finder and an
+inertial measurement unit to estimate the current pose of the prosthesis,
+predicts the future hip angle and height based on trained Gaussian process
+models, and then plans new knee and ankle joint trajectories that ensure neither
+the toe nor heel contacts the ground prematurely. Our results indicate the
+proposed control approach can substantially reduce the incidence of trips and
+reduce the severity and frequency of toe scuffing.
+
+To the best of our knowledge, this work is the first demonstration of lower limb
+prosthetic control that integrates perception feedback in real-time and that
+proactively ameliorates the falling hazard amputees face. Previous research in
+this area has largely focused on detecting stumbles \emph{after} they have
+occurred. For example, \citet{lawson2010stumble} and \citet{shirota2014recovery}
+have proposed classifiers that can detect trips during swing and predict whether
+a lower or raising strategy should be used in response. Similarly,
+\citet{zhang2011towards} have proposed a method that can detect stumbles and
+classify them as trips during swing or slips during stance. However, these
+previous studies have not proposed concrete control actions to preempt stumbles
+or to properly react in the event that a stumble is detected. Our results
+motivate further research into such proactive and reactive approaches, closing
+the perception-action loop for improving gait robustness with robotic
+prostheses.
+
+Several avenues for future work exist. First, in our current study only one
+able-bodied user tested the proposed control. Further experiments with amputee
+subjects are needed to verify the system provides benefits to this population.
+For instance, amputees accustomed to walking with passive prostheses show
+significantly altered hip kinematics~\citep{jaegers1995prosthetic}, which could
+affect the control behavior. However, the proposed control should be able to
+properly adapt to these behavior differences, as the Gaussian process models are
+trained for specific users. Second, although trips during swing are one of the
+most common failure modes we encounter with our powered prostheses, these events
+are still rare and many hours of normal walking are required to observe a
+sufficient number of trips and compare controllers. As a result, we actively
+induced trips by sudden drops in hip height during swing, which does not exactly
+reflect the situations in which trips occur.  Specifically, trips can happen due
+to subtle changes in leg kinematics, and it remains to be seen in experiments if
+our approach can avoid trips in these more subtle situations.
+
+At the implementation level, there is also room for further exploration. To keep
+the  computational costs low, we used quadratic programs that iterate between
+finding solutions for the ankle and knee joints. While this iterative approach
+is fast when compared to trajectory optimization methods that deal with multiple
+joints simultaneously, the iterations occasionally get stuck when the planner
+for one joint trajectory cannot find a solution based on the assumed fixed
+trajectory of the other joint. Moreover, if a solution cannot be found, the
+current approach simply reuses the last identified trajectory, rather than
+moving the trajectory to be more safe, even if it cannot fully satisfy the
+bounds. It seems worthwhile to investigate whether non-convex trajectory
+optimization methods such as CHOMP \citep{ratliff2009chomp}, in which the bounds
+are represented as soft rather than hard constraints, can help solve for the
+knee and ankle trajectories simultaneously without sacrificing computational
+speed.
+
+In addition, several technical simplifications can be considered to bring this
+technology closer to commercialization. We used an accurate and expensive laser
+distance sensor, eyeing future research in obstacle scanning and avoidance
+capabilities. However, for simple ground plane avoidance, inexpensive infrared
+distance sensors such as those used by \citet{scandaroli2009estimation} are
+likely sufficient. It may also be possible to simplify the trajectory planning
+phase by, for example, forgoing formal guarantees on satisfying bounds and
+instead relying on heuristics to increase knee and ankle flexion and adjust
+timing in response to decreased hip height during swing.
+
+Our immediate goal, however, is to generalize the presented approach to
+incorporating perception in control beyond the avoidance of flat ground. We are
+currently investigating the approach's ability to plan trajectories around
+obstacles that are scanned by the laser range finder. Previous studies such as
+\citet{mohagheghi2004effects} with able-bodied subjects have shown that vision
+plays a crucial role in both planning and control of the lower limb motion over
+obstacles. We also envision using the approach to target objects instead of
+avoiding them. For example, a prosthetic leg could scan, recognize, and target
+secure foot holds and stair treads, or provide enhanced sports capabilities by
+targeting and kicking a ball.

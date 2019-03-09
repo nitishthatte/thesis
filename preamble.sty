@@ -1,0 +1,240 @@
+\ProvidesPackage{preamble}
+
+%table of contents settings
+\makeatletter
+\renewcommand{\subsubsection}{\ttl@straightclass{subsubsection}}
+\makeatother
+\titleformat{\subsubsection}[hang]
+  {\em}
+  {\thesubsubsection}
+  {1em}
+  {}
+  []
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{1}
+
+\usepackage{etoolbox}
+\RequirePackage{etoolbox}
+\makeatletter
+\newcommand{\classiccaptionstyle}{%
+    \long\def\@caption##1[##2]##3{%
+        \par
+        \addcontentsline{\csname ext@##1\endcsname}{##1}%
+        {\protect\numberline{\csname the##1\endcsname}{\ignorespaces ##2}}%
+        \begingroup
+        \@parboxrestore
+        \if@minipage
+        \@setminipage
+        \fi
+        \normalsize
+        \@makecaption{\csname fnum@##1\endcsname}{\ignorespaces ##3}\par
+        \endgroup}
+    \long\def\@makecaption##1##2{%
+        \vskip\abovecaptionskip
+        %\sbox\@tempboxa{\@tufte@caption@font##1: ##2}%
+        \ifdim \wd\@tempboxa >\hsize
+        \@tufte@caption@font\if@tufte@margtab\@tufte@caption@justification\fi##1: ##2\par
+        \else
+        \global \@minipagefalse
+        \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+        \fi
+        \vskip\belowcaptionskip}
+       \setcaptionfont{\normalfont}
+    \let\caption\@tufte@orig@caption%
+    \let\label\@tufte@orig@label}
+\makeatother
+
+\newenvironment{pagefigure}{%
+    \begin{figure*}[p]
+    \classiccaptionstyle
+}{\end{figure*}}
+
+\usepackage{microtype}
+\usepackage[utf8]{inputenc}
+%%
+% For nicely typeset tabular material
+\usepackage{booktabs}
+
+%%
+% For graphics / images
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{figures/}{chapters/introduction/figures/}{chapters/nm_imp_comparison/figures/}}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{bm} %bold italic vectors
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{units}
+\usepackage{nicefrac}
+\DeclareMathOperator{\argmin}{argmin}
+
+%%
+% Prints argument within hanging parentheses (i.e., parentheses that take
+% up no horizontal space).  Useful in tabular environments.
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}}
+
+%%
+% Prints an asterisk that takes up no horizontal space.
+% Useful in tabular environments.
+\newcommand{\hangstar}{\makebox[0pt][l]{*}}
+
+%%
+% Prints a trailing space in a smart way.
+\usepackage{xspace}
+
+%%
+% Some shortcuts for Tufte's book titles.  The lowercase commands will
+% produce the initials of the book title in italics.  The all-caps commands
+% will print out the full title of the book in italics.
+
+% Prints the month name (e.g., January) and the year (e.g., 2008)
+\newcommand{\monthyear}{%
+  \ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or
+  December\fi\space\number\year
+}
+
+% Prints an epigraph and speaker in sans serif, all-caps type.
+\newcommand{\openepigraph}[2]{%
+  %\sffamily\fontsize{14}{16}\selectfont
+  \begin{fullwidth}
+  \sffamily\large
+  \begin{doublespace}
+  \noindent\allcaps{#1}\\% epigraph
+  \noindent\allcaps{#2}% author
+  \end{doublespace}
+  \end{fullwidth}
+}
+
+% Inserts a blank page
+\newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage}
+
+% Macros for typesetting the documentation
+\newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
+\newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
+\newcommand{\hairsp}{\hspace{1pt}}% hair space
+\newcommand{\hquad}{\hskip0.5em\relax}% half quad space
+\newcommand{\TODO}{\textcolor{red}{\bf TODO!}\xspace}
+\newcommand{\ie}{\textit{i.\hairsp{}e.}\xspace}
+\newcommand{\eg}{\textit{e.\hairsp{}g.}\xspace}
+\newcommand{\na}{\quad--}% used in tables for N/A cells
+
+%my commands
+\synctex=1
+\usepackage{comment}
+\usepackage{todonotes}
+\usepackage{cleveref}
+\newcommand{\creflastconjunction}{, and\nobreakspace}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{import}
+
+%list types
+\usepackage{enumitem}
+\newlist{steps}{enumerate}{10}
+\setlist[steps]{label*=\arabic*., ref=\arabic*}
+\crefname{stepsi}{step}{steps}
+\Crefname{stepsi}{Step}{Steps}
+
+\newlist{challenges}{enumerate}{10}
+\setlist[challenges]{label=\emph{Challenge \arabic*:}, ref=\arabic*, align=left, 
+    listparindent=\parindent, parsep=0pt}
+\crefname{challengesi}{challenge}{challenges}
+\Crefname{challengesi}{Challenge}{Challenges}
+
+\newlist{contributions}{enumerate}{10}
+\setlist[contributions]{label=\emph{Contribution \arabic*:}, ref=\arabic*, align=left, 
+    listparindent=\parindent, parsep=0pt}
+\crefname{contributionsi}{contribution}{contributions}
+\Crefname{contributionsi}{Contribution}{Contributions}
+
+\newlist{tasks}{enumerate}{10}
+\setlist[tasks]{label=\emph{Task \arabic*:}, ref=\arabic*,
+    align=left, listparindent=\parindent, parsep=0pt}
+\crefname{tasksi}{task}{tasks}
+\Crefname{tasksi}{Task}{Tasks}
+
+\newcommand{\thesistitle}{Design and Evaluation of Robust Control Methods for
+Robotic Transfemoral Prostheses}
+
+\newcommand{\prob}[1]{\operatorname{P} \left( #1 \right)}
+\newcommand{\tn}[1]{\mathrm{#1}}
+
+\usepackage{xparse}
+\DeclareDocumentCommand{\func}{m o o m}
+{%
+    \IfValueTF{#2}
+        {%
+        \IfValueTF{#3}
+            {\operatorname{#1}_{#2}^{#3} \left( #4 \right)}
+            {\operatorname{#1}_{#2}      \left( #4 \right)}
+        }
+        {%
+        \IfValueTF{#3}
+            {\operatorname{#1}^{#3} \left( #3 \right)}
+            {\operatorname{#1}      \left( #4 \right)}
+        }
+}
+
+\DeclareDocumentCommand{\funcil}{m o o m}
+{%
+    \IfValueTF{#2}
+        {%
+        \IfValueTF{#3}
+            {\operatorname{#1}_{#2}^{#3} (#4)}
+            {\operatorname{#1}_{#2}      (#4)}
+        }
+        {%
+        \IfValueTF{#3}
+            {\operatorname{#1}^{#3} (#3)}
+            {\operatorname{#1}      (#4)}
+        }
+}
+
+\DeclareDocumentCommand{\funcsb}{m o o m}
+{%
+    \IfValueTF{#2}
+        {%
+        \IfValueTF{#3}
+            {\operatorname{#1}_{#2}^{#3} \left[ #4 \right]}
+            {\operatorname{#1}_{#2}      \left[ #4 \right]}
+        }
+        {%
+        \IfValueTF{#3}
+            {\operatorname{#1}^{#3} \left[ #3 \right]}
+            {\operatorname{#1}      \left[ #4 \right]}
+        }
+}
+
+\DeclareDocumentCommand{\vecf}{m o o}
+{%
+    \IfValueTF{#2}
+        {%
+        \IfValueTF{#3}
+            {\bm{#1}_{#2}^{#3}}
+            {\bm{#1}_{#2}     }
+        }
+        {%
+        \IfValueTF{#3}
+            {\bm{#1}^{#3}}
+            {\bm{#1}     }
+        }
+}
+
+%%
+% Book metadata
+\title{\thesistitle}
+\author[Nitish Thatte]{Nitish Thatte}
+%\publisher{Publisher of This Book}
+
+% Generates the index
+\usepackage{makeidx}
+\makeindex
