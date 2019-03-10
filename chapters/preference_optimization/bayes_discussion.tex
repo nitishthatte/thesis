@@ -1,0 +1,35 @@
+\section{Discussion and Conclusion}\label{sec:tuning_discussion}
+We presented a new optimization algorithm (PES-P) that extends Predictive
+Entropy Search to preference feedback. The algorithm addresses two key problems
+frequently encountered in system optimization. First, it circumvents the often
+difficult process of parameterizing and learning an objective function by
+directly querying users for preferences between pairs of parameters. Second, the
+algorithm minimizes the required number of experiments by employing Bayesian
+optimization techniques that ensure the queries maximize the information gained
+about the location of the optimum. Moreover, unlike previous approaches for
+preference learning on robotic systems~\citep{wilson2012bayesian,
+jain2013learning}, PES-P does not require a model of the system.
+
+Our experiments show that the proposed algorithm outperforms baseline
+algorithms. In most of the simulation experiments PES-P found optima that
+achieved higher objective values than those found by the expected improvement
+method (EI) or by random comparisons via Latin hypercubes (LH)
+(\cref{fig:y_err_sim}). The reason why PES-P outperformed EI is likely due to
+the former's explicit consideration of how the limited, noisy information
+obtained from a preference query will affect the knowledge about potential
+objective function optima. The acquisition function (\cref{eq:acquisition_orig})
+recognizes that preferences become more uncertain the closer two sample points
+are to each other. EI, on the other hand, does not reason about noisy
+preferences and, instead, still assumes it can sample values
+(\cref{eq:expected_improvement}). Consequently, EI ignores the distance between
+sample points, which often leads to a greedy strategy that solicits preferences
+between adjacent points. While this strategy can resemble gradient ascent with
+convergence to local optima in a noise-free optimization, it often failed in our
+experiments characterized by noisy observations. Note, however, that such
+limitations were not observed by Brochu and colleagues~\citep{eric2008active},
+who successfully used EI with preferences to optimize parameters for a graphics
+application, possibly because the associated visual task produced less noisy
+responses than did our simulations or prosthesis walking task. 
+
+\todo{discuss how it could not handle high enough dimensions which motivates
+bandit based approach tried next}

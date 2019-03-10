@@ -1,0 +1,160 @@
+\section{Bayesian Approach - Methods}
+Our goal is to simultaneously address both the difficulty of defining objective
+functions when an expert cannot demonstrate the desired robot behavior and the
+expense of running experiments on hardware. To this end, we adapt the Predictive
+Entropy Search acquisition function (\cref{eq:pes_interval_scale}) to the
+preference learning case.
+
+\subsection{Acquisition Function}
+To obtain the optimal parameters $x^*$ with the smallest number of preference
+queries, we solicit preferences that maximize the expected information gain
+about the distribution of objective function optima $\mathrm{P}(x^*|D_n)$.
+Adapting \cref{eq:pes_interval_scale} to preference feedback yields
+\begin{fullwidth}
+\begin{align}
+    &\alpha_n \left(x^\tn{a}, x^\tn{b}\right) 
+        = \funcsb{H}{\prob{x^*|D_n}} - \funcsb{E}[\prob{y|x^\tn{a},x^\tn{b},D_n}]
+            {\funcsb{H}{\prob{x^*|y, x^\tn{a}, x^\tn{b}, D_n}}},
+    \label{eq:acquisition_orig}
+\end{align}
+\end{fullwidth}
+where $y$ is a binary random variable that represents the preference between
+$x^\tn{a}$ and $x^\tn{b}$. The first term in this function is the current
+entropy of objective function optima and the second term is the entropy of
+optima after observing the preference $y$. As we have not yet observed the
+preference, we take the second term in expectation over the two possible
+preference outcomes.
+
+As discussed in~\citep{hernandez2014predictive}, this acquisition function is
+intractable to compute. However, following the approach used for the original
+PES algorithm, we can rewrite~\cref{eq:acquisition_orig} in terms of the
+entropies of the predictive distribution of the preference between $x^\tn{a}$
+and $x^\tn{b}$,
+\begin{fullwidth}
+\begin{align}
+    \alpha_n \left(x^\tn{a}, x^\tn{b} \right) &= 
+        \funcsb{H}{\prob{y|x^\tn{a}, x^\tn{b}, D_n}}
+            - \funcsb{E}[\prob{x^*|D_n}]{\funcsb{H}
+            {\prob{y| x^*, x^\tn{a}, x^\tn{b}, D_n}}} \\
+        &\approx \funcsb{H}{\prob{y|x^\tn{a}, x^\tn{b}, D_n}}
+            - \frac{1}{M} \sum_{x_m^* \sim {\prob{x_m^*|D_n}}}^M 
+            \hspace{-0.03in}\funcsb{H}{\prob{y| x_m^*, x^\tn{a},x^\tn{b},D_n}}.
+        \label{eq:aq_approx}
+\end{align}
+\end{fullwidth}
+This reformulation significantly improves computability. First, the new
+acquisition function uses the entropies of probabilities of preferences, given
+by~\cref{eq:p_pref}. Second, we now take the expectation over $\prob{x^*|D_n}$,
+which we can perform by sampling $M$ functions from
+$\prob{\vecf{f}[\tn{t}]|D_n}$ and optimizing each one to get $M$ samples of
+$x^*$ (see Appendix for details). Finally, the second term no longer requires
+conditioning the GP on every pair of $x^\tn{a}$ and $x^\tn{b}$ considered during
+optimization of the acquisition function.  Instead, we only have to condition
+the Gaussian process $M$ times on $(x_m^*, D_n)$.
+
+For the experiments in~\cref{s:results} we choose $M = 12$, which allows us to
+construct and optimize $\alpha_n(x^\tn{a}, x^\tn{b})$ in about five seconds,
+which is fast enough for our prosthesis application. Although 12 samples of
+$x^*$ is not enough to compute an accurate expectation over $\prob{x^*|D_n}$,
+interpreting the algorithm as an example of active learning by disagreement may
+explain why it still works well.  As shown in~\cref{fig:pes_plot}b, optimizing
+the acquisition function chooses a pair $x^\tn{a}$ and $x^\tn{b}$ for which the
+preference is currently uncertain, but certain on average after conditioning on
+all $x_m^*$. The sampled $x_m^*$ do not necessarily agree on which point is
+preferred; hence, after observing the preference, the algorithm can rule out
+$x_m^*$ that made the model certain but wrong about the preference. This
+intuition is similar to that provided by \citep{houlsby2012collaborative} for
+Bayesian active learning by disagreement for GP classifiers.
+
+\subsection[Conditioning the Gaussian Process on optima]{Conditioning the
+Gaussian Process on $x^*$} The second term on the right side
+of~\cref{eq:aq_approx} requires us to compute the distribution of the
+preference given the location of the optimum,
+\begin{fullwidth}
+\begin{align}
+&\prob{y| x_m^*, x^\tn{a}, x^\tn{b}, D_n} =
+    \int \prob{x^\tn{a} \succ x^\tn{b} | \vecf{f}[\tn{t}], x_m^*, D_n} 
+    \prob{\vecf{f}[\tn{t}] | x_m^*, D_n} \tn{d} \vecf{f}[\tn{t}].
+    \label{eq:predic_pref_w_constraint}
+\end{align}
+\end{fullwidth}
+It is not directly feasible to condition the predictive distribution on $x^*$,
+so instead we turn to approximating this condition with three constraints (see
+\hyperlink{sec:appendix}{appendix} for details):
+
+C1: First we impose that $x^*$ is a local maximum by ensuring that the gradient
+of $f(x^*)$ is zero and its Hessian is negative definite. We further simplify
+the Hessian constraint to only require that the Hessian's off-diagonal elements
+are zero and its diagonal elements are less than zero. We implement the gradient
+and off-diagonal constraints by conditioning the prior, $\prob{\vecf{f}}$, on
+derivative observations as outlined in~\citep{solak2003derivative}. To constrain
+the diagonal elements of the Hessian, we amend the likelihood term in
+\cref{eq:bayes_rule} by adding terms that penalize Hessians with positive
+diagonal elements.
+
+C2: Second, we try to ensure that $x^*$ is also a global maximum by enforcing
+that $f(x^*)$ is greater than the function values of all training points sampled
+so far. We impose this constraint by adding more preference relations into the
+likelihood term in \cref{eq:bayes_rule} between $x^*$ and all training points.
+
+C3: Finally, to further ensure that $f(x^*)$ is a global maximum, we require
+that it is also larger than the function values of the two new test points,
+$f(x^\tn{a})$ and $f(x^\tn{b})$. Whereas C2 ensures $f(x^*)$ exceeds function
+values in areas explored so far, C3 ensures that $f(x^*)$ also exceeds function
+values in unexplored regions. We approximate this constraint analytically by
+conditioning on the single constraint $f(x^*) > (f(x^\tn{a}) + f(x^\tn{b}))/2$
+using the method detailed in~\citep{xu2010estimation}.
+\begin{algorithm}[t]
+    \caption{Predictive Entropy Search with Preferences}
+    \begin{algorithmic}[1]
+        \Procedure{PES-P}{}
+            \State{$D_n = \varnothing$}
+            \For{$n \gets 0$ \textbf{to} $N-1$}\Comment{$N$ iterations}
+            	\State{$F \gets \{\vecf{f}[m] \sim \prob{\vecf{f}[\tn{t}]| D_n} 
+                    | m \in [1, M]\}$}
+               	\State{$X^* \gets \{\arg \max_x \left(\vecf{f}[m] \right) 
+                    | \vecf{f}[m] \in F \}$}
+                \State{$(x_{n+1}^\tn{a}, x_{n+1}^\tn{b}) \gets \arg
+                    \max_{(x^\tn{a}, x^\tn{b})} 
+                    \funcil{\alpha}[n]{x^\tn{a},x^\tn{b};X^*}$}
+                \State{$y_{n+1} \gets 
+                    \textsc{QueryUserPref}(x_{n+1}^\tn{a}, x_{n+1}^\tn{b})$}
+                \State{$D_{n+1}\hspace{-0.25em}\gets\hspace{-0.25em}
+                    D_n \cup (x_{n+1}^\tn{a}, x_{n+1}^\tn{b}, y_{n+1})$}
+            \EndFor{}
+            \State{$\textbf{return} \ x^* \gets \arg \max_x
+                \func{mode}{\prob{\vecf{f}[\tn{t}](x)| D_N}}$}
+        \EndProcedure{}
+        \Statex{}
+        \Function{$\alpha_n$}{$x^\tn{a}, x^\tn{b}; X^*$}
+            \Comment{acquisition function}
+            \State{$h \gets \left\{\funcsb{H}{\prob{y|x^\tn{a}, x^\tn{b}, D_n, 
+                \tn{C1}, \tn{C2}, \tn{C3}}} | x_m^* \in X^* \right\}$}
+            \State{$\textbf{return} \ \funcsb{H}{\prob{y|x^\tn{a},x^\tn{b},D_n}} 
+                - \func{mean}{h}$}
+        \EndFunction{}
+    \end{algorithmic}\label{alg:pesp}
+\end{algorithm}
+
+\subsection{Algorithm Summary}
+With constraints C1 to C3, at each iteration we can efficiently compute the
+acquisition function, \cref{eq:aq_approx}. We summarize the resulting Predictive
+Entropy Search with Preferences (PES-P) algorithm as follows (\cref{alg:pesp}):
+At each iteration $n$, first, the algorithm samples $M$ objective functions from
+the current distribution, $\prob{\vecf{f}[\tn{t}]|D_n}$, and optimizes each one
+to generate $M$ samples of $x^*$ (lines 4 and 5).  Next, using the set of
+sampled optimums $X^*$, we maximize the acquisition function to obtain the next
+two points to present to the user $x_{n+1}^\tn{a}$ and $x_{n+1}^\tn{b}$ (lines 6
+and 12--15). Note: we can precompute the effect of C1 and C2 before evaluating
+$\funcil{\alpha}[n]{x^\tn{a}, x^\tn{b}}$ as these two constraints do not depend
+on $x_{n+1}^\tn{a}$ and $x_{n+1}^\tn{b}$. On the other hand, C3 depends directly
+on $x_{n+1}^\tn{a}$ and $x_{n+1}^\tn{b}$ and therefore is computed within the
+acquisition function for every pair of points considered during the optimization
+of $\funcil{\alpha}[n]{x^\tn{a}, x^\tn{b}}$. We then query the user to obtain
+their preference $y_{n+1}$ between these two points and add it to the dataset of
+preferences (lines 7 and 8). Finally, at the end of the $N$ iterations of the
+algorithm, we return the optimum $x^*$ of the most likely function,
+$\func{mode}{\prob{\vecf{f}[\tn{t}](x)| D_N}}$, which is equal to the posterior
+mean function in the Gaussian process case (line 10). While it may be more
+correct to return $\func{mode}{\prob{x^*|D_N}}$, we do not do this as the PES
+algorithm seeks to avoid approximating this distribution.

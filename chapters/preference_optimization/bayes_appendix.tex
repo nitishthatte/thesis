@@ -1,0 +1,156 @@
+\hypertarget{sec:appendix}{\section*{Bayesian Approach Appendix}}
+%\begin{subappendices}
+
+To obtain $X^*$ (line 5,~\cref{alg:pesp}), we sample $M$ functions from the
+posterior by approximating $\prob{\vecf{f}[\tn{t}]|D_n}$ using Bayesian linear
+regression with Fourier features (as outlined in~\citep{hernandez2014predictive})
+and sampling $M$ feature weight vectors. As the Fourier features have analytic
+derivatives, we can optimize each linear function using a second order method
+with multiple restarts.
+
+We approximate conditioning the predictive distribution on $x^*$ via three
+constraints: 
+\begin{description} 
+    \item[C1] $x^*$ is a local maximum. $\nabla f|_{x^*} = 0$ and the
+    Hessian of the objective function is negative definite by imposing
+    $\func{diag}{\nabla \nabla f|_{x^*}} < 0$ and $\func{upper}{\nabla
+    \nabla f|_{x^*}} = 0$. We group $\nabla f|_{x^*} = 0$ and
+    $\func{upper}{\nabla \nabla f|_{x^*}} = 0$ into constraint C1.1 and
+    $\func{diag}{\nabla \nabla f|_{x^*}} < 0$ into constraint C1.2.
+
+    \item[C2] $x^*$ is preferred to current training points, $f(x^*) >
+    f(x_k^\tn{a}) \textrm{ and }  f(x^*) > f(x_k^\tn{b}), \ \forall k \in [1,
+    n]$.
+
+    \item[C3] $x^*$ is preferred to new training points, $f(x^*) >
+    f(x_{n+1}^\tn{a})$ and $f(x^*) > f(x_{n+1}^\tn{b})$.  
+\end{description}
+
+We precompute the effects of contraints C1 and C2 before evaluation of
+$\funcil{\alpha}[n]{x^\tn{a}, x^\tn{b}}$. To impose C1 and C2, we first divide
+their components into two groups: $\vecf{c} = [\nabla f|_{x^*}^\tn{T}, \
+\func{upper}{\nabla \nabla f|_{x^*}}^\tn{T}]^\tn{T}$ and $\vecf{f}' =
+[\vecf{f}^\tn{T},\ \func{diag}{\nabla \nabla f|_{x^*}}^\tn{T},\
+f(x^*)]^\tn{T}$. Note $\tn{C1.1} \implies \vecf{c} = 0$. We write the predictive
+distribution of the objective function at test points $\vecf{f}[\tn{t}]$ given
+constraints C1 and C2 as
+\begin{align}
+    \prob{\vecf{f}[\tn{t}]|D_n, \tn{C1},\tn{C2}} = 
+    \int\prob{\vecf{f}[\tn{t}]| \vecf{f}', \tn{C1.1}}  
+    \prob{\vecf{f}' | D_n, \tn{C1}, \tn{C2}} \tn{d}\vecf{f}'.
+    \label{eq:predictive_w_constraints}
+\end{align}
+We use Bayes rule to evaluate the second term in the integral, $\prob{\vecf{f}'
+| D_n, \tn{C1}, \tn{C2}} = \frac{\prob{D_n , \tn{C1.2}, \tn{C2} |\vecf{f}'}
+\prob{\vecf{f}'| \tn{C1.1}}}{\prob{D_n, \tn{C1.2}, \tn{C2} | \tn{C1.1}}}$. We
+form the prior term $\prob{\vecf{f}'|\tn{C1.1}}$ by conditioning the joint
+distribution, $\prob{\vecf{c}, \vecf{f}'}$  on $\tn{C1.1}$ given by $\vecf{c} =
+0$. $\prob{\vecf{f}'|\vecf{c}} = \mathcal{N}\left( \vecf{f}'|
+\Sigma_\tn{cf'}^\tn{T} \Sigma_\tn{cc}^{-1} \vecf{c}, \Sigma_\tn{f'f'} -
+\Sigma_\tn{cf'}^\tn{T} \Sigma_\tn{cc}^{-1} \Sigma_\tn{cf'} \right)$ implies
+$\prob{\vecf{f}'|\vecf{c}=0} = \mathcal{N}(\vecf{f}'| 0, \Sigma_\tn{f'|c})$.
+
+We implement the likelihood term by adding extra factors to the likelihood
+in~\cref{eq:bayes_rule} that impose soft constraints representing C1.2 and C2.
+For C1.2 we use the penalty term $\prob{[\nabla \nabla f|_{x^*}]_{dd} <
+0 | \nabla \nabla f|_{x^*}} = \Phi(-[\nabla \nabla
+f|_{x^*}]_{dd}/\sigma_\tn{h})$ and for C2 we add more preference relations
+between $x^*$ and all training points. 
+\begin{fullwidth}
+\begin{align}
+    \prob{D_n, \tn{C1.2}, \tn{C2}, |\vecf{f}'} 
+        &=\left[ \prod_{k=1}^n \prob{x_k^\tn{a} \succ x_k^\tn{b} 
+            | f(x_k^\tn{a}), f(x_k^\tn{b})} 
+        \prob{x^* \succ x_k^\tn{a} | f(x^*), f(x_k^\tn{a})} 
+        \prob{x^* \succ x_k^\tn{b} | f(x^*), f(x_k^\tn{b})} \right] \notag\\
+        &\quad \times  \prod_{d=1}^D \prob{{[\nabla \nabla f|_{x^*}]}_{dd} < 0
+            | {[\nabla \nabla f|_{x^*}]}_{dd}} \notag \\
+        &= \left[ \prod_{k=1}^n \Phi(q_k) \Phi(q_k^{\tn{a}*}) 
+                \Phi(q_k^{\tn{b}*}) \right]
+            \prod_{d=1}^D \Phi(q_d^\tn{h})
+\end{align}
+\end{fullwidth}
+Where $q_k^{\tn{a}*} = \frac{f(x^*) - f(x_k^\tn{a})}{\sqrt{2} \sigma}$ and
+$q_k^{\tn{b}*} = \frac{f(x^*) - f(x_k^\tn{b})}{\sqrt{2} \sigma}$ and $q_d^{h} =
+\frac{-[\nabla \nabla f|_{x^*}]_{dd}}{\sigma_h}$. We use Laplace's approximation
+to approximate $\prob{\vecf{f}' | D_n, \tn{C1}, \tn{C2}}$ as Gaussian,
+\begin{align}
+    \prob{\vecf{f}' | D_n, \tn{C1}, \tn{C2}} \approx \mathcal{N}\left(\vecf{f}'|
+        \vecf{f}'_{\tn{MAP}}, {\left(\Sigma_\tn{f'|c}^{-1} +
+        \Lambda_{f'_\tn{MAP}} \right)}^{-1} \right),
+    \label{eq:rprime_given_constraints}
+\end{align}
+where $\vecf{f}'_\tn{MAP} = \arg \min_{\vecf{f}'} -\log
+\prob{\vecf{f}' | D_n, \tn{C1}, \tn{C2}}$ and $\Lambda_\tn{f'_{MAP}}$ is the
+Hessian of $-\log \prob{D_n , \tn{C1.2}, \tn{C2}|\vecf{f}'}$ evaluated at
+$\vecf{f}'_\tn{MAP}$.
+
+We compute the first term in~\cref{eq:predictive_w_constraints},
+$\prob{\vecf{f}[\tn{t}]|\vecf{f}', \tn{C1.1}}$ by conditioning the joint
+distribution $\prob{\vecf{c}, \vecf{f}', \vecf{f}[\tn{t}]}$
+on $\vecf{f}'$ and $\vecf{c} = 0$,
+\begin{fullwidth}
+\begin{align}
+    \prob{\vecf{f}[\tn{t}] | \vecf{f}', \vecf{c}=0} = \mathcal{N} \left(
+        \vecf{f}[\tn{t}] | 
+        \left( \Sigma_\tn{ct}^\tn{T} B + \Sigma_\tn{f't}^\tn{T} D \right) 
+            \vecf{f}', \Sigma_\tn{tt} - 
+        \begin{bmatrix} 
+            \Sigma_\tn{ct}^\tn{T} & \Sigma_\tn{f't}^\tn{T} 
+        \end{bmatrix}
+        \begin{bmatrix}
+            A & B \\ C & D
+        \end{bmatrix}
+        \begin{bmatrix} \Sigma_\tn{ct} \\ \Sigma_\tn{f't} \end{bmatrix} \right),
+        \label{eq:P_r_given_rprimec}
+\end{align}
+\end{fullwidth}
+where,
+    $\begin{bmatrix}
+        A & B \\ C & D
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        \Sigma_\tn{cc} & \Sigma_\tn{cf'} \\ \Sigma_\tn{cf'}^\tn{T} &
+        \Sigma_\tn{f'f'}
+    \end{bmatrix}^{-1}$.
+We can substitute~\cref{eq:P_r_given_rprimec}
+and~\cref{eq:rprime_given_constraints} into~\cref{eq:predictive_w_constraints}
+to yield the predictive distribution subject to constraints $C1$ and $C2$.
+\begin{fullwidth}
+\begin{align}
+    \prob{\vecf{f}[\tn{t}]|D_n, \tn{C1}, \tn{C2}} = &\mathcal{N}
+        \left( \vecf{f}[\tn{t}] | 
+    (\Sigma_\tn{ct}^\tn{T} B + \Sigma_\tn{f't}^\tn{T} D) 
+        \vecf{f}'_\tn{MAP}, \Sigma_\tn{tt} - 
+        \begin{bmatrix} 
+            \Sigma_\tn{ct}^\tn{T} & \Sigma_\tn{f't}^\tn{T} 
+        \end{bmatrix}
+        \begin{bmatrix}
+            A & B \\ C & D
+        \end{bmatrix}
+        \begin{bmatrix} 
+            \Sigma_\tn{ct} \\ \Sigma_\tn{f't} 
+        \end{bmatrix} \right. \notag \\
+        & \left. + \left( 
+            \Sigma_\tn{ct}^\tn{T} B + \Sigma_\tn{f't}^\tn{T} D\right)
+        {\left(\Sigma_\tn{f'|c}^{-1} + \Lambda_\tn{f'_{MAP}}\right)}^{-1}
+        {\left(\Sigma_\tn{ct}^\tn{T} B + \Sigma_\tn{f't}^\tn{T} D
+        \right)}^\tn{T} \right).
+    \label{eq:pred_dist_constrain_xstar}
+\end{align}
+\end{fullwidth}
+We obtain $\prob{\vecf{f}[\tn{t}]|D_n, \tn{C1}, \tn{C2}, \tn{C3}}$ by
+analytically conditioning \cref{eq:pred_dist_constrain_xstar} on the single
+inequality $f(x_m^*) > (f(x^\tn{a}) + f(x^\tn{b}))/2$ using the method detailed
+in~\citep{xu2010estimation}. Finally, using~\cref{eq:predic_pref_w_constraint} we
+can compute the predictive distributions of preferences given the locations of
+$x_m^*$.
+
+To optimize $\funcil{\alpha}[n]{x^\tn{a}, x^\tn{b}}$ (line 7,~\cref{alg:pesp})
+we construct its gradient by evaluating $\prob{\vecf{f}[\tn{t}] | D_n}$ and
+$\prob{\vecf{f}[\tn{t}] | D_n, \tn{C1},\tn{C2},\tn{C3}}$ at test points
+$x^\tn{a}$ and $x^\tn{b}$ as well as points offset by $\delta_x = \pm 0.001$
+along each dimension. We then optimize $\alpha_n(x^\tn{a}, x^\tn{b})$ via
+gradient ascent.
+
+\end{subappendices}
