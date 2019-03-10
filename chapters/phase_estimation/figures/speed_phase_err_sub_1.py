@@ -29,7 +29,7 @@ colors = np.array(((217., 82., 25.),
 
 data = sio.loadmat('speed_phase_est_sub_1_data.mat')
 
-fig = plt.figure(figsize=(2,1.5))
+fig = plt.figure(figsize=(2,2.5))
 ax = fig.add_subplot(111)
 
 ax.set_xlabel('True Phase')
@@ -43,7 +43,7 @@ ekf_handle = ax.plot(data['phase_actual'].transpose(),
 
 ax.legend((time_handle[0], ekf_handle[0]), 
     ('Time-Based Phase Estimation', 'EKF phase estimation'), frameon=False,
-    loc='upper center', bbox_to_anchor=(0.3, 1.35))
+    loc='upper center', bbox_to_anchor=(0.3, 1.5))
 
 #set spline visibility, axis limits tick marks
 ax.spines['top'].set_visible(False)
@@ -51,16 +51,7 @@ ax.spines['right'].set_visible(False)
 ax.spines['bottom'].set_visible(False)
 ax.spines['left'].set_visible(False)
 
-'''
-ylim = (-0.001, 0.011)
-ax.set_ylim(ylim)
-ax.spines['left'].set_bounds(ylim[0], ylim[1])
-ax.set_yticks(np.arange(0.,0.015, 0.005))
-ax.spines['bottom'].set_bounds(0, 90)
-ax.set_xticks(np.arange(0,120,30))
-
-ax.set_xticks(np.arange(820,960+35,35))
-'''
+ax.set_yticks(np.arange(0.0, 1.5, 0.5))
 
 #center all axis labels in bounds
 
@@ -88,6 +79,8 @@ try:
     ax.xaxis.get_label().set_position(xlabelpos_axes)
 except:
     pass
+
+plt.tight_layout()
 
 fig.savefig('speed_phase_err_sub_1.pdf', bbox_inches='tight')
 plt.close(fig)

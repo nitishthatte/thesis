@@ -1,0 +1,99 @@
+\section{Methods}
+\subsection{Simulation Environment}\label{sec:complete_simulation_environ}
+
+We study the performance of the proposed transfemoral prosthesis controller in a
+simulation model of a unilateral amputee equipped with the proposed powered
+prosthesis. To more accurately model an amputee's anatomy, we sever the femur of
+the unimpaired human model \unit[11]{cm} above the knee and attach the hamstring
+muscle to the distal end of the shortened bone as recommended in
+\citet{brown2012amputation}. This change converts the biarticular hamstring into
+a monoarticular muscle that only extends the hip. Next, we attach a model of the
+full prosthesis to the severed femur. The prosthesis modeled in this study is an
+earlier version of the prosthesis design presented in
+\cref{sec:completed_design}, which uses the knee actuator design for both the
+knee and ankle joints. Our simulation of the prosthesis models the series
+elasticity, electrical dynamics, gear ratios, and resultant reflected inertias
+of the actuators, and assumes a low-level current-based SEA control achieves
+desired torques \citep{pratt1995series}.
+
+To generate the reference torques for the SEAs, we use a hybrid neuromuscular
+control that blends the muscle based stance-control
+(\cref{sec:neuro_stance_reflexes}) with the idealized swing leg placement
+control \cref{sec:neuro_swing_reflexes}. We make make two modifications to the
+prosthesis-side swing leg control.  First, on the prosthesis-side hip we remove
+the feed-forward term that neutralizes the disturbance created by the knee's
+stop and extend phase (\cref{eq:hipfeedforward}), requiring that feedback
+control deal with this torque.  Second, we do not use the adaptive leg placement
+policy of the swing control (\cref{eq:simbicon}) as the prosthesis does not have
+access to information about the amputee's center of mass and stance leg ankle
+position.  Instead the prosthesis swing leg control employs a constant target
+leg angle, $\alpha_\tn{tgt} = const$.
+
+To compare the performance of the proposed control, we also simulate the
+commonly-used impedance control method, described in detail in
+\cref{sec:back_dynamic_pros_control}, at the behavior level.  Specifically, we
+implement the impedance control presented in \citet{sup2008design} as it tended
+to perform better than other versions in our simulations. This control
+partitions the gait cycle into four phases. In each phase $i$, the torque of an
+actuated joint is governed by an impedance function
+\begin{align} 
+    \tau_i = -k_{1,i} (\theta - \theta_{1,i}) - k_{2,i} 
+        (\theta - \theta_{2,i})^3 - b_i \dot{\theta} , 
+\end{align} 
+where $\theta$ is the joint angle, $\theta_{1,i}$ and $\theta_{2,i}$ are angle
+offsets, and $k_{1,i}$, $k_{2,i}$ and $b_i$ are the impedance parameters.  
+
+% Parameter Optimization
+\subsection{Controller Optimization for Natural and Robust Walking}
+    \label{sec:completed_comparison_opt}
+
+For both the hybrid neuromuscular controller and the impedance controller, we
+use optimization to search for gaits that appear natural and are robust to
+disturbances. For the hybrid neuromuscular model, we optimize 53 parameters that
+include reflex feedback gains and swing leg control parameters for both the
+amputee and prosthesis as well as the SEA control gains. To reduce the number of
+parameters to optimize, we use fixed values for many parameters, such as the
+muscle properties and prestimulations. For the impedance controller, we optimize
+59 parameters that include the reflex feedback gains and the swing leg control
+parameters for the amputee model, and the impedance parameters and SEA
+controller gains for the prosthesis. Again to reduce the number of parameters to
+optimize, the impedance parameters that are set to zero according to
+\citet{sup2008design} are fixed to zero during the optimization. 
+
+We rely on the covariance matrix adaptation evolution strategy (CMA-ES)
+\citep{hansen2006cma} and perform optimization in two steps. In the first step,
+we search for control parameters that generate a gait with natural kinematics
+and kinetics. To this end, we take advantage of the observation that human gait
+seems to result from minimizing metabolic energy consumption
+\citep{mcneill2002energetics}, and use the cost of transport 
+\begin{align}
+    \mathit{Cost} = \frac{W}{mgx} + \frac{1}{mgx} \int \left( 
+        c_1\tau_\tn{cmd}^2  + c_2 \tau_\tn{limit}^2 \right) \tn{d}t
+    \label{eq:costfuncenergy}
+\end{align}
+as optimization criterion. In the cost, $W$ accounts for the energy consumption
+of both the modeled amputee's muscles and the prosthesis' virtual muscles
+according to \citet{umberger2003model}, $\tau_\tn{cmd}$ is the sum of the
+torques commanded by the neuromuscular swing control or the impedance control,
+$\tau_\tn{limit}$ is the sum of torques produced by the model's mechanical
+hardstops, which prevent knee and ankle hyperextension, $m$ is the mass of the
+amputee, $g$ is the gravitational acceleration, and $x$ is the distance
+travelled in 20 seconds. The hand tuned constants, $c_1 = 0.1$ and $c_2 = 0.01$,
+ensure that the terms of the cost function have similar order-of-magnitude. 
+
+We run the above optimization for 300 iterations, and use the best resulting set
+of control parameters to seed an optimization for robustness to unexpected
+changes in ground height. For this second step, the cost function becomes
+\begin{align}
+    \mathit{Cost} = -x + c_3 \int \tau_\tn{limit}^2 dt ,
+\end{align}
+rewarding the distance travelled and penalizing joint hyperextension ($c_3 =
+0.0005$). Instead of level ground, the simulations evaluating the cost are
+performed on terrain that is flat for the first 10 meters (to allow the model to
+reach steady walking) and then features steps, spaced one meter apart and drawn
+from a uniform random distribution. The width of the distribution grows at a
+rate of \unit[2.5]{cm} per meter distance travelled, resulting in steps that
+grow progressively rougher the farther the model walks. To avoid overfitting,
+the evaluation is performed on five different terrains, resulting in an average
+cost. Like in the first step, the optimization is stopped after 300 iterations,
+resulting in the final, best set of control parameters.

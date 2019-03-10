@@ -1,0 +1,51 @@
+\subsection{Discussion}\label{sec:completed_comparison_discuss}
+
+Our simulation results suggest that the hybrid neuromuscular control policy can
+improve amputee gait stability over existing impedance control methods. An
+amputee model walking with a powered prosthesis showed substantial improvements
+in balance recovery on rough ground and after swing leg trips when using the
+hybrid neuromuscular control policy as opposed to impedance control.  One
+possible reason for the improvement is that the proposed controller considers
+global leg information such as the target leg angle
+(\crefrange{eq:flexphase}{eq:stop}), and it is well known that without placing
+the feet into proper target points on the ground, legged systems fail to balance
+\citep{townsend1985biped,raibert1986legged,kajita20013d,
+seyfarth2002movement,pratt2006capture,wu20133}. A second reason could be that
+the design of the swing leg control policy explicitly accounts for large
+disturbances to the lower limb dynamics in order to achieve desired leg
+placements \citep{desai2012robust}. Neither is the case for current impedance
+control policies; however, future research may show that impedance or other
+control policies can equally make use of this global information and design
+criterion.
+
+Whether the simulation results transfer to amputee gait remains to be
+determined. In an initial test with a non-amputee experimenter wearing the
+prosthesis via a knee adaptor, we found the hybrid neuromuscular control
+reproduces normal walking patterns qualitatively and effectively responds to
+disturbances in early and late swing. To understand if these initial results
+generalize to amputee locomotion requires further research. First, we only
+simulated disturbances in the hardware tests by commanding disturbance torques
+to the prosthesis knee. This approach allowed us to apply reproducible
+disturbances, but it does not capture real tripping or obstacle encounters,
+which will, for instance, exert torques about the hip joint as well.  Second,
+the use of the knee adaptor creates abnormal kinematics and inertias and
+provides only a loose fit between user and prosthesis. In consequence, we only
+tested slow walking at 0.5 m/s holding onto hand rails.
+
+Finally, the simulation and hardware tests captured only a small
+portion of the balance disturbances that humans typically encounter
+\citep{robinovitch2013video}. Other disturbances may evoke amputee responses
+that the simulation model does not capture; especially since it is driven
+solely by a reflexive walking controller that ignores conscious interventions.
+Already, the hardware experiments revealed that the control's response to
+mid-swing disturbances does not match observed human responses and risks
+allowing the user to fall. This result suggests the model and corresponding
+hardware implementation require additional reflexes or structural changes in
+the control to better capture human locomotion and balance recovery. Foot
+placement into target points, while beneficial in particular for responding to
+early swing disturbances and for rough ground walking, may not be a goal that
+the human system prioritizes in response to other disturbances. Identifying
+human objectives in these situations could lead to improved leg prosthesis
+behaviors independent of the proposed approach, impedance-like approaches, or
+other control design approaches.
+

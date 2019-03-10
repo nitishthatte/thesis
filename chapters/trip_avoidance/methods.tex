@@ -126,18 +126,6 @@ during stance. In these equations, $\sigma_a^2$ is the accelerometer variance,
 $\sigma_\ell^2$ is the LIDAR measurement variance, and $\sigma_f^2$ is the foot
 position variance.
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{ekf_fig}
-    \caption{Trajectories of extended Kalman Filter (EKF) estimate of the
-    position of the leg during swing (blue). Ground truth positions given by
-    motion capture (yellow). EKF estimate without LIDAR information shown in
-    red. Thick lines show the leg configuration at peak toe height during swing.
-    Dotted lines indicate heel trajectories while dashed lines show the toe
-    trajectories. Knee and ankle trajectories given by solid lines.}
-    \label{fig:ekf}
-\end{figure}
-
 To further improve the EKF's state estimate, we enforce a number of
 constraints using the methods provided by \citet{gupta2007kalman}. Specifically,
 we enforce three equality constraints:
@@ -185,6 +173,17 @@ such that
 \end{align}
 where $A_\tn{eq}$,  $b_\tn{eq}$, $A_\tn{ineq}$, and $b_\tn{ineq}$ are derived
 from linearizing the equality and inequality constraints.
+
+\begin{marginfigure}[-1in]
+    \centering
+    \includegraphics[width=\columnwidth]{ekf_fig}
+    \caption{Trajectories of extended Kalman Filter (EKF) estimate of the
+    position of the leg during swing (blue). Ground truth positions given by
+    motion capture (yellow). EKF estimate without LIDAR information shown in
+    red. Thick lines show the leg configuration at peak toe height during swing.
+    Dotted lines indicate heel trajectories while dashed lines show the toe
+    trajectories. Knee and ankle trajectories given by solid lines.}\label{fig:ekf}
+\end{marginfigure}
 
 To identify the appropriate parameters of the Kalman filter, we collected ground
 truth training and testing kinematic data using a Vicon motion capture system

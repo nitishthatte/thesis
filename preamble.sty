@@ -16,6 +16,7 @@
 \usepackage{etoolbox}
 \RequirePackage{etoolbox}
 \makeatletter
+\newif\if@tufte@margtab\@tufte@margtabfalse
 \newcommand{\classiccaptionstyle}{%
     \long\def\@caption##1[##2]##3{%
         \par
@@ -29,9 +30,10 @@
         \normalsize
         \@makecaption{\csname fnum@##1\endcsname}{\ignorespaces ##3}\par
         \endgroup}
+    
     \long\def\@makecaption##1##2{%
         \vskip\abovecaptionskip
-        %\sbox\@tempboxa{\@tufte@caption@font##1: ##2}%
+        \sbox\@tempboxa{\@tufte@caption@font##1: ##2}%
         \ifdim \wd\@tempboxa >\hsize
         \@tufte@caption@font\if@tufte@margtab\@tufte@caption@justification\fi##1: ##2\par
         \else
