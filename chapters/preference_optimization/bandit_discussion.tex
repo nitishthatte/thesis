@@ -1,0 +1,74 @@
+\section{Bandit Approach Discussion} 
+
+We present a new approach for online optimization of lower limb assistive
+devices that uses preference feedback to incorporate the user's subjective
+assessment of device behavior. The method tackles high dimensional tuning
+problems by incorporating domain knowledge via an offline optimization step that
+utilizes kinetic and kinematic data from intact subjects to obtain a library of
+policy parameters. We find that the five subjects who completed our experiment
+preferred four different parameter sets from this library. The resulting gait
+patterns resembled intact human gait data and were preferred to hand-tuned
+parameters, confirming that the method can generate parameters suited for
+different subjects.
+
+A result of the offline optimization we use is that the method is largely
+agnostic to the number of tunable parameters. Consequently, we were able to
+additionally optimize neuromuscular model parameters for different speeds.  Our
+experimental results show that these parameters improved the ankle work
+characteristics and user preferences as speed increased for three out of four
+tested parameter sets. 
+
+Previous works such as \citet{eilenberg2010control} and
+\citet{markowitz2011speed} have demonstrated control of powered ankle prostheses
+via neuromuscular models of muscles and reflexes. This paper extends that work,
+as it presents the first instance of neuromuscular control on a powered knee and
+ankle prosthesis. With the tuning method presented here, we hope to
+comprehensively test this prosthesis control strategy in future work.
+
+Due to the ability of the method to handle problems of arbitrary dimensionality
+given sufficient computational resources, it may be used to tune many types of
+control strategies. For example, one could use the approach to optimize the
+phase variable control strategy, in which the prosthesis follows predefined
+knee and ankle trajectories parameterized as functions of hip angle and hip
+angle integral~\citep{quintero2016preliminary}. In this case, each bandit would
+provide a different knee and ankle trajectory.  Importantly, the ability of this
+method to optimize various types of controllers may help researchers compare
+control strategies fairly. Many control strategies for transfemoral prostheses
+have been proposed in recent years \citep{quintero2016preliminary,
+thatte2016toward, lawson2014robotic}, but currently there is a dearth of studies
+that directly compare their merits and disadvantages.
+
+It is probable that the parameter library we obtained in this work can be
+further improved. We propose two directions for further investigation: First, it
+may be possible to improve the library by obtaining a larger set of gait data
+and then using clustering algorithms to arrive at a reduced set of canonical
+gaits. \citet{vardaxis1998classification} apply a similar idea to to EMG data to
+cluster gaits into five major styles. With a library derived from canonical
+gaits, we may cover the parameter space more evenly. A second approach is to use
+biomechanical measurements from the amputee, such as segment lengths and
+measured peak joint torques, to obtain probability distributions for the
+neuromuscular model parameters. We could then compose the parameter library by
+sampling parameters from the distributions and performing rigid body simulations
+of the amputee and prosthesis system.
+
+The optimization approach we have presented may have considerable practical
+value for commercial prostheses as well. Because it uses preference feedback,
+lay users of an assistive device can easily provide feedback via smartphones or
+wearable devices. Moreover, the dueling bandit algorithm is well suited to
+lifelong learning. Since the algorithm seeks to minimize regret, we can ensure
+its exploration is only as obtrusive as necessary. 
+
+On the third day of our experiment, we also asked three subjects to rate their
+sub-optimal controls relative to their optimal control from day two. Two users
+indicated they had slight preferences for controllers other than the one they
+had preferred on day two, illustrating that user preferences are not stationary.
+\citet{garivier2008upper} have proposed algorithms for non-stationary $k$-armed
+bandit problems that could be adapted to the dueling bandits case and applied to
+assistive device optimization.
+
+The study we presented has several limitations. First, we only had five subjects
+complete the study. Ideally, we would have more subjects than the number of
+parameter sets so we could determine if any parameters are never preferred or if
+any group is not currently well represented by the current set of parameters.
+Also, we should confirm that the proposed optimization framework provides
+suitable control parameters for amputees wearing this prosthesis.

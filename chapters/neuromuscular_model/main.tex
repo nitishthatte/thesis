@@ -1,0 +1,29 @@
+\chapter{Neuromuscular Model}\label{sec:neuro_model}
+
+\graphicspath{{chapters/neuromuscular_model/figures/}}
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{neuro_mech_model}
+    \caption{The skeletal model we use to simulate neuromuscular reflex control.
+    The model consists of seven segments: left and right feet, shanks, and
+    thighs, as well as a lumped head-arms-trunk (HAT) segment. Flexion joint
+    angles are positive, extension joint angles are negative, and the zero
+    angle configuration represents standing.}
+    \label{fig:neuro_seven_link}
+\end{marginfigure}
+
+\newthought{In the first part of this thesis,} we investigate the ability of
+neuromuscular reflex control to improve amputee gait robustness. To this end,
+here we provide a more detailed review the neuromuscular model components on
+which we base our prosthesis control. Four parts comprise the model: a
+mechanical simulation environment we use to obtain simulation results
+(\cref{sec:neuro_mech_model}), biological motors modeled by the hill muscle
+model that apply torques to joints (\cref{sec:neuro_hill_muscle}), and finally
+functionally-motivated stance (\cref{sec:neuro_stance_reflexes}) and swing
+(\cref{sec:neuro_swing_reflexes}) reflexes that implement the key behaviors
+required for walking.
+
+\input{mechanical_model}
+\input{stance_reflexes}
+\input{swing_reflexes}

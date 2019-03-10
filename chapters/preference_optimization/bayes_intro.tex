@@ -1,13 +1,14 @@
-As discussed in \cref{sec:back_optimization} previous work has explored learning
-from qualitative feedback such as preferences in order to circumvent defining
-objective functions and using Bayesian optimization in order to reduce the
-number of experiments requried to optimize a system. In this section, we present
-a new optimization algorithm, Predictive Entropy Search with Preferences
-(PES-P), that combines these two ideas. The algorithm uses preference queries
-between pairs of control parameters to avoid the a priori definition of features
-and to consider unquantifiable qualities of the desired behavior. The algorithm
-further incorporates black-box Bayesian optimization to ensure its preference
-queries gather information efficiently without relying on a system model.
+As discussed in \cref{sec:back_optimization} \todo{check reference}previous work
+has explored learning from qualitative feedback such as preferences in order to
+circumvent defining objective functions and using Bayesian optimization in order
+to reduce the number of experiments requried to optimize a system. In this
+section, we present a new optimization algorithm, Predictive Entropy Search with
+Preferences (PES-P), that combines these two ideas. The algorithm uses
+preference queries between pairs of control parameters to avoid the a priori
+definition of features and to consider unquantifiable qualities of the desired
+behavior. The algorithm further incorporates black-box Bayesian optimization to
+ensure its preference queries gather information efficiently without relying on
+a system model.
 
 In developing the algorithm, we make three main contributions. First, we adapt
 an acquisition function previously proposed for interval scale feedback to the
@@ -21,7 +22,7 @@ control parameters of simulated dynamical systems.  Finally, we compare the
 performance of the three methods for the task of optimizing the control
 parameters of a robotic prosthesis given real user feedback.
 
-\section{Preliminaries} 
+\section{Bayesian Approach Preliminaries} 
 \subsection{Learning from Preferences}
 
 To learn latent objective functions from preferences, we rely on the method

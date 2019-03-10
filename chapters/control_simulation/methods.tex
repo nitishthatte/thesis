@@ -10,7 +10,7 @@ muscle to the distal end of the shortened bone as recommended in
 a monoarticular muscle that only extends the hip. Next, we attach a model of the
 full prosthesis to the severed femur. The prosthesis modeled in this study is an
 earlier version of the prosthesis design presented in
-\cref{sec:completed_design}, which uses the knee actuator design for both the
+\cref{sec:pros_design}, which uses the knee actuator design for both the
 knee and ankle joints. Our simulation of the prosthesis models the series
 elasticity, electrical dynamics, gear ratios, and resultant reflected inertias
 of the actuators, and assumes a low-level current-based SEA control achieves
@@ -31,21 +31,21 @@ leg angle, $\alpha_\tn{tgt} = const$.
 
 To compare the performance of the proposed control, we also simulate the
 commonly-used impedance control method, described in detail in
-\cref{sec:back_dynamic_pros_control}, at the behavior level.  Specifically, we
-implement the impedance control presented in \citet{sup2008design} as it tended
-to perform better than other versions in our simulations. This control
-partitions the gait cycle into four phases. In each phase $i$, the torque of an
-actuated joint is governed by an impedance function
+\cref{sec:back_dynamic_pros_control}, \todo{check reference} at the behavior
+level.  Specifically, we implement the impedance control presented in
+\citet{sup2008design} as it tended to perform better than other versions in our
+simulations. This control partitions the gait cycle into four phases. In each
+phase $i$, the torque of an actuated joint is governed by an impedance function
 \begin{align} 
     \tau_i = -k_{1,i} (\theta - \theta_{1,i}) - k_{2,i} 
-        (\theta - \theta_{2,i})^3 - b_i \dot{\theta} , 
+        {(\theta - \theta_{2,i})}^3 - b_i \dot{\theta}, 
 \end{align} 
 where $\theta$ is the joint angle, $\theta_{1,i}$ and $\theta_{2,i}$ are angle
 offsets, and $k_{1,i}$, $k_{2,i}$ and $b_i$ are the impedance parameters.  
 
 % Parameter Optimization
-\subsection{Controller Optimization for Natural and Robust Walking}
-    \label{sec:completed_comparison_opt}
+\subsection{Controller Optimization for Natural and Robust
+Walking}\label{sec:completed_comparison_opt}
 
 For both the hybrid neuromuscular controller and the impedance controller, we
 use optimization to search for gaits that appear natural and are robust to
@@ -85,7 +85,7 @@ We run the above optimization for 300 iterations, and use the best resulting set
 of control parameters to seed an optimization for robustness to unexpected
 changes in ground height. For this second step, the cost function becomes
 \begin{align}
-    \mathit{Cost} = -x + c_3 \int \tau_\tn{limit}^2 dt ,
+    \mathit{Cost} = -x + c_3 \int \tau_\tn{limit}^2 dt,
 \end{align}
 rewarding the distance travelled and penalizing joint hyperextension ($c_3 =
 0.0005$). Instead of level ground, the simulations evaluating the cost are
