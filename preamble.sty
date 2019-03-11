@@ -77,6 +77,13 @@
 \usepackage{nicefrac}
 \DeclareMathOperator{\argmin}{argmin}
 
+\usepackage{multirow}
+\newcommand{\vsigstarzero}{\multirow{2}{*}{\rotatebox{90}{\footnotesize \hphantom{$\star$}}}}
+\newcommand{\vsigstarone}{\multirow{2}{*}{\rotatebox{90}{\footnotesize $\star$}}}
+\newcommand{\vsigstartwo}{\multirow{2}{*}{\rotatebox{90}{\footnotesize $\star\negmedspace\star$}}}
+\newcommand{\vsigstarthree}{\multirow{2}{*}{\rotatebox{90}{\footnotesize $\star\negthickspace\star\negthickspace\star$}}}
+
+
 %%
 % Prints argument within hanging parentheses (i.e., parentheses that take
 % up no horizontal space).  Useful in tabular environments.
@@ -140,7 +147,7 @@
 \usepackage{import}
 
 %list types
-\usepackage{enumitem}
+\usepackage[inline]{enumitem}
 \newlist{steps}{enumerate}{10}
 \setlist[steps]{label*=\arabic*., ref=\arabic*}
 \crefname{stepsi}{step}{steps}

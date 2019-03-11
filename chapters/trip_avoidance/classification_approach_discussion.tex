@@ -1,0 +1,79 @@
+\section{Classification Approach Discussion}
+
+We developed an online learning system to help users of powered transfemoral
+prostheses avoid obstacles. Our system uses information from an inertial
+measurement unit during the late stance to early swing period to classify the
+upcoming swing as either normal or a trip avoidance attempt. Unlike previous
+work on obstacle negotiation for transfemoral prostheses
+\citep{lawson2010stumble, zhang2011towards, shirota2014recovery}, our system
+learns online on an actual transfemoral prostheses. We compared the
+classification performance of our online system with a hypothetical offline
+system using online trials to provide testing and training data for offline
+analysis. This comparison showed that the online learning system provided an
+improvement in sensitivity and accuracy to obstacle avoidance attempts. Both an
+experienced, able-bodied subject and an inexperienced, amputee subject were able
+to improve their obstacle avoidance success rates significantly. However, only
+the experienced, able-bodied subject was able to achieve some level of
+volitional control of the prosthesis flexion as a function of obstacle height.
+                                  
+There are several reasons why the amputee subject may not have been able to
+achieve volitional control of prosthesis flexion. First, the amputee had far
+less experience using the prosthesis than the able-bodied subject. Consequently,
+even though both subjects were informed that trying harder to lift the leg over
+bigger obstacles would likely lead to greater flexion once the prosthesis
+learns, it is likely that only the first subject was able to incorporate and
+implement this information. The amputee may have concentrated on more
+rudimentary aspects of gait, as evidenced by his use of the handrails to walk,
+whereas the able-bodied subject did not need to use the hand rails. Moreover,
+the amputee's socket may have provided less control over the prosthesis than did
+the intact subject's able-bodied adapter (shown in \cref{fig:prosthesis}).
+Finally, we noted that the relationship between joint flexion and obstacle
+height tended to oscillate over the course of our trials. This may imply that
+the gains we used for the target knee angle regression (\cref{eq:tgt_angle})
+were too high.
+
+Before settling on the specifics of the obstacle avoidance system presented
+here, we also tested other options for its components. For example, we also
+evaluated incorporating EMG signals from the non-prosthetic limb in our obstacle
+avoidance classifier. Previous research showing that able-bodied subjects
+utilize stance leg musculature to help raise the hip during obstacle avoidance
+motivated this choice of EMG placement \citep{patla1995role}. However, as was
+found by \citet{spanias2018online}, using EMG data along with mechanical data in
+the forwards-backwards online learning algorithm did not seem to improve
+classification accuracy, which is already high. This lack of improvement may
+also result from a significant delay in our wireless EMG sensors (Delsys
+Trigno). It is possible that a low-latency wired EMG sensor would be able to
+improve classification performance or the performance of the target angle
+regression.
+
+We also tried using imitation learning techniques to model able-bodied
+strategies for stepping over obstacles. Specifically, we employed maximum margin
+inverse optimal control \citep{ratliff2007online} to learn, offline, cost
+functions for the knee that explained obstacle avoidance trajectories. However,
+when used online, the generated trajectories tended to diverge and produce
+unexpected results because the initial toe-off state of the prosthesis did not
+match those in the able-bodied data set. For the obstacle avoidance classifier,
+we correct this sort of offline-online mismatch via the backwards classifier
+that provides labels to train the forwards classifier online. It is less clear
+how to update trajectories in hindsight as we never see the obstacle. For this
+reason, we used bang-bang trajectories during obstacle avoidance, which maximize
+the time the joints remain flexed.
+
+In the future, we plan to overcome this issue by incorporating a laser distance
+sensor into the prosthesis. This sensor should allow precise measurement of the
+ground and obstacle shape during the initial part of swing as the hip moves
+forward. We plan to then use this information to explicitly plan knee and ankle
+trajectories that will avoid the obstacle and the floor until the appropriate
+touch down time.
+
+There are several other limitations of the current study we should address in
+future work as well. First, we only tested the algorithm with two subjects. More
+subjects of varying skill levels are necessary to determine how applicable the
+system is to a broader population. Additionally, a likely reason why the forward
+classifier's sensitivity was relatively low, was that there were many more
+normal steps than obstacle avoidance attempts in the training data set. This may
+cause the SVM loss function's minimum to focus more heavily on classifying
+normal steps correctly. Deploying this system on a commercial prosthesis, for
+which trips are more rare, would exacerbate this issue. Therefore, future
+development should investigate how to train a classifier given heavily
+unbalanced class frequencies.
