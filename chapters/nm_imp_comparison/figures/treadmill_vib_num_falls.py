@@ -15,7 +15,7 @@ from sigstars import add_barplot_sigstars
 pgf_with_custom_preamble = {
     "pgf.texsystem": "xelatex",
     "font.family": "sans-serif", # use san serif/main font for text elements
-    "font.size": 6,
+    "font.size": 8,
     "text.usetex": False,    # use inline math for ticks
     "pgf.rcfonts": False,   
     "pgf.preamble": [
@@ -32,7 +32,7 @@ mpl.rcParams.update(pgf_with_custom_preamble)
 colors = color_pallette.mpl_colors
 colors.append((0., 0., 0.))
 
-data = sio.loadmat('treadmill_vib/count_data.mat', squeeze_me=True)
+data = sio.loadmat('count_data.mat', squeeze_me=True)
 
 fig, ax = plt.subplots(1, 1, figsize=(4.5,2))
 
@@ -56,7 +56,7 @@ for i in range(6):
 
 trans = transforms.blended_transform_factory(ax.transData, ax.transAxes)
 group_label_props = {'horizontalalignment':'center', 
-    'verticalalignment':'center', 'fontsize':6, 'transform':trans,
+    'verticalalignment':'center', 'transform':trans,
     'clip_on':False}
 group_label_pos = -0.3;
 ax.text(1, group_label_pos, 'No Disturbance', **group_label_props)
