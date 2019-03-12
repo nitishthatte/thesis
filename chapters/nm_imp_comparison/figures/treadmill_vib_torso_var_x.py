@@ -45,7 +45,7 @@ bar_color = [0.75, 0.75, 0.75]
 x_pos = np.array((0, 1, 2, 4, 5, 6))
 rand_scatter_pts = 0.05*np.random.randn(num_subjects)
 
-ax.bar(x_pos, np.median(data['torso_std_x'],0), color = bar_color,
+ax.bar(x_pos, np.mean(data['torso_std_x'],0), color = bar_color,
     tick_label=('No Pros','NM','IMP','No Pros','NM','IMP'))
 add_barplot_sigstars(ax, data['condition_combinations']-1, 
     data['p_values_torso_std_x'], x_pos, star_loc='3x3')

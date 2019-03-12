@@ -32,7 +32,7 @@ mpl.rcParams.update(pgf_with_custom_preamble)
 colors = color_pallette.mpl_colors
 colors.append((0., 0., 0.))
 
-data = sio.loadmat('treadmill_vib/count_data.mat', squeeze_me=True)
+data = sio.loadmat('count_data.mat', squeeze_me=True)
 
 fig, ax = plt.subplots(1, 1, figsize=(4.5,2))
 
