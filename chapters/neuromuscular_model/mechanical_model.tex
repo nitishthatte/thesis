@@ -86,15 +86,14 @@ maximum joint limit retraction velocity. \Cref{tab:joint_lim} lists the
 engagement angles for the joint limits.
 \begin{margintable}[-0.65in]
   \centering
-      \begin{tabular}{lcc}
-        \toprule
-        Joint & ext.\ lim.\ & flex lim.\ \\
-        \midrule
-        hip   &     & 50 \\
-        knee  &   5 &    \\
-        ankle & -40 & 20 \\
-        \bottomrule
-      \end{tabular}
+  \small
+  \begin{tabular}{lcc}
+      Joint & ext.\ lim.\ & flex lim.\ \\
+      \midrule
+      hip   &     & 50 \\
+      knee  &   5 &    \\
+      ankle & -40 & 20 \\
+  \end{tabular}
   \caption{Joint limits for the hip, knee, and ankle joints listed in degrees.
   Positive joint angles represent flexion and negative joint angles represent
   extension (see \cref{fig:neuro_seven_link}).}\label{tab:joint_lim}
@@ -247,9 +246,11 @@ the length of a biarticular muscle spanning joints $j$ and $k$ is
         \func{r}[\tn{mtu}][j]{\phi^j} \tn{d} \phi^j + \int_{\phi_0^k}^{\phi^k}
         \func{r}[\tn{mtu}][k]{\phi^k} \tn{d} \phi^k \right).
 \end{align}
-Where $\rho$ is a parameter that approximates the effect of the pennation angle 
-of the muscle fibers. The variable length moment arms also govern the torque a
-muscle produces about a joint according to
+Where $\rho$ is a parameter that approximates the effect of the pennation angle
+of the muscle fibers and $\phi_0^j$ and $\phi_0^k$ are reference joint angles at
+which the MTU settles to its rest length $(l_\tn{opt} + l_\tn{slack})$. The
+variable length moment arms also govern the torque a muscle produces about a
+joint according to
 \begin{align}
     \tau_\tn{mtu} = \func{r}[\tn{mtu}][j]{\phi^j} F_\tn{mtu}.
     \label{eq:muscle_moment}

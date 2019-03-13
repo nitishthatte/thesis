@@ -72,7 +72,15 @@ monoarticular knee flexor (see \cref{fig:pros_and_nm_model}). This muscle helps
 prevent knee over extension via length feedback of the form
 \begin{align}
     \func{S}[][\tn{bfsh}]{t} &= S_0^\tn{bfsh} + G_\tn{bfsh}^\tn{bfsh}
-        \func{L}[\tn{bfsh}][]{t_\tn{l}}\label{eq:bfsh_stim}
+        \func{L}[\tn{bfsh}][]{t_\tn{l}}\label{eq:bfsh_stim}.
+\end{align}
+In this model, knee over extension is further prevented by inhibiting the vastus
+in proportion to the BFsH length. Consquently, the vastus stimulation becomes 
+\begin{align}
+\func{S}[][\tn{vas}]{t} &= S_0^\tn{vas} 
+    + G_\tn{vas}^\tn{vas} \func{F}[\tn{vas}][]{t_\tn{m}} 
+    - G_\tn{vas}^\tn{bfsh} \func{L}[\tn{bfsh}][]{t_\tn{m}}.
+    \label{eq:vas_stim_w_bfsh}
 \end{align}
 The properties of BFsH muscle (as well the properties of the other muscles) are
 based on human physiological parameters described in \citet{song2015neural}.

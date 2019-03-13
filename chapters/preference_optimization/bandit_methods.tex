@@ -121,29 +121,32 @@ add constant bias angles to the joint encoder readings so that at joint $j$,
 We hand-tune these bias parameters for each bandit and subject to ensure the
 bandits work as well as possible.
  
-\begin{table}    
+\begin{margintable}[-3in]    
     \centering
+    \small
     \begin{tabular}{ll|l}
-        \multicolumn{2}{c|}{Speed-Independent} & Speed-Dependent \\
+        \multicolumn{2}{c|}{Speed-Independent} & Speed- \\
+                                         &     & Dependent \\
         \midrule
-        HAM $F_\tn{max}$                    & HAM $\phi_0^\tn{hip}$   & HAM F+ Gain         \\
-        VAS $F_\tn{max}$                    & HAM $\phi_0^\tn{knee}$  & VAS F+ Gain         \\
-        BFsH $F_\tn{max}$                   & VAS $\phi_0$            & GAS F+ Gain         \\
-        GAS $F_\tn{max}$                    & BFsH $\phi_0$           & SOL F+ Gain         \\
-        SOL $F_\tn{max}$                    & GAS $\phi_0^\tn{knee}$  & SOL on TA F- Gain   \\
-        TA  $F_\tn{max}$                    & GAS $\phi_0^\tn{ankle}$ & BFSH L+ Gain        \\
-        BFsH $l_\tn{ce}^\tn{offset}$        & SOL $\phi_0$            & BFSH on VAS L- Gain \\
-        BFSH on VAS $l_\tn{ce}^\tn{offset}$ & TA  $\phi_0$            & TA L+ Gain          \\
-        TA $l_\tn{ce}^\tn{offst}$           & VAS $S_0$               &                     \\
-                                            & HAM $S_0$               &                     \\
+        $F_\tn{max}^\tn{ham}$            & ham $\phi_0^\tn{hip}$   & $^{F+}G_\tn{ham}^\tn{ham}$   \\
+        $F_\tn{max}^\tn{vas}$            & ham $\phi_0^\tn{knee}$  & $^{F+}G_\tn{vas}^\tn{vas}$   \\
+        $F_\tn{max}^\tn{bfsh}$           & vas $\phi_0$            & $^{F+}G_\tn{gas}^\tn{gas}$   \\
+        $F_\tn{max}^\tn{gas}$            & bfsh $\phi_0$           & $^{F+}G_\tn{sol}^\tn{sol}$   \\
+        $F_\tn{max}^\tn{sol}$            & gas $\phi_0^\tn{knee}$  & $^{F-}G_\tn{sol}^\tn{ta}$    \\
+        $F_\tn{max}^\tn{ta}$             & gas $\phi_0^\tn{ankle}$ & $^{L+}G_\tn{bfsh}^\tn{bfsh}$ \\
+        $^\tn{off}l_\tn{bfsh}^\tn{bfsh}$ & sol $\phi_0$            & $^{L-}G_\tn{bfsh}^\tn{vas}$  \\
+        $^\tn{off}l_\tn{bfsh}^\tn{vas}$  & ta  $\phi_0$            & $^{L+}G_\tn{ta}^\tn{ta}$     \\
+        $^\tn{off}l_\tn{ta}^\tn{ta}$     & $S_0^\tn{vas}$          & \\
+                                         & $S_0^\tn{ham}$          & \\
     \end{tabular}
-    \caption{Optimized parameters, $\Gamma$. Speed-independent parameters use a
-    single value for all speeds, while speed dependent parameters have distinct
-    values for \unitfrac[0.8, 1.2, and 1.6]{m}{s} gaits. Consequently, in total
-    we optimize 43 parameters. $F_{max}$ refers to a muscle's maximum isometric
-    force, $\phi_0$ is a parameter used for muscle moment arm calculations, and
-    $S_0$ is a muscle's pre-stimulation.}\label{tab:params}
-\end{table}
+    \caption[Parameters optimized to generate parameter sets for dueling bandits
+    optimization]{Optimized parameters, $\Gamma$. Speed-independent parameters
+    use a single value for all speeds, while speed dependent parameters have
+    distinct values for \unitfrac[0.8, 1.2, and 1.6]{m}{s} gaits. Consequently,
+    in total we optimize 43 parameters. $F_\tn{max}$ refers to a muscle's maximum
+    isometric force, $\phi_0$ is a parameter used for muscle moment arm
+    calculations, and $S_0$ is a muscle's pre-stimulation.}\label{tab:params}
+\end{margintable}
 
 \begin{figure}
     \centering 

@@ -12,9 +12,9 @@ is the time-delayed proprioceptive signal from muscle $n$, and $G_n^m$ is the
 gain on that signal. The proprioceptive signal can take the form of force
 feedback, $\func{F}[\tn{n}][m]{\cdot}$, which uses the time delayed tendon
 force, or length feedback, $\func{L}[\tn{n}][m]{\cdot} =
-\func{l}[\tn{CE},n][]{\cdot} - l_{\tn{off}, n}$, which uses the difference
-between the length of the contractile element and an offset length
-$l_n^\tn{off}$.
+\func{l}[n][\tn{CE}]{\cdot} - ^\tn{off}l_{n}^{m}$, which uses the difference
+between the length of the contractile element of muscle $n$ and an offset length
+^\tn{off}l_{n}^{m}$.
 
 The time delay we apply to proprioceptive signals estimate the round-trip neural
 signal transmission delay of afferent signals from muscle spindles and Golgi
@@ -59,16 +59,17 @@ force feedback helps prevent hip flexion caused by heel-strike.
 A second mechanism further protects the knee by inhibiting the vastus
 stimulation in proportion to knee extension beyond a threshold, resulting in
 the complete vastus stimulation
+\begin{fullwidth}
 \begin{align}
     \func{S}[][\tn{vas}]{t} &= S_0^\tn{vas} + 
         G_\tn{vas}^\tn{vas} \func{F}[\tn{vas}][]{t_\tn{m}} 
-            -k_\phi \left(\phi_\tn{k}(t_\tn{m}) - \phi_\tn{k}^\tn{off} \right)
-            \notag \\
-        &\quad \times 
-            \left( \phi_\tn{k}(t_\tn{m}) < \phi_\tn{k}^\tn{off} \right)
-            \left( \dot \phi_\tn{k}(t_\tn{m}) < 0\right)
+            -G_\tn{knee}^\tn{vas} \left(\phi_\tn{knee}(t_\tn{m}) -
+            ^\tn{off}\phi_\tn{knee} \right)
+            \left( \phi_\tn{knee}(t_\tn{m}) < ^\tn{off}\phi_\tn{knee} \right)
+            \left( \dot \phi_\tn{knee}(t_\tn{m}) < 0\right)
 \end{align}
-where $\phi_\tn{k}^\tn{off}$ is the angle beyond which the vastus is inhibited.
+\end{fullwidth}
+where $^\tn{off}\phi_\tn{knee}$ is the angle beyond which the vastus is inhibited.
 
 The reflexes achieve the final function of balancing the trunk by
 proportional-derivative control that produces stimulations for the hip muscles
@@ -81,9 +82,9 @@ stimulation becomes
 \begin{align}
     \func{S}[][\tn{ham}]{t} &= S_0^\tn{ham} + 
         G_\tn{ham}^\tn{ham} \func{F}[\tn{ham}][]{t_\tn{s}} \notag\\
-            &\quad +  \left\{ k_\tn{p}^\tn{ham} 
-            (\phi_\tn{trunk}(t_\tn{s}) - \phi_{\tn{ref}}) 
-            + k_\tn{d}^\tn{ham} \dot{\phi}_{\tn{trunk}}(t_\tn{s}) \right\}_+ 
+            &\quad +  \left\{ G_\tn{p}^\tn{ham} 
+            (\phi_\tn{trunk}(t_\tn{s}) - \phi_\tn{trunk}^\tn{ref}) 
+            + G_\tn{d}^\tn{ham} \dot{\phi}_{\tn{trunk}}(t_\tn{s}) \right\}_+ 
 \end{align}
 where the third term returns the positive reflex contribution from the trunk
 balance control. 
@@ -102,21 +103,22 @@ The full set of stance reflexes are:
         \label{eq:gas_stim_full}\\
     \func{S}[][\tn{vas}]{t} &= S_0^\tn{vas} + 
         G_\tn{vas}^\tn{vas} \func{F}[\tn{vas}][]{t_\tn{m}} 
-        -k_\phi \left( \phi_\tn{k}(t_\tn{m}) - \phi_\tn{k}^\tn{off} \right) 
-        \left( \phi_\tn{k}(t_\tn{m}) < \phi_\tn{k}^\tn{off} \right)
-        \left( \dot \phi_\tn{k}(t_\tn{m}) < 0\right)    
+        -G_\tn{knee}^\tn{vas}\left( \phi_\tn{knee}(t_\tn{m}) -
+        ^\tn{off}\phi_\tn{knee} \right) 
+        \left( \phi_\tn{knee}(t_\tn{m}) < ^\tn{off}\phi_\tn{knee} \right)
+        \left( \dot \phi_\tn{knee}(t_\tn{m}) < 0\right)    
         \label{eq:vas_stim_full}\\
     \func{S}[][\tn{ham}]{t} &= S_0^\tn{ham} + 
         G_\tn{ham}^\tn{ham} \func{F}[\tn{ham}][]{t_{s}} 
-        + \left\{ k_\tn{p}^\tn{ham} (\phi_{\tn{trunk}} - \phi_{\tn{ref}}) 
-        + k_\tn{d}^\tn{ham} \dot{\phi}_{\tn{trunk}} \right\}_+
+        + \left\{ G_\tn{p}^\tn{ham} (\phi_{\tn{trunk}} - \phi_\tn{trunk}^\tn{ref}) 
+        + G_\tn{d}^\tn{ham} \dot{\phi}_{\tn{trunk}} \right\}_+
         \label{eq:ham_stim_full} \\
     \func{S}[][\tn{glu}]{t} &= S_0^\tn{glu} + 
         G_\tn{glu}^\tn{glu} \func{F}[\tn{glu}][]{t_{s}}
-        + \left\{ k_\tn{p}^\tn{glu} (\phi_{\tn{trunk}} - \phi_{\tn{ref}}) 
-        + k_\tn{d}^\tn{glu} \dot{\phi}_{\tn{trunk}} \right\}_+  \\
+        + \left\{ G_\tn{p}^\tn{glu} (\phi_{\tn{trunk}} - \phi_\tn{trunk}^\tn{ref}) 
+        + G_\tn{d}^\tn{glu} \dot{\phi}_{\tn{trunk}} \right\}_+  \\
     \func{S}[][\tn{hfl}]{t} &= S_0^\tn{hfl} + 
-        \left\{ k_\tn{p}^\tn{hfl} (\phi_{\tn{trunk}} - \phi_{\tn{ref}}) 
-        + k_\tn{d}^\tn{hfl} \dot{\phi}_{\tn{trunk}} \right\}_- 
+        \left\{ G_\tn{p}^\tn{hfl} (\phi_{\tn{trunk}} - \phi_\tn{trunk}^\tn{ref}) 
+        + G_\tn{d}^\tn{hfl} \dot{\phi}_{\tn{trunk}} \right\}_- 
 \end{align}    
 \end{fullwidth}
