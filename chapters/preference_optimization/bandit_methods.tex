@@ -1,5 +1,8 @@
 \section{Bandit Approach Methods} 
 
+\todo{clean up this section because I've been cutting and pasting out of it into
+earilier in the document}
+
 \subsection{Transfemoral Prosthesis Design and Control}
 In this study, we use a transfemoral prosthesis and high-level neuromuscular
 control that we first presented in \citet{thatte2016toward}. We briefly review
@@ -28,27 +31,7 @@ torque by commanding desired motor velocity. The behavioral level generates the
 desired joint torques for the knee and ankle. We further subdivide the behavior
 level into its stance and swing components.
 
-During stance, the behavioral control simulates six virtual Hill-type muscle
-tendon units that span the knee and ankle joints. The muscles include soleus
-(SOL), gastrocnemius (GAS), tibialis anterior (TA), biceps femoris short head
-(BFsH), vastus (VAS), and hamstring (HAM). The properties of these muscles are
-based on human physiological parameters described in \citet{song2015neural}.
-Reflexes, primarily in the form of force or length feedbacks, stimulate the
-muscles, which produce torque about the knee and ankle joints through
-angle-dependent moment arms. The reflex structure aims to provide compliant
-behavior and ankle push off while also preventing knee over extension.
-
-During swing, we use the minimum-jerk trajectory controller proposed by
-\citet{lenzi2014speed}, which automatically adapts to walking speed and produces
-human-like trajectories. At every toeoff, the control method generates a pair of
-minimum jerk trajectories for each joint: one that starts at the toeoff angle,
-velocity and acceleration and reaches peak knee flexion or ankle dorsiflexion
-and another that goes from the peak flexion state to the heel strike state. The
-knee and ankle joints are set to \unit[65 and 2]{deg} at peak flexion and
-\unit[2 and -5]{deg} at heel strike respectively. The swing phase lasts for 60\%
-of the previous stance phase duration. 
-
-\subsection{Optimization method}
+\subsection{Optimization method}\label{sec:bandit_optimization}
 
 To optimize the control parameters of this neuromuscular transfemoral prosthesis
 control for specific users, we frame the task as a $K$-armed dueling bandits
@@ -142,7 +125,7 @@ bandits work as well as possible.
     \centering
     \begin{tabular}{ll|l}
         \multicolumn{2}{c|}{Speed-Independent} & Speed-Dependent \\
-        \hline
+        \midrule
         HAM $F_\tn{max}$                    & HAM $\phi_0^\tn{hip}$   & HAM F+ Gain         \\
         VAS $F_\tn{max}$                    & HAM $\phi_0^\tn{knee}$  & VAS F+ Gain         \\
         BFsH $F_\tn{max}$                   & VAS $\phi_0$            & GAS F+ Gain         \\

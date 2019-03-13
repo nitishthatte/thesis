@@ -92,10 +92,11 @@ balance control.
 The full set of stance reflexes are:
 \begin{align}    
     \func{S}[][\tn{sol}]{t} &= S_0^\tn{sol} + 
-        G_\tn{sol}^\tn{sol} \func{F}[\tn{sol}][]{t_\tn{l}} \\
+        G_\tn{sol}^\tn{sol} \func{F}[\tn{sol}][]{t_\tn{l}}
+        \label{eq:sol_stim}\\
     \func{S}[][\tn{ta}]{t} &= S_0^\tn{ta} + 
         G_\tn{ta}^\tn{ta} \func{L}[\tn{ta}][]{t_\tn{l}} - G_\tn{sol}^\tn{ta} 
-        \func{F}[\tn{sol}][]{t_\tn{l}}\\
+        \func{F}[\tn{sol}][]{t_\tn{l}} \label{eq:ta_stim}\\
     \func{S}[][\tn{gas}]{t} &= S_0^\tn{gas} + 
         G_\tn{gas}^\tn{gas} \func{F}[\tn{gas}][]{t_\tn{l}} 
         \label{eq:gas_stim_full}\\

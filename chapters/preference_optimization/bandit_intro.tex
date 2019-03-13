@@ -56,17 +56,6 @@ representation to model an amputee's gait and find the appropriate impedance
 control parameters. In these approaches however, it is unclear how well the
 resultant parameters suit the subject when executed on actual hardware.
 
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=0.9\textwidth]{pros_and_nm_model}
-    \caption{a) Custom transfemoral prosthesis with series elastic actuators. In
-    this study, we use an adaptor to test the prosthesis with able-bodied
-    subjects.\ b) During stance, we control the prosthesis using a neuromuscular
-    model that generates joint torques through virtual muscles that are
-    stimulated by hypothesized local reflex
-    pathways.}\label{fig:prosthesis_bandit_opt}
-\end{figure*}
-
 In this paper, we tackle these issues by framing prosthesis optimization as a
 dueling bandits problem \citep{yue2012k}. The resulting approach utilizes the
 subject's preferences to include subjective user feedback in the tuning process.

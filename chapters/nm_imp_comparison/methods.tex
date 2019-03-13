@@ -1,0 +1,45 @@
+\section{Methods}
+
+\subsection{Control Optimization}
+To obtain suitable parameters for the neuromuscular and impedance control
+methods we rely on the dueling bandits optimization approach outlined in
+\cref{sec:bandit_optimization}. We make a few modifications to the approach
+outlined previously. First, whereas in \cref{sec:bandit_optimization} we
+optimized control parameters to match gait data at different speeds to achieve a
+speed-adaptive control, in this work, we optimize control parameters to match
+both undisturbed and disturbed gait in order to improve the robust a control as
+possible. We utilize the gait data provided by \citet{moore2015elaborate}, which
+provides gait data during undisturbed walking and walking with treadmill
+velocity disturbances. 
+
+Second, we slightly simplify the neuromuscular prosthesis control that was used
+in \cref{sec:preference_optimization} by removing the BFsH muscle and returning
+to the set of reflexes listed in
+
+optimize the parameters
+listed in \cref{tab:nm_params_treadmill_exp} to minimize the follow cost
+
+\begin{margintable}    
+    \centering
+    \begin{tabular}{ll}
+        \hline
+        HAM $F_\tn{max}$                    & HAM F+ Gain         \\
+        VAS $F_\tn{max}$                    & VAS F+ Gain         \\
+        GAS $F_\tn{max}$                    & GAS F+ Gain         \\
+        SOL $F_\tn{max}$                    & SOL F+ Gain         \\
+        TA  $F_\tn{max}$                    & SOL on TA F- Gain   \\
+                                            & TA L+ Gain          \\
+        TA $l_\tn{ce}^\tn{offst}$           & VAS $S_0$           \\
+                                            & HAM $S_0$           \\
+    \end{tabular}
+    \caption{Optimized parameters, $\Gamma$. Speed-independent parameters use a
+    single value for all speeds, while speed dependent parameters have distinct
+    values for \unitfrac[0.8, 1.2, and 1.6]{m}{s} gaits. Consequently, in total
+    we optimize 43 parameters. $F_{max}$ refers to a muscle's maximum isometric
+    force, $\phi_0$ is a parameter used for muscle moment arm calculations, and
+    $S_0$ is a muscle's pre-stimulation.}\label{tab:nm_params_treadmill_exp}
+\end{margintable}
+
+\subsection{Disturbance}
+
+\subsection{Experimental Protocol}
