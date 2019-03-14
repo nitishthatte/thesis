@@ -16,19 +16,6 @@ elasticity, electrical dynamics, gear ratios, and resultant reflected inertias
 of the actuators, and assumes a low-level current-based SEA control achieves
 desired torques \citep{pratt1995series}.
 
-To generate the reference torques for the SEAs, we use a hybrid neuromuscular
-control that blends the muscle based stance-control
-(\cref{sec:neuro_stance_reflexes}) with the idealized swing leg placement
-control \cref{sec:neuro_swing_reflexes}. We make make two modifications to the
-prosthesis-side swing leg control.  First, on the prosthesis-side hip we remove
-the feed-forward term that neutralizes the disturbance created by the knee's
-stop and extend phase (\cref{eq:hipfeedforward}), requiring that feedback
-control deal with this torque.  Second, we do not use the adaptive leg placement
-policy of the swing control (\cref{eq:simbicon}) as the prosthesis does not have
-access to information about the amputee's center of mass and stance leg ankle
-position.  Instead the prosthesis swing leg control employs a constant target
-leg angle, $\alpha_\tn{tgt} = const$.
-
 To compare the performance of the proposed control, we also simulate the
 commonly-used impedance control method, described in detail in
 \cref{sec:back_dynamic_pros_control}, \todo{check reference} at the behavior

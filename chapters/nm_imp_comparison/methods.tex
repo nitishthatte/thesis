@@ -1,0 +1,48 @@
+\section{Methods}
+
+\subsection{Control Optimization}
+To obtain suitable parameters for the neuromuscular and impedance control
+methods we rely on the dueling bandits optimization approach outlined in
+\cref{sec:bandit_optimization}. We make a few modifications to the approach
+outlined previously. First, whereas in \cref{sec:bandit_optimization} we
+optimized control parameters to match gait data at different speeds to achieve a
+speed-adaptive control, in this work, we optimize control parameters to match
+both undisturbed and disturbed gait in order to obtain robust control
+parameters. We use the dataset provided by \citet{moore2015elaborate}, which
+provides gait data for undisturbed walking and walking with treadmill velocity
+disturbances. 
+
+For the neuromuscular control, we use the black-box CMA-ES
+optimizer~\citep{hansen2006cma} to obtain parameters that can reproduce the
+behavior of each subject in the gait datset. We optimize the parameters listed
+in \cref{tab:nm_params_treadmill_exp} to minimize the following cost function:
+\begin{margintable}    
+    \centering
+    \normalsize
+    \begin{tabular}{ll}
+        \multicolumn{2}{l}{Optimized Parameters} \\
+        \midrule
+        $F_\tn{max}^\tn{ham}$              & $^{F+}G_\tn{ham}^\tn{ham}$   \\
+        $F_\tn{max}^\tn{vas}$              & $^{F+}G_\tn{vas}^\tn{vas}$   \\
+        $F_\tn{max}^\tn{gas}$              & $^{F+}G_\tn{gas}^\tn{gas}$   \\
+        $F_\tn{max}^\tn{sol}$              & $^{F+}G_\tn{sol}^\tn{sol}$   \\
+        $F_\tn{max}^\tn{ta}$               & $^{F-}G_\tn{sol}^\tn{ta}$    \\
+        $^\tn{off}l_\tn{ta}^\tn{ta}$       & $^{L+}G_\tn{ta}^\tn{ta}$     \\
+        $^\tn{off}\phi_\tn{knee}^\tn{vas}$ & ${^\phi}G_\tn{knee}^\tn{vas}$ \\
+        $S_0^\tn{vas}$                     & $\epsilon_\tn{SE}^\tn{ap}$   \\
+        $S_0^\tn{ham}$                     & $F_\tn{init}^\tn{ham}$       \\
+    \end{tabular}
+    \caption[Parameters optimized for parameter set generation for experiment
+    comparing neuromuscular and impedance control]{Optimized parameters,
+    $\Gamma$. We optimize 18 parameters. $F_\tn{max}^m$ refers to muscle $m$'s
+    maximum isometric force, $S_0^m$ is muscle $m$'s pre-stimulation,
+    $^{\tn{signal}G_n^m}$ is the gain on a feedback signal from muscle $n$
+    acting on muscle $m$, $\epsilon_\tn{SE}^\tn{ap}$ is the tendon reference
+    strain of the ankle plantarflexors (sol and gas) and $F_\tn{init}^\tn{ham}$
+    is the initial force in the hamstring MTU at
+    heelstrike.\label{tab:nm_params_treadmill_exp}
+\end{margintable}
+
+\subsection{Disturbance}
+
+\subsection{Experimental Protocol}
