@@ -171,6 +171,12 @@
 \crefname{tasksi}{task}{tasks}
 \Crefname{tasksi}{Task}{Tasks}
 
+\newlist{days}{enumerate}{10}
+\setlist[days]{label=\emph{Day \arabic*:}, ref=\arabic*,
+    align=left, listparindent=\parindent, parsep=0pt}
+\crefname{daysi}{day}{days}
+\Crefname{daysi}{Day}{Days}
+
 \newcommand{\thesistitle}{Design and Evaluation of Robust Control Methods for
 Robotic Transfemoral Prostheses}
 

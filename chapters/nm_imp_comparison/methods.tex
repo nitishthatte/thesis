@@ -39,7 +39,7 @@ disturbances.
 \end{margintable}
 For the neuromuscular control, we use the black-box CMA-ES
 optimizer~\citep{hansen2006cma} to obtain parameters that can reproduce the
-behavior of each subject in the gait datset. The model proceeds by feeding joint
+behavior of each subject in the gait dataset. The model proceeds by feeding joint
 hip, knee, and ankle angles into the neuromuscular model which generates torques
 for the knee and ankle. We optimize the parameters listed in
 \cref{tab:nm_params_treadmill_exp} so the model's output torques match those in
@@ -73,7 +73,7 @@ gait data pass from phase 1 to phase 2. As we use gait data with disturbances,
 this procedure automatically sets the threshold such that it allows for a large
 degree of gait variation. Next, we identify the ankle angle threshold that
 defines the transition between stance phases 2 and 3. Again, we set this
-threshold such that 95\% of steps succesfully complete the transition.
+threshold such that 95\% of steps successfully complete the transition.
 
 Once we identify the joint angle thresholds that define state transitions, we
 next fit the impedance parameters within each phase. In each phase, the torque
@@ -96,7 +96,7 @@ between the subject's joint torque and the impedance control model is
 To calculate the impedance parameters for each phase we minimize the squared
 error subject to the constraints that $k>0$ and ${b > 0}$, which ensures that
 the resulting impedance models are stable. Finally, to obtain model parameters
-that arerobust to outlier steps in the dataset, we utilize the RANSAC procedure,
+that are robust to outlier steps in the dataset, we utilize the RANSAC procedure,
 which iteratively solves the above optimization on randomly sampled subsets of
 the data in order to classify and fit to inliers only
 \citep{fischler1981random}.
@@ -115,7 +115,7 @@ the data in order to classify and fit to inliers only
 
 \Cref{fig:treadmill_imp_fit} shows an example of the impedance control model
 optimized to match one subject's gait data. In this figure, the color of the
-lines indicatse the phase of gait. We see that the majority of steps fit the
+lines indicates the phase of gait. We see that the majority of steps fit the
 subject's joint moments (grey) well. However, there are a few steps for which
 the color of the line and thus the phase does not transition properly.
 Consequently, the resulting torque diverges greatly from the human data. This is
@@ -123,8 +123,100 @@ expected as the phase transition angles were selected such that 95\% of steps
 pass through each phase transition. We did not allow 100\% percent of steps
 through so as to ignore potential outlier steps.
 
-\subsection{Iterative Learning}
+\subsection{Iterative Learning}\label{sec:treadmill_exp_iterative_learning}
+In~\cref{sec:bandit_methods}, in order to compensate for kinematic differences
+between the joint angles in the gait dataset and the joint angles of the
+prosthesis, we applied hand-tuned offsets to the measured prosthesis joint
+angles before calculating the neuromuscular model torques
+(\cref{eq:bias_param}). These offsets helped ensure the prosthesis achieved
+comfortable levels of ankle dorsiflexion, and prevent knee over extension (or
+flexion) during stance. In this experiment, in order to reduce the potential for
+bias induced by hand tuning, we take a more systematic, iterative learning
+approach to tuning these offsets.
+
+During the iterative learning procedure, a subject walks with each parameter set
+for both the neuromuscular and impedance controllers. The knee and ankle angle
+trajectories during stance are recorded and after each step, the following
+update rules are applied to the knee and ankle joint offsets
+\begin{fullwidth}
+\begin{align}
+    \theta_\tn{knee}^\tn{offset} &\leftarrow \theta_\tn{knee}^\tn{offset} +
+    k_\tn{lrn} \left(\theta_\tn{knee}^\tn{ext} - \theta_\tn{knee}^\tn{ext,tgt} \right)
+    \left(\theta_\tn{knee}^\textrm{flex} < \theta_\tn{knee}^\tn{flex,max}
+    \textrm{~OR~} \theta_\tn{knee}^\tn{ext} > \theta_\tn{knee}^\tn{ext,tgt}\right)\\
+    \theta_\tn{ankle}^\tn{offset} &\leftarrow \theta_\tn{ankle}^\tn{offset} +
+    k_\tn{lrn} \left(\theta_\tn{ankle}^\tn{flex} - \theta_\tn{ankle}^\tn{flex,tgt} \right),
+\end{align}
+\end{fullwidth}
+where $k_\tn{lrn} = 0.05$ controls the learning rate,
+$\theta_\tn{knee}^\tn{ext}$ and $\theta_\tn{knee}^\tn{ext,tgt} = 0^\circ$ are
+the measured and target knee extension in mid-stance respectively and
+$\theta_\tn{ankle}^\tn{flex}$ and $\theta_\tn{ankle}^\tn{flex,tgt} = 12^\circ$
+are the measured and target ankle dorsiflexion in mid-stance respectively. The
+conditional terms in the knee iterative learning rule prevent the knee offset
+angle from inducing more knee flexion if the knee flexion in early stance
+$\theta_\tn{knee}^\textrm{flex}$ crosses a threshold
+$\theta_\tn{knee}^\tn{flex,max} = 10^\circ$.
+
+\subsection{Treadmill Disturbance}\label{sec:treadmill_exp_disturbance}
 
 \subsection{Experimental Protocol}
 
-We seek to evaluate the robustness of the
+In our experiment, we evaluate the robustness and user ratings the neuromuscular
+and impedance controllers in an experiment with able-bodied subjects wearing the
+prosthesis via an adaptor. All subjects provided informed consent to
+IRB-approved protocols. Subject's participated in a six-day procedure:
+
+\todo{subject stats}
+
+\begin{days}
+    \item\label{list:exp_day_1} \emph{Practice Session} Subjects practiced
+    walking on the prosthesis until they could achieve consistent gait without
+    the use of hand-rails. Subjects who could not achieve hands free walking by
+    the end of the two-hour practice session did not continue with the
+    experiment.
+
+    \item\label{list:exp_day_2} \emph{Practice Session} Subjects returned for a
+    second day of practice walking on the prosthesis without the use of hand
+    rails. In addition, on this day subjects practiced walking with the
+    disturbance described in \cref{sec:treadmill_exp_disturbance}. This session
+    lasted for 2 hours.
+
+    \item\label{list:exp_day_3} \emph{Iterative Learning} Subjects walked with
+    each of the nine parameter sets for each controller while the iterative
+    learning procedure (\cref{sec:treadmill_exp_iterative_learning}) tuned the
+    joint angle offsets. 
+
+    \item\label{list:exp_day_4} \emph{Dueling Bandits Optimization} We performed
+    the dueling bandits optimization procedure (\cref{sec:bandit_methods}) to
+    find each subject's preferred parameters with both controllers. The order in
+    which we optimized the controller was chosen randomly.
+
+    \item\label{list:exp_day_5} \emph{Disturbance Experiment - Practice} We
+    performed a practice session for the full disturbance experiment. First,
+    subjects walked without the prosthesis at \unitfrac[0.8]{m}{s} for
+    \unit[2]{minutes} without disturbances and then \unit[2]{minutes} with the
+    treadmill velocity disturbance applied. After these no-prosthesis trials
+    were completed, subjects donned the prosthesis and tested the neuromuscular
+    and impedance controllers in five rounds of experiments, each consisting of
+    three trials. In each trial, subjects walked without disturbances for
+    \unit[1]{minute} and with disturbances for \unit[1]{minute}. In each round
+    of trials, the subjects tested their preferred neuromuscular and impedance
+    control parameters along with a set of suboptimal parameters for one
+    controller type. Odd numbered subjects tested a suboptimal neuromuscular
+    parameter set, while even numbered subjects tested a suboptimal impedance
+    parameter set. For the suboptimal parameter set we chose the parameter set
+    that ranked \#3/9 in terms of cumulative Copeland score at the end of the
+    dueling bandits experiment.
+
+    \item\label{list:exp_day_6} \emph{Disturbance Experiment - Data Collection}
+    The procedure for this day was identical to that of \cref{list:exp_day_5}.
+    Subjects wore Vicon motion capture markers during all trials, which captured
+    the kinematics of the legs. Additionally, subjects wore a torso-mounted IMU
+    that measured the roll and pitch torso angles during walking. During trials,
+    we recorded the number of falls (measured as the number of times subjects
+    needed to use the hand rails or the ceiling-mounted hardness to recover
+    balance) and the user ratings for both the undisturbed and disturbed
+    conditions of each trial. 
+    
+\end{days}
