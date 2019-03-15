@@ -1,16 +1,6 @@
 \section{Methods}
 
 \subsection{Parameter Generation}
-To obtain suitable parameters for the neuromuscular and impedance control
-methods we rely on the dueling bandits optimization approach outlined in
-\cref{sec:bandit_optimization}. Whereas in \cref{sec:bandit_optimization} we
-optimized control parameters to match gait data at different speeds to achieve a
-speed-adaptive control, in this work, we optimize control parameters to match
-both undisturbed and disturbed gait in order to obtain robust control
-parameters. We use the dataset provided by \citet{moore2015elaborate}, which
-provides gait data for undisturbed walking and walking with treadmill velocity
-disturbances. 
-
 \begin{margintable}    
     \centering
     \normalsize
@@ -37,6 +27,16 @@ disturbances.
     is the initial force in the hamstring MTU at
     heelstrike.}\label{tab:nm_params_treadmill_exp}
 \end{margintable}
+To obtain suitable parameters for the neuromuscular and impedance control
+methods we rely on the dueling bandits optimization approach outlined in
+\cref{sec:bandit_optimization}. Whereas in \cref{sec:bandit_optimization} we
+optimized control parameters to match gait data at different speeds to achieve a
+speed-adaptive control, in this work, we optimize control parameters to match
+both undisturbed and disturbed gait in order to obtain robust control
+parameters. We use the dataset provided by \citet{moore2015elaborate}, which
+provides gait data for undisturbed walking and walking with treadmill velocity
+disturbances. 
+
 For the neuromuscular control, we use the black-box CMA-ES
 optimizer~\citep{hansen2006cma} to obtain parameters that can reproduce the
 behavior of each subject in the gait dataset. The model proceeds by feeding joint
@@ -57,9 +57,8 @@ example of the fit achieved to one subject's joint moments.
 \begin{figure}[t]
     \centering 
     \includegraphics[width=\textwidth]{nm_fit}
-    \caption{Example of fit to subject data achieved by neuromuscular model to
-    subject 5's data from
-    \citet{moore2015elaborate}.}\label{fig:treadmill_nm_fit}
+    \caption{Example of fit to subject data achieved by neuromuscular
+    model.}\label{fig:treadmill_nm_fit}
 \end{figure}
 
 \todo{fix reference}
@@ -101,18 +100,6 @@ which iteratively solves the above optimization on randomly sampled subsets of
 the data in order to classify and fit to inliers only
 \citep{fischler1981random}.
 
-\begin{figure}[t]
-    \centering 
-    \includegraphics[width=\textwidth]{imp_fit}
-    \caption[Example of fit to subject data achieved by impedance control model
-    to subject 5's data from \citet{moore2015elaborate}]{Example of fit to
-    subject data achieved by impedance control model to subject 5's data from
-    \citet{moore2015elaborate}. Note that green trajectories in knee moment plot
-    and blue trajectories in ankle moment plot that do not track subject data
-    are those that did not successfully transition to the next
-    phase.}\label{fig:treadmill_imp_fit}
-\end{figure}
-
 \Cref{fig:treadmill_imp_fit} shows an example of the impedance control model
 optimized to match one subject's gait data. In this figure, the color of the
 lines indicates the phase of gait. We see that the majority of steps fit the
@@ -122,6 +109,16 @@ Consequently, the resulting torque diverges greatly from the human data. This is
 expected as the phase transition angles were selected such that 95\% of steps
 pass through each phase transition. We did not allow 100\% percent of steps
 through so as to ignore potential outlier steps.
+
+\begin{figure}[t]
+    \centering 
+    \includegraphics[width=\textwidth]{imp_fit}
+    \caption[Example of fit to subject data achieved by impedance control
+    model]{Example of fit to subject data achieved by impedance control model
+    to. Note that green trajectories in knee moment plot and blue trajectories
+    in ankle moment plot that do not track subject data are those that did not
+    successfully transition to the next phase.}\label{fig:treadmill_imp_fit}
+\end{figure}
 
 \subsection{Iterative Learning}\label{sec:treadmill_exp_iterative_learning}
 In~\cref{sec:bandit_methods}, in order to compensate for kinematic differences
@@ -159,12 +156,24 @@ $\theta_\tn{knee}^\textrm{flex}$ crosses a threshold
 $\theta_\tn{knee}^\tn{flex,max} = 10^\circ$.
 
 \subsection{Treadmill Disturbance}\label{sec:treadmill_exp_disturbance}
+In our experiment we probe the robustness of the impedance and neuromuscular
+prosthesis controllers. To this end, we disturb gait using treadmill
+velocity disturbances similar to those in the gait dataset we used to generate
+parameters \citep{moore2015elaborate}. During the disturbed walking conditions,
+the treadmill velocity is generated as follows: First, random accelerations are
+sampled from a zero-mean Gaussian distribution with variance
+$\unitfrac[35]{m^2}{s^4}$. These accelerations are saturated to the range, 
+$\unitfrac[{[-15, 15]}]{m}{s^2}$. Next, the acceleration is integrated to obtain a
+velocity signal, which is then high-pass filtered with a passband edge frequency
+of \unit[0.5]{hz} to remove long-term drift in the signal. Finally, a constant
+offset of \unitfrac[0.8]{m}{s} is applied to the velocity signal, which is then
+saturated to the range $\unitfrac[{[0, 3.6]}]{m}{s}$.
 
 \subsection{Experimental Protocol}
 
 In our experiment, we evaluate the robustness and user ratings the neuromuscular
-and impedance controllers in an experiment with able-bodied subjects wearing the
-prosthesis via an adaptor. All subjects provided informed consent to
+and impedance controllers in an experiment with ten able-bodied subjects wearing
+the prosthesis via an adaptor. All subjects provided informed consent to
 IRB-approved protocols. Subject's participated in a six-day procedure:
 
 \todo{subject stats}
@@ -218,5 +227,14 @@ IRB-approved protocols. Subject's participated in a six-day procedure:
     needed to use the hand rails or the ceiling-mounted hardness to recover
     balance) and the user ratings for both the undisturbed and disturbed
     conditions of each trial. 
-    
 \end{days}
+
+We evaluate the robustness of the two control strategies primarily by looking at
+the number of falls experienced by each subject in the no disturbance and
+disturbance cases for each controller. As a baseline, we also compare to the no
+prosthesis case. As secondary measures of gait robustness, we also measure the
+variability of the torso pitch and roll angles . The variability is measured by
+subtracting the median torso angle trajectory over the strides in a condition
+from the corresponding torso angle trajectories. Then the interquartile range
+(IQR) of the median subtracted trajectories is used as the measure of
+variability.
