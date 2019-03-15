@@ -39,15 +39,22 @@ constraints C1 and C2 as
     \prob{\vecf{f}' | D_n, \tn{C1}, \tn{C2}} \tn{d}\vecf{f}'.
     \label{eq:predictive_w_constraints}
 \end{align}
-We use Bayes rule to evaluate the second term in the integral, $\prob{\vecf{f}'
-| D_n, \tn{C1}, \tn{C2}} = \frac{\prob{D_n , \tn{C1.2}, \tn{C2} |\vecf{f}'}
-\prob{\vecf{f}'| \tn{C1.1}}}{\prob{D_n, \tn{C1.2}, \tn{C2} | \tn{C1.1}}}$. We
-form the prior term $\prob{\vecf{f}'|\tn{C1.1}}$ by conditioning the joint
+We use Bayes rule to evaluate the second term in the integral, 
+\begin{align}
+    \prob{\vecf{f}' | D_n, \tn{C1}, \tn{C2}} 
+        = \frac{\prob{D_n , \tn{C1.2}, \tn{C2} |\vecf{f}'}
+            \prob{\vecf{f}'| \tn{C1.1}}}
+        {\prob{D_n, \tn{C1.2}, \tn{C2} | \tn{C1.1}}}.
+\end{align}
+We form the prior term $\prob{\vecf{f}'|\tn{C1.1}}$ by conditioning the joint
 distribution, $\prob{\vecf{c}, \vecf{f}'}$  on $\tn{C1.1}$ given by $\vecf{c} =
-0$. $\prob{\vecf{f}'|\vecf{c}} = \mathcal{N}\left( \vecf{f}'|
-\Sigma_\tn{cf'}^\tn{T} \Sigma_\tn{cc}^{-1} \vecf{c}, \Sigma_\tn{f'f'} -
-\Sigma_\tn{cf'}^\tn{T} \Sigma_\tn{cc}^{-1} \Sigma_\tn{cf'} \right)$ implies
-$\prob{\vecf{f}'|\vecf{c}=0} = \mathcal{N}(\vecf{f}'| 0, \Sigma_\tn{f'|c})$.
+0$. 
+\begin{align}
+    \prob{\vecf{f}'|\vecf{c}} = \mathcal{N}\left( \vecf{f}'|
+    \Sigma_\tn{cf'}^\tn{T} \Sigma_\tn{cc}^{-1} \vecf{c}, \Sigma_\tn{f'f'} -
+    \Sigma_\tn{cf'}^\tn{T} \Sigma_\tn{cc}^{-1} \Sigma_\tn{cf'} \right)
+\end{align}
+implies $\prob{\vecf{f}'|\vecf{c}=0} = \mathcal{N}(\vecf{f}'| 0, \Sigma_\tn{f'|c})$.
 
 We implement the likelihood term by adding extra factors to the likelihood
 in~\cref{eq:bayes_rule} that impose soft constraints representing C1.2 and C2.
