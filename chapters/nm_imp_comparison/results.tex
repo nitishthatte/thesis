@@ -17,7 +17,7 @@ rated significantly more preferably than impedance control. Neither control
 could match the ratings given to the no prosthesis case. Introduction of the
 disturbance caused a significant drop in user rating for all controllers. 
 
-\begin{figure}[h]
+\begin{figure}[t]
     \centering 
     \includegraphics[width=\textwidth]{treadmill_vib_num_falls}
     \caption{Total number of falls across all trials in both the undisturbed and
@@ -34,7 +34,7 @@ disturbance case and both impedance and neuromuscular walking in the disturbance
 case. No significant differences were found directly between the neuromuscular
 and impedance controllers.
 
-\begin{figure}[h]
+\begin{figure}[b]
     \centering 
     \includegraphics[width=\textwidth]{treadmill_vib_torso_var_x}
     \caption{Torso pitch angle variation. Angle variation calculated as the
@@ -46,7 +46,7 @@ and impedance controllers.
     0.001$.}\label{fig:treadmill_exp_torso_var_x}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[t]
     \centering 
     \includegraphics[width=\textwidth]{treadmill_vib_torso_var_y}
     \caption{Torso roll angle variation. Angle variation calculated as the inter
@@ -64,36 +64,7 @@ no disturbance and with disturbance cases. There is also a significant increase
 in torso pitch variability with the impedance control compared to the
 neuromuscular control in the disturbance case.
 
-Finally, \cref{tab:treadmill_exp_fall_reasons} shows a tally of the reasons for
-the observed falls with each controller type when using preferred parameters.
-The reason for each fall was determined from analyzing video recordings and
-logged prosthesis data. The first four categories refer to general losses of
-balance resulting in a fall in the four cardinal directions. Backward falls
-generally resulted from the treadmill suddenly stopping when the prosthesis
-stance leg was still in front of the body, causing a loss of balance backwards.
-The falls forward, left and right were generally more ambiguous in their cause,
-but may be due to improper leg placement. 
-
-The missed stance/swing transitions in the neuromuscular control were caused
-when subjects did not allow the leg angle to cross the $90^\circ$ threshold set
-in stance/swing state machine (compare \cref{fig:stance_swing_state_machine}).
-The missed stance 2/stance 3 transitions occurred with impedance control if the
-user did not dorsiflex the ankle sufficiently to trigger the transition. This
-could cause the knee to produce an extension torque in late stance, making it
-difficult to enter the swing phase (compare \cref{sec:back_impedance}).
-
-In contrast, the knee collapse fall type was triggered with impedance control if
-the user dorsiflexed the ankle too early causing a premature switch to the third
-phase of stance. In this phase, knee torque typically trends towards zero to
-allow for passive flexion of the knee heading into swing. However, in the case
-of a premature switch to the push-off phase, these near-zero knee torques can
-cause the knee to suddenly collapse under the user's weight. 
-
-Finally, trips during swing occurred when using both controllers, but 3x more
-often with impedance control than with neuromuscular control.
-
-
-\begin{table}[h]
+\begin{table}[t]
   \begin{center}
     \begin{tabular}{lcc}
       Fall Types & Neuromuscular & Impedance \\
@@ -113,8 +84,55 @@ often with impedance control than with neuromuscular control.
   classified based on video and logged prosthesis data. An individual Fall can
   be assigned more than one reason.}\label{tab:treadmill_exp_fall_reasons}
 \end{table}
+Finally, \cref{tab:treadmill_exp_fall_reasons} shows a tally of the reasons for
+the observed falls with each controller type when using preferred parameters.
+The reason for each fall was determined from analyzing video recordings and
+logged prosthesis data. The first four categories refer to general losses of
+balance resulting in a fall in the four cardinal directions. Backward falls
+generally resulted from the treadmill suddenly stopping when the prosthesis
+stance leg was still in front of the body, causing a loss of balance backwards.
+The falls forward, left and right were generally more ambiguous in their cause,
+but may be due to improper leg placement. 
 
-\begin{figure}[h]
+The missed stance/swing transitions in the neuromuscular control were caused
+when subjects did not allow the leg angle to cross the $90^\circ$ threshold set
+in stance/swing state machine (compare \cref{fig:stance_swing_state_machine}).
+The missed stance 2/stance 3 transitions occurred with impedance control if the
+user did not dorsiflex the ankle sufficiently to trigger the transition. This
+could cause the knee to produce an extension torque in late stance, making it
+difficult to enter the swing phase (compare \cref{fig:treadmill_imp_fit}).
+
+As shown in \cref{fig:treadmill_exp_phase_success}, the rate at which the
+impedance conrtroller failed to transition through all three stance phases
+significantly increased with the introduction of disturbances.
+\begin{marginfigure}
+    \centering 
+    \includegraphics[width=\textwidth]{phase_success}
+    \caption{Fraction of steps for which impedance control successfully
+    transitions through all three stance phases. Introduction of gait
+    disturbances significantly decreases the transition success rate. Grey bars
+    show the mean success rate across all users. Statistical significance
+    assessed by Welch's $t$-test. $***$:~$p <
+    0.001$.}\label{fig:treadmill_exp_phase_success}
+\end{marginfigure}
+
+In contrast, the knee collapse fall type was triggered with impedance control if
+the user dorsiflexed the ankle too early causing a premature switch to the third
+phase of stance. In this phase, knee torque typically trends towards zero to
+allow for passive flexion of the knee heading into swing. However, in the case
+of a premature switch to the push-off phase, these near-zero knee torques can
+cause the knee to suddenly collapse under the user's weight. 
+
+The last cause of falls, trips during swing, occurred when using both
+controllers, but 3x more often with impedance control than with neuromuscular
+control. Many of the swing trips for impedance control were also preceded by a
+missed stance 2/stance 3 transition. Others occurred when kinematics were
+drastically changed by the disturbance. For example, several swing trips
+occurred after a sudden acceleration of the treadmill caused the stance step
+length to dramatically increase, thereby altering kinematics at toeoff and in
+swing, and leading to the toe hitting the ground mid-swing.
+
+\begin{figure}[b]
     \centering 
     \includegraphics[width=\textwidth]{treadmill_vib_user_scores_subopt}
     \caption{Comparison of user scores of optimal versus suboptimal parameters
@@ -123,14 +141,29 @@ often with impedance control than with neuromuscular control.
     Welch's $t$-test. $**$:~$p <
     0.01$.}\label{fig:treadmill_exp_user_ratings_subopt}
 \end{figure}
+Finally, we look at the effect of using suboptimal controllers on user ratings
+and falls. \Cref{fig:treadmill_exp_num_falls_subopt} shows the median ratings of
+each the preferred and suboptimal parameters for each controller. For
+neuromuscular control, we see no significant difference between the preferred
+controller from day 4 and the suboptimal controllers. In fact for the
+neuromuscular control with disturbances, 4 out of 5 users slightly preferred the
+suboptimal control from day 5. On the whole, choosing a suboptimal set of
+parameters seemed to have a larger effect on impedance control with 4 out of 5
+subjects preferring the optimal to suboptimal with out disturbances and all five
+subjects preferring the optimal impedance parameters to the suboptimal
+parameters in disturbed case.
 
-\begin{figure}[h]
+\Cref{fig:treadmill_exp_num_falls_subopt} shows the median number of falls
+garnered by optimal and suboptimal parameters. In the disturbance case we see a
+increase in the median number of falls with the suboptimal paramete sets over
+the preferred parameter sets. However this difference was not significant.
+
+\begin{figure}[t]
     \centering 
     \includegraphics[width=\textwidth]{treadmill_vib_num_falls_subopt}
     \caption{Comparison of number of falls of optimal versus suboptimal
     parameters for the neuromuscular and impedance control strategies. Grey bars
     show the median number of falls across subjects. Statistical significance
-    assessed by Mann-Whitney $U$
+    assessed by Wilcoxon signed-rank
     test.}\label{fig:treadmill_exp_num_falls_subopt}
 \end{figure}
-
