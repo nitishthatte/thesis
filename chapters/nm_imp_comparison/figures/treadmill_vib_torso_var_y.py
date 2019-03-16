@@ -72,7 +72,7 @@ ax.spines['left'].set_visible(False)
 
 ax.tick_params('x', which='both',length=0)
 
-#ax.set_yticks(np.arange(0, 0.15, 0.05))
+ax.set_yticks(np.arange(0, 0.15, 0.05))
 
 #center all axis labels in bounds
 

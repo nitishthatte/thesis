@@ -57,6 +57,42 @@ and impedance controllers.
     by Welch's $t$-test.$***$:~$p < 0.001$.}\label{fig:treadmill_exp_torso_var_y}
 \end{figure}
 
+\Cref{fig:treadmill_exp_torso_var_x,fig:treadmill_exp_torso_var_y} show the
+torso pitch and roll angle variability respectively. We see significant
+differences between the no prosthesis and with prosthesis cases as well as the
+no disturbance and with disturbance cases. There is also a significant increase
+in torso pitch variability with the impedance control compared to the
+neuromuscular control in the disturbance case.
+
+Finally, \cref{tab:treadmill_exp_fall_reasons} shows a tally of the reasons for
+the observed falls with each controller type when using preferred parameters.
+The reason for each fall was determined from analyzing video recordings and
+logged prosthesis data. The first four categories refer to general losses of
+balance resulting in a fall in the four cardinal directions. Backward falls
+generally resulted from the treadmill suddenly stopping when the prosthesis
+stance leg was still in front of the body, causing a loss of balance backwards.
+The falls forward, left and right were generally more ambiguous in their cause,
+but may be due to improper leg placement. 
+
+The missed stance/swing transitions in the neuromuscular control were caused
+when subjects did not allow the leg angle to cross the $90^\circ$ threshold set
+in stance/swing state machine (compare \cref{fig:stance_swing_state_machine}).
+The missed stance 2/stance 3 transitions occurred with impedance control if the
+user did not dorsiflex the ankle sufficiently to trigger the transition. This
+could cause the knee to produce an extension torque in late stance, making it
+difficult to enter the swing phase (compare \cref{sec:back_impedance}).
+
+In contrast, the knee collapse fall type was triggered with impedance control if
+the user dorsiflexed the ankle too early causing a premature switch to the third
+phase of stance. In this phase, knee torque typically trends towards zero to
+allow for passive flexion of the knee heading into swing. However, in the case
+of a premature switch to the push-off phase, these near-zero knee torques can
+cause the knee to suddenly collapse under the user's weight. 
+
+Finally, trips during swing occurred when using both controllers, but 3x more
+often with impedance control than with neuromuscular control.
+
+
 \begin{table}[h]
   \begin{center}
     \begin{tabular}{lcc}
@@ -98,13 +134,3 @@ and impedance controllers.
     test.}\label{fig:treadmill_exp_num_falls_subopt}
 \end{figure}
 
-\begin{marginfigure}
-    \centering 
-    \includegraphics[width=\textwidth]{phase_success}
-    \caption{Fraction of steps for which impedance control successfully
-    transitions through all three stance phases. Introduction of gait
-    disturbances significantly decreases the transition success rate. Grey bars
-    show the mean success rate across all users. Statistical significance
-    assessed by Welch's $t$-test. $***$:~$p <
-    0.001$.}\label{fig:treadmill_exp_phase_success}
-\end{marginfigure}
