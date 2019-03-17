@@ -41,7 +41,7 @@ ax.set_ylabel('User Rating')
 num_subjects = 10
 bar_color = [0.75, 0.75, 0.75]
 x_pos = np.array((0, 1, 2, 3, 5, 6, 7, 8))
-rand_scatter_pts = 0.05*np.random.randn(int(num_subjects/2))
+scatter_pts = np.linspace(-0.1,0.1,num_subjects/2)
 
 ax.bar(x_pos, np.mean(data['user_scores_subopt'], 0), color = bar_color,
     tick_label=('NM','NM\nsubopt','IMP','IMP\nsubopt','NM','NM\nsubopt','IMP',
@@ -55,7 +55,7 @@ for i in range(8):
         colors_sub = colors[1:num_subjects+2:2]
     else:
         colors_sub = colors[0:num_subjects+2:2]
-    ax.scatter(x_pos[i] + rand_scatter_pts, data['user_scores_subopt'][:,i], 
+    ax.scatter(x_pos[i] + scatter_pts, data['user_scores_subopt'][:,i], 
         color=colors_sub, **scatter_opts)
 
 trans = transforms.blended_transform_factory(ax.transData, ax.transAxes)

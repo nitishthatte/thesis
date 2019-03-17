@@ -43,7 +43,7 @@ ax.set_ylabel('Torso Pitch Angle\nVariability (rad)')
 num_subjects = 10
 bar_color = [0.75, 0.75, 0.75]
 x_pos = np.array((0, 1, 2, 4, 5, 6))
-rand_scatter_pts = 0.05*np.random.randn(num_subjects)
+scatter_pts = np.linspace(-0.1,0.1,num_subjects)
 
 ax.bar(x_pos, np.mean(data['torso_std_x'],0), color = bar_color,
     tick_label=('No Pros','NM','IMP','No Pros','NM','IMP'))
@@ -53,7 +53,7 @@ add_barplot_sigstars(ax, data['condition_combinations']-1,
 subject_list = range(num_subjects)
 scatter_opts = {'s':10, 'zorder':10,'marker':'o'}
 for i in range(6):
-    ax.scatter(x_pos[i] + rand_scatter_pts, data['torso_std_x'][:,i], 
+    ax.scatter(x_pos[i] + scatter_pts, data['torso_std_x'][:,i], 
         color=colors, **scatter_opts)
 
 trans = transforms.blended_transform_factory(ax.transData, ax.transAxes)
