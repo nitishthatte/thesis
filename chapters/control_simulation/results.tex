@@ -1,4 +1,13 @@
 \section{Results}\label{sec:completed_comparison_results}
+
+We evaluate the performance of the proposed control and of impedance control by
+subjecting the amputee model to terrains that are flat for \unit[10]{meters} and
+then feature steps drawn from uniform distributions for another
+\unit[90]{meters}.  The widths of the distributions are constant but vary among
+the terrains to test the control performance on steps of increasing steepness
+(\unit[0]{cm} to $\pm \unit[14]{cm}$, \unit[2]{cm} increments, total of 8
+terrains). 
+
 \begin{figure}[t]
     \centering
     \includegraphics[width = \columnwidth]{distsWalked}
@@ -11,15 +20,6 @@
     distances for 50 terrains sampled at each roughness level.
     }\label{fig:distsWalked}
 \end{figure}
-
-We evaluate the performance of the proposed control and of impedance control by
-subjecting the amputee model to terrains that are flat for \unit[10]{meters} and
-then feature steps drawn from uniform distributions for another
-\unit[90]{meters}.  The widths of the distributions are constant but vary among
-the terrains to test the control performance on steps of increasing steepness
-(\unit[0]{cm} to $\pm \unit[14]{cm}$, \unit[2]{cm} increments, total of 8
-terrains). 
-
 \Cref{fig:distsWalked} shows the distances the amputee model walks over 50
 trials at each roughness level (proposed neuromuscular control in blue,
 impedance control in green). Most of the trials with the impedance-controlled

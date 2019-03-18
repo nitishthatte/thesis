@@ -135,6 +135,7 @@ ax1.spines['left'].set_visible(False)
 #ax1.axis([-1, 15, -10, 95])
 ax1.set_xticks(positions1)
 ax1.set_xticklabels(positions1)
+ax1.set_xlim((-0.75, 14.75))
 ax1.set_ylim((0, 100))
 ax1.set_yticks(np.arange(0,120,30))
 

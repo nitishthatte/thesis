@@ -41,17 +41,19 @@ ax.set_ylabel('Phase Transition\nSuccess Rate')
 num_subjects = 10
 bar_color = [0.75, 0.75, 0.75]
 x_pos = np.array((0, 1))
-rand_scatter_pts = 0.05*np.random.randn(num_subjects)
+scatter_pts = np.linspace(-0.1,0.1,num_subjects)
 
 ax.bar(x_pos, np.mean(data['phase_success'], 0), color = bar_color,
     tick_label=('No Disturb','w/ Disturb'))
+
+pdb.set_trace()
 add_barplot_sigstars(ax, np.array([data['condition_combinations']-1]), 
     np.array([data['p_values_phase_success']]), x_pos, star_loc='level')
 
 subject_list = range(num_subjects)
 scatter_opts = {'s':10, 'zorder':10,'marker':'o'}
 for i in range(2):
-    ax.scatter(x_pos[i] + rand_scatter_pts, data['phase_success'][:,i], 
+    ax.scatter(x_pos[i] + scatter_pts, data['phase_success'][:,i], 
         color=colors, **scatter_opts)
 
 trans = transforms.blended_transform_factory(ax.transData, ax.transAxes)

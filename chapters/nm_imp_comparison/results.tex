@@ -6,7 +6,7 @@
     disturbed walking conditions when walking without the prosthesis (No Pros)
     and with the Neuromuscular (NM) prosthesis control and impedance (IMP)
     prosthesis control. Grey bars show the mean across subjects.  Statistical
-    significance assessed by Welch's $t$-test. $*$:~$p < 0.05$, $**$:~$p <
+    significance assessed by paired $t$-tests. $*$:~$p < 0.05$, $**$:~$p <
     0.01$, $***$:~$p < 0.001$.}\label{fig:treadmill_user_ratings}
 \end{figure}
 First, \cref{fig:treadmill_user_ratings} shows the user ratings of the different
@@ -42,7 +42,7 @@ and impedance controllers.
     over the strides in a trial is subtracted out. For the prosthesis trials, we
     report the average variation across the five trials for each condition.
     Grey bars show the mean across subjects.  Statistical significance assessed
-    by Welch's $t$-test. $*$:~$p < 0.05$, $***$:~$p <
+    by paired $t$-tests. $*$:~$p < 0.05$, $***$:~$p <
     0.001$.}\label{fig:treadmill_exp_torso_var_x}
 \end{figure}
 
@@ -54,7 +54,7 @@ and impedance controllers.
     the strides in a trial is subtracted out. For the prosthesis trials, we
     report the average variation across the five trials for each condition.
     Grey bars show the mean across subjects.  Statistical significance assessed
-    by Welch's $t$-test.$***$:~$p < 0.001$.}\label{fig:treadmill_exp_torso_var_y}
+    by paired $t$-tests.$***$:~$p < 0.001$.}\label{fig:treadmill_exp_torso_var_y}
 \end{figure}
 
 \Cref{fig:treadmill_exp_torso_var_x,fig:treadmill_exp_torso_var_y} show the
@@ -81,7 +81,7 @@ neuromuscular control in the disturbance case.
   \end{center}
   \caption{Tally of observed reasons for falls across all subjects and across
   both the undisturbed and disturbed walking conditions. Falls were manually
-  classified based on video and logged prosthesis data. An individual Fall can
+  classified based on video and logged prosthesis data. An individual fall can
   be assigned more than one reason.}\label{tab:treadmill_exp_fall_reasons}
 \end{table}
 Finally, \cref{tab:treadmill_exp_fall_reasons} shows a tally of the reasons for
@@ -100,23 +100,21 @@ in stance/swing state machine (compare \cref{fig:stance_swing_state_machine}).
 The missed stance 2/stance 3 transitions occurred with impedance control if the
 user did not dorsiflex the ankle sufficiently to trigger the transition. This
 could cause the knee to produce an extension torque in late stance, making it
-difficult to enter the swing phase (compare \cref{fig:treadmill_imp_fit}).
-
-As shown in \cref{fig:treadmill_exp_phase_success}, the rate at which the
-impedance conrtroller failed to transition through all three stance phases
-significantly increased with the introduction of disturbances.
-\begin{marginfigure}
+difficult to enter the swing phase (compare \cref{fig:treadmill_imp_fit}). As
+shown in \cref{fig:treadmill_exp_phase_success}, the rate at which the impedance
+conrtroller failed to transition through all three stance phases significantly
+increased with the introduction of disturbances.
+\begin{marginfigure}[-2.5in]
     \centering 
     \includegraphics[width=\textwidth]{phase_success}
     \caption{Fraction of steps for which impedance control successfully
-    transitions through all three stance phases. Introduction of gait
-    disturbances significantly decreases the transition success rate. Grey bars
-    show the mean success rate across all users. Statistical significance
-    assessed by Welch's $t$-test. $***$:~$p <
-    0.001$.}\label{fig:treadmill_exp_phase_success}
+    transitions through all three stance phases. Disturbances significantly
+    decrease the transition success rate. Grey bars show the mean success rate
+    across all users. Statistical significance assessed by paired $t$-test.
+    $***$:~$p < 0.001$.}\label{fig:treadmill_exp_phase_success}
 \end{marginfigure}
 
-In contrast, the knee collapse fall type was triggered with impedance control if
+In contrast, the knee collapse fall type was triggered in impedance control if
 the user dorsiflexed the ankle too early causing a premature switch to the third
 phase of stance. In this phase, knee torque typically trends towards zero to
 allow for passive flexion of the knee heading into swing. However, in the case
@@ -138,7 +136,7 @@ swing, and leading to the toe hitting the ground mid-swing.
     \caption{Comparison of user scores of optimal versus suboptimal parameters
     for the neuromuscular and impedance control strategies. Grey bars show the
     mean user rating across subjects. Statistical significance assessed by
-    Welch's $t$-test. $**$:~$p <
+    paired $t$-tests. $**$:~$p <
     0.01$.}\label{fig:treadmill_exp_user_ratings_subopt}
 \end{figure}
 Finally, we look at the effect of using suboptimal controllers on user ratings
@@ -149,13 +147,13 @@ controller from day 4 and the suboptimal controllers. In fact for the
 neuromuscular control with disturbances, 4 out of 5 users slightly preferred the
 suboptimal control from day 5. On the whole, choosing a suboptimal set of
 parameters seemed to have a larger effect on impedance control with 4 out of 5
-subjects preferring the optimal to suboptimal with out disturbances and all five
-subjects preferring the optimal impedance parameters to the suboptimal
-parameters in disturbed case.
+subjects preferring the optimal to suboptimal parameters with out disturbances
+and all five subjects preferring the optimal impedance parameters to the
+suboptimal parameters in disturbed case.
 
 \Cref{fig:treadmill_exp_num_falls_subopt} shows the median number of falls
 garnered by optimal and suboptimal parameters. In the disturbance case we see a
-increase in the median number of falls with the suboptimal paramete sets over
+increase in the median number of falls with the suboptimal parameter sets over
 the preferred parameter sets. However this difference was not significant.
 
 \begin{figure}[t]

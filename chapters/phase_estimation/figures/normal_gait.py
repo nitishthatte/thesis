@@ -37,7 +37,7 @@ for axis in ax[3,:]:
 ax[0,0].set_ylabel('Knee Angle\n(deg)')
 ax[1,0].set_ylabel('Ankle Angle\n(deg)')
 ax[2,0].set_ylabel("Knee Moment\n"r"(\unitfrac{N-m}{kg})")
-ax[3,0].set_ylabel("Ankle Moment\n"r"(\unitfrac{N-m}{kg})")
+ax[3,0].set_ylabel(r"Ankle Moment (\unitfrac{N-m}{kg})")
 
 title_props = {'weight':'semibold'}
 ax[0,0].set_title('GP-EKF control', **title_props)
