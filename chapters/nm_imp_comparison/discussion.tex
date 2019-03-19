@@ -149,7 +149,7 @@ neuromuscular controllers. Specifically, we tested the impedance control from
 thresholds to transition between phases. However, other variations on the
 impedance control have been suggested as well, including those that use
 nonlinear impedance functions \citep{sup2007design,shultz2016variable}, and
-those using ground reaction signals fo the transitions between phases
+those using ground reaction signals for the transitions between phases
 \citep{sup2009preliminary}. The neuromuscular control structure we used was
 described in \cref{sec:nm_control_prosthesis} and based on
 \citet{song2015neural}. This structure encodes a specific set of reflexes.
@@ -158,14 +158,14 @@ this model as well that may improve performance. Additional experiments will be
 needed to compare amongst variations in these control strategies.
 
 Finally, in this experiment, users needed to pick parameters out of a
-pregenerated discrete set of possiblities. It is possible and likely that there
+pre-generated discrete set of possibilities. It is possible and likely that there
 exists parameters for each control that are more robust, comfortable, and
 efficient. However, finding these parameters by solving a high dimensional
 optimization problem using real prosthesis feedback remains an unsolved problem
 for three reasons: First, optimizations suffer from the curse of dimensionality.
 Recently, \citet{wen2019online} optimized 12 parameters of a robotic
 knee/passive ankle prosthesis, a significant improvement from prior approaches.
-However, this approach is still insufficent for impedance control of both the
+However, this approach is still insufficient for impedance control of both the
 knee and ankle joints, which requires 20 parameters. In our work, the parameter
 generation approach tackles the dimensionality through a large amount of offline
 computation.
@@ -173,19 +173,19 @@ computation.
 Second, it is unclear what objective function to use in the optimization. For
 example, \citet{wen2019online} target a desired knee angle trajectory. However,
 perfect tracking of this trajectory may come at the expense of robustness or
-comfort. In this expeirment, we allowed users to specify their own objective by
-using their preferences. In future work, similar prefence based approaches could
+comfort. In this experiment, we allowed users to specify their own objective by
+using their preferences. In future work, similar preference based approaches could
 be used to identify a user's objective function based on multiple gait metrics.
 An optimization approach, such as \citet{wen2019online}, could then be used to
 target this objective function if it can be scaled to the required number of
 dimensions.
 
 The final challenge for performing the full optimization is that many important
-features we would use to quanity gait are difficult to measure. For example, to
-measure gait robustness using treadill velocity disturbances, we required many
+features we would use to quantify gait are difficult to measure. For example, to
+measure gait robustness using treadmill velocity disturbances, we required many
 minutes of walking under disturbances just to observe a few falls. Metabolic
 energy consumption typically takes several minutes to observe, even when using a
 predictive model of its steady state value \citep{zhang2017human}. Other gait
 features such as comfort are not directly quantifiable. Identification of
-quickly measureable stand-ins for these metrics should be a focus of future
+quickly measurable stand-ins for these metrics should be a focus of future
 research.
