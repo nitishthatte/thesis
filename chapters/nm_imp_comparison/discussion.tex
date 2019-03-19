@@ -1,18 +1,18 @@
 \section{Discussion}
 
-In this work, we sought to objectively compare the robustness and user
-preference of the neuromuscular and impedance control strategies for powered,
-robotic knee and ankle prostheses. Overall, we found that users rated the
-neuromuscular control more highly than impedance control and using impedance
+In this work, we sought to objectively compare the robustness, user preferences,
+and reasons for falls of the neuromuscular and impedance control strategies for
+powered, robotic knee and ankle prostheses. Overall, we found that users rated
+the neuromuscular control more highly than impedance control and using impedance
 control led to significantly more falls compared to walking without a
-prosthesis. While the median number of falls accrued by impedance control across
-all subjects in both the undisturbed and disturbed conditions was higher than
-that of neuromuscular control, when considering the question of ``did users fall
-more often with impedance control than with neuromuscular control?'', these
-differences were not significant. The only measure of gait stability in which a
-significant difference between the neuromuscular and impedance controllers was
-measured was the torso pitch variability, which neuromuscular control
-significantly reduced in the disturbance case compared to impedance control.
+prosthesis. While we did observe more falls with the impedance control across
+all subjects than with the neuromuscular controller, when considering the
+question ``did individual users fall more often with impedance control than with
+neuromuscular control?'', these differences were not significant. The only
+measure of gait stability in which a significant difference between the
+neuromuscular and impedance controllers was measured was the torso pitch
+variability, which neuromuscular control significantly reduced in the
+disturbance case compared to impedance control.
 
 Categorizing the falls by their type gives more insight into differences between
 the controllers. There were reasons for falls with each controller that did not
@@ -75,9 +75,8 @@ and thus may transition to swing more consistently and cause fewer swing trips.
 Nevertheless, even with its smoother stance phase, subjects still tripped during
 swing several times with the Neuromuscular control. Therefore, in
 \cref{sec:swing_control_planning} we seek to explicitly minimize the risk of
-tripping by using an estimate of the current and future trajectories of the hip
-height and orientation to plan knee and ankle swing trajectories that avoid
-premature ground contact.
+tripping by using estimates of the current and future hip height and orientation
+to plan knee and ankle swing trajectories that avoid premature ground contact.
 
 The smooth stance phase of the neuromuscular model, which eliminates failure
 modes such as knee collapses and missed stance phase transitions and may help
@@ -99,7 +98,7 @@ Therefore, in order to achieve the potential benefits of a smooth controller
 that does not have discrete stance phases, while avoiding excessive complexity,
 in \cref{sec:phase_estimation}, we explore an alternative approach to stance
 control. This approach relies on a continuous estimate of phase and easily
-interpretable models for the output behavior as a function of phase.
+interpretable models for the output behavior as a function this phase estimate.
 
 A surprising result of this experiment is the lack of substantial differences
 between suboptimal and optimal controllers. Only the in the case of impedance
@@ -120,10 +119,73 @@ the preferred parameters by performing the dueling bandits optimization
 procedure on multiple days in order to see if the users preferences are
 consistent from day to day.
 
-Finally, our simulated results presented in \cref{sec:control_sim} predicted a
-larger difference between controllers that was not borne out by this experiment.
-In future work, the motion capture data collected during these trials should be
+Our simulated results presented in \cref{sec:control_sim} predicted a larger
+difference between controllers that was not borne out by this experiment.  In
+future work, the motion capture data collected during these trials should be
 used to improve the neuromuscular model so that researchers can perform
 experiments investigating prosthetic device performance with a higher likelihood
 that those results translate to the real world. Reliable predictive models would
 vastly reduce the time it takes to iterate prosthesis controller designs.
+
+This study has several limitations that should be addressed in future work.
+First, we only performed the study with ten subjects, which made establishing
+the statistical significance of the results difficult. Limiting the number of
+subjects was necessary due to the substantial practice time required for
+subjects to achieve reliable handrail-free walking with the prosthesis.
+Furthermore, there were several \todo{get number} subjects who could not proceed
+past the first day of the experimental procedure as they could not manage to
+walk without the handrails or experienced excessive discomfort in the prosthesis
+adaptor. While researcher's should eventually perform adequately powered studies
+comparing prosthesis controllers in the future, at this point in the development
+of these controllers, there are still significant issues in the prosthesis
+control that can be discovered and addressed with small $n$ studies. In the case
+of a safety critical device like a prosthesis, all causes of falls should be
+systematically addressed even if they are rare and their frequency cannot be
+established to a high degree of confidence.
+
+Second, we tested very specific implementations of the impedance and
+neuromuscular controllers. Specifically, we tested the impedance control from
+\citet{lawson2014robotic}, which uses linear impedance functions and angle
+thresholds to transition between phases. However, other variations on the
+impedance control have been suggested as well, including those that use
+nonlinear impedance functions \citep{sup2007design,shultz2016variable}, and
+those using ground reaction signals fo the transitions between phases
+\citep{sup2009preliminary}. The neuromuscular control structure we used was
+described in \cref{sec:nm_control_prosthesis} and based on
+\citet{song2015neural}. This structure encodes a specific set of reflexes.
+However, there are many other feedback pathways that could be incorporated into
+this model as well that may improve performance. Additional experiments will be
+needed to compare amongst variations in these control strategies.
+
+Finally, in this experiment, users needed to pick parameters out of a
+pregenerated discrete set of possiblities. It is possible and likely that there
+exists parameters for each control that are more robust, comfortable, and
+efficient. However, finding these parameters by solving a high dimensional
+optimization problem using real prosthesis feedback remains an unsolved problem
+for three reasons: First, optimizations suffer from the curse of dimensionality.
+Recently, \citet{wen2019online} optimized 12 parameters of a robotic
+knee/passive ankle prosthesis, a significant improvement from prior approaches.
+However, this approach is still insufficent for impedance control of both the
+knee and ankle joints, which requires 20 parameters. In our work, the parameter
+generation approach tackles the dimensionality through a large amount of offline
+computation.
+
+Second, it is unclear what objective function to use in the optimization. For
+example, \citet{wen2019online} target a desired knee angle trajectory. However,
+perfect tracking of this trajectory may come at the expense of robustness or
+comfort. In this expeirment, we allowed users to specify their own objective by
+using their preferences. In future work, similar prefence based approaches could
+be used to identify a user's objective function based on multiple gait metrics.
+An optimization approach, such as \citet{wen2019online}, could then be used to
+target this objective function if it can be scaled to the required number of
+dimensions.
+
+The final challenge for performing the full optimization is that many important
+features we would use to quanity gait are difficult to measure. For example, to
+measure gait robustness using treadill velocity disturbances, we required many
+minutes of walking under disturbances just to observe a few falls. Metabolic
+energy consumption typically takes several minutes to observe, even when using a
+predictive model of its steady state value \citep{zhang2017human}. Other gait
+features such as comfort are not directly quantifiable. Identification of
+quickly measureable stand-ins for these metrics should be a focus of future
+research.
