@@ -4,8 +4,8 @@
     \includegraphics[width=\linewidth]{prosthesis_render_annotated}
     \caption{Render of proposed powered knee and ankle prosthesis design. The
     prosthesis includes series elastic actuators to enable accurate torque
-    control and a unidirectional parallel ankle spring to offset the required
-    angle torque.}\label{fig:prosthesis_render_annotated}
+    control and an optional unidirectional parallel ankle spring to offset the
+    required angle torque.}\label{fig:prosthesis_render_annotated}
 \end{marginfigure}
 
 \newthought{To test our proposed control approaches} and compare to the state of
@@ -297,4 +297,14 @@ the required torque bandwidth of \unit[3.5]{Hz} given by \citet{au2008powered}
 \citet{winter2009biomechanics}).
 
 \subsection{Ground Reaction Force Sensing}\label{sec:mech_design_grf}
-\todo{design of heel/toe grf sensors and plot of grf sensor readings}
+
+\begin{marginfigure}[0.0in]
+    \centering 
+    \includegraphics{grf_sensing}
+    \caption{GRF sensor readings compared to ground truth GRF
+    data}\label{fig:grf_sensing}
+\end{marginfigure}
+To measure ground reaction forces, we measure the deflection in the prosthesis'
+fiberglass foot (Freedom Innovations Pacifica LP). We measure this deflection by
+embedding Hall effect sensors and magnets in the foot. \Cref{fig:grf_sensing}
+shows the measured heel and toe grf signals during normal walking.

@@ -12,7 +12,7 @@ from sigstars import add_barplot_sigstars
 pgf_with_custom_preamble = {
     "pgf.texsystem": "xelatex",
     "font.family": "sans-serif", # use san serif/main font for text elements
-    "font.size": 6,
+    "font.size": 8,
     "text.usetex": False,    # use inline math for ticks
     "pgf.rcfonts": False,   
     "pgf.preamble": [

@@ -36,8 +36,8 @@ reduction of the 3D ground contact model presented in
 tangential directions with respect to the terrain. In the normal direction the
 force is
 \begin{align}
-    F_\tn{n} = k_\tn{n} \Delta n_\tn{c} (1 + \dot n_\tn{c}) 
-        (\Delta n_\tn{c} > 0)
+    F_\tn{n} = k_\tn{n} \Delta n_\tn{c} 
+    \left(1 + \nicefrac{\dot n_\tn{c}}{v_\tn{max}} \right)(\Delta n_\tn{c} > 0)
     \left(\nicefrac{\dot n_\tn{c}}{v_\tn{max}} > -1 \right),
     \label{eq:grf_n}
 \end{align}
@@ -74,9 +74,10 @@ the skeletal joint limits on the knee, ankle, and hip joints. The functional
 form form the soft limit joint torque is identical to that of the normal ground
 reaction force given by \cref{eq:grf_n}.
 \begin{align}
-    \tau_\tn{jl} = k_\tn{jl} \Delta \phi_\tn{jl} (1 + \dot \phi_\tn{jl}) (\Delta
-    \phi_\tn{jl}  > 0) \left(\nicefrac{\dot \phi_\tn{jl}}{\dot \phi_\tn{max}} > -1
-    \right), 
+    \tau_\tn{jl} = k_\tn{jl} \Delta \phi_\tn{jl} 
+    (1 + \nicefrac{\dot \phi_\tn{jl}}{\dot \phi_\tn{max}}) 
+    (\Delta \phi_\tn{jl}  > 0) 
+    \left(\nicefrac{\dot \phi_\tn{jl}}{\dot \phi_\tn{max}} > -1 \right), 
     \label{eq:tau_joint_limit}
 \end{align}
 where $k_\tn{jl} = \unitfrac[0.3]{N \cdot m}{deg}$ is the joint stiffness $\Delta
