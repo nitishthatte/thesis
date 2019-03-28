@@ -1,0 +1,76 @@
+\section{Challenges in Transfemoral Prosthesis
+Control}\label{sec:intro_challenges} 
+
+It still remains an open research question how best to control active prostheses
+to achieve natural and robust gaits. Prosthesis controllers should address a
+number of important challenges: 
+
+\begin{challenges}
+    \item\label{chal:robust} \emph{Control must ensure stability of prosthesis
+    and amputee}~~\citet{miller2001prevalence} found that 49.2\% of lower
+    limb amputees feared falling and that of those afraid of falls 76\% avoided
+    physical activity as a result. Avoidance of physical activity is eminently
+    concerning as it may lead to reduced strength, endurance, and balance,
+    feeding a positive feedback loop that causes further debilitation.
+    Therefore, to improve amputee quality of life it is imperative that powered
+    prosthesis control strategies reduce the risk of falling. 
+    
+    In a traditional robotic system, this goal translates to ensuring the
+    stability of the states of the robotic system. However, for a robotic
+    prosthesis, the stability of the prosthesis state is insufficient to
+    guarantee amputee stability. It is possible for all prosthesis states to be
+    nominal while its user faces a precarious situation. Consequently,
+    prosthesis controllers should ensure, either empirically or formally, that
+    both the prosthesis and amputee states remain stable in the presence of
+    myriad of disturbances. We investigate the robustness of proposed prosthesis
+    controllers in
+    \cref{sec:control_sim,sec:nm_vs_imp,sec:trip_avoidance,sec:phase_estimation}.
+    
+    \item\label{chal:sensing} \emph{Control should ideally only use information
+    that can be garnered from sensors on the prosthesis itself}~~The above
+    robust control robustness problem is complicated by sensing restrictions in
+    a practical prosthetic device. While full instrumentation of the amputee's
+    limbs and the prosthesis may help guarantee the stability of the overall
+    system, in a practical prosthesis device, donning and doffing these sensors
+    may be overly burdensome for amputees in the real world. Therefore, in this
+    thesis, we only consider approaches that use information that could be
+    reasonably garnered from sensors on the prosthesis and its socket.
+
+    \item\label{chal:unique} \emph{Control must adapt to suit the needs of
+    individual users}~~Variations in gait between amputees arise due to a number
+    of factors including, but not limited to, the amputee's limb-lengths,
+    weight, strength, endurance, reason for amputation, time since amputation,
+    experience, and personal preferences. Consequently, prostheses and
+    controllers should be optimized to suit individual users. In this thesis we
+    also explore methods for optimizing prosthesis parameters from user
+    preferences (\cref{sec:preference_optimization}) and in latter work propose
+    methods that automatically adapt to the user's gait
+    (\cref{sec:trip_avoidance,sec:phase_estimation}).
+
+    \item\label{chal:dynamic} \emph{Control should allow the prosthesis to
+    interact dynamically with the amputee and environment}~~In human walking,
+    during stance the leg acts in a compliant, spring-like manner
+    \citep{geyer2006compliant} and significant time is spent in
+    statically-unstable contact on the heel or toe, suggesting the importance of
+    mechanical stability achieved via foot placement \citep{perry2010gait}.
+    During swing, ballistic motion explains much of the leg trajectory
+    \citep{mochon1980ballistic}. Indeed, much of the entire gait cycle can be
+    explained via passive dynamics as evidenced by passive-dynamic walkers that
+    can stably walk down slight inclines with no onboard power
+    source~\citep{mcgeer1990passive, collins2005efficient}.
+
+    Consequently, in order to ensure that amputee gaits are natural, efficient,
+    and robust to disturbances, it is essential that the design and control of
+    robotic prostheses admit and leverage the inherent dynamics of walking.
+    Therefore, in this thesis we detail the mechanical design and low-level
+    control of a prosthesis that allows for precise torque tracking
+    \cref{sec:pros_design}.  Furthermore, all controllers proposed in this
+    thesis command desired torques to the prosthesis to allow for compliant
+    interaction with the amputee and the environment. This is either
+    accomplished via controllers that directly command torques as a function of
+    sensor inputs, as in the case of neuromuscular control
+    (\cref{sec:neuro_model}), or, when kinematic objectives are specified,
+    accomplished via the use of feedforward torque commands and low-gain
+    feedback, as in the case of our proposed swing (\cref{sec:trip_avoidance})
+    and phase-based stance controls (\cref{sec:phase_estimation}).
+\end{challenges}
