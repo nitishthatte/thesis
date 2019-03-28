@@ -1,20 +1,88 @@
-\section{Approach for improving prosthesis control gait
-robustness}\label{sec:intro_approach} 
+\section{Approach and Contributions}\label{sec:intro_approach_contrib} 
 
-\begin{enumerate}
-\item Compare prosthesis control strategies - confirm/deny neuromuscular control
-    hypothesis
-    \begin{enumerate}   
-        \item Build prosthesis that is capable of dynamic movement, implementing
-        different control strategies
-        \item Come up with ways to optimize control parameters for different
-        subjects that allows us to avoid hand tuning
-    \end{enumerate}   
+We first investigate whether a novel neuromuscular transfemoral prosthesis
+control can improve gait robustness. This control approach seeks to mimic the
+underlying dynamics and control of the human neuromuscular system. Unlike the
+popular finite state impedance control methods, which we review in section
+\cref{sec:}, during stance, the neuromuscular control approach provides smooth
+torque outputs that do not vary drastically due to discrete phase transitions.
+We are motivated to evaluate this control approach by simulations of biped
+walking models driven by neuromuscular control that demonstrate its robustness
+\citep{song2013integration,song2015neural} and potential benefits of finite
+state impedance control (\cref{sec:control_sim} \citep{thatte2016toward}) and by
+previous work demonstrating the adaptability of neuromuscular control on powered
+ankle prostheses \citep{eilenberg2010control,markowitz2011speed}.
 
-\item Use results of experiment 1 to propose improved control ideas
-    \begin{enumerate}   
-        \item Swing control for avoiding trips
-        \item Improved phase detection and control based on phase to improve
-        gait robustness
-    \end{enumerate}   
-\end{enumerate}
+To objectively compare the proposed neuromuscular prosthesis control approach to
+other methods we required a transfemoral prosthesis capable of accurately
+reproducing desired torques. To this end, in \cref{sec:pros_design} we detail
+our first contribution: the design of a transfemoral prosthesis that uses series
+elastic actuators to achieve accurate torque control and is capable of large
+joint torques to allow for behaviors such as running and stumble recovery.  We
+evaluate the proposed design by measuring its torque tracking bandwidth, zero
+torque tracking capability, and ability to track torques during normal walking.
+
+Also needed to objectively compare control methods, is an method of finding
+parameters that suit individual subjects. There are two main issues that must be
+overcome to solve this problem. First, it is unclear which metric of gait we
+should be optimizing. There are a myriad of qualities necessary for a ``good''
+gait including gait robustness, naturalness, energy efficiency, and comfort.
+Some of these metrics such as naturalness can be easily quantified, others, such
+as robustness and energy efficiency are quantifiable but only with considerable
+data, and others, such as comfort, are less easily quantifiable. Even if these
+metrics can be quantified their relative importance is unknown and may be unique
+to each user. The second issue is that many prosthesis control methods have a
+large number of parameters, which makes optimization of their parameters
+difficult due to the curse of dimensionality. For example, to find parameters
+for the neuromuscular control scheme we propose in 
+\cref{sec:nm_control_prosthesis}, we optimize at least 18 parameters.
+
+We present two contributions in \cref{sec:preference_optimization} to tackle
+this problem. Both approaches utilize preference feedback between pairs of
+control parameters in order to allow the user to implicitly define the cost
+function via their qualitative feedback. In the first approach, we examine a
+Bayesian optimization scheme that chooses pairs of parameters to compare in
+order to maximize information gained about the location of the user's optimum.
+This approach was unable to address problems of large enough dimensionality.
+Therefore, in the second contribution, we propose an alternative approach that
+utilizes offline optimizations to generate a discrete selection of control
+parameter sets from which the user chooses their optimum, again through pairwise
+preference feedback.
+
+With the prosthesis and parameter selection method in place, in
+\cref{sec:nm_vs_imp}, we present the results of an objective comparison between
+neuromuscular and impedance control strategies. Based on the simulations results
+comparing neuromuscular and impedance control presented \cref{sec:control_sim},
+we hypothesized that neuromuscular control would be less susceptible to falls
+than impedance control. While we could not verify this hypothesis at the $p <
+0.05$ level, we were able to identify failure modes that were unique to
+impedance control and found that identifying trips during swing could have a
+major impact on gait robustness. Additionally, in this section we intended to
+also compare neuromuscular and impedance control to a third phase-based
+approach. We were unable to successfully implement this approach our prosthesis
+but present our efforts in \cref{sec:nm_vs_imp_phase_imp}.
+
+Based on the results of the preceding experiment we make three
+additional contributions. The first two, presented in \cref{sec:trip_avoidance}
+are motivated by the observation that trips account for a significant number of
+falls recorded in the above experiment. Prosthesis swing controls that reduce
+the risk of tripping is a largely unexplored area. We explore two distinct
+approaches to tackle this problem. In the first, we employ online learning to
+train a classifier that can detect the user's obstacle avoidance intent switch
+the prosthesis swing trajectory to a safer one. In the second approach, we
+attach a laser distance sensor to the prosthesis and employ an extended Kalman
+filter to estimate the user's hip height and orientation. We use this state
+estimate to explicitly plan swing trajectories for the knee and ankle joints
+that avoid premature toe and heel contact.
+
+Finally, in the last contribution presented in \cref{sec:nm_vs_imp_phase_imp},
+we propose a new stance control strategy in which we seek a simpler control
+method that retains one of the potential benefits of neuromuscular stance
+control, which is that it is smooth and does not rely upon discrete phase
+transitions. Moreover, this new proposed strategy seeks to rectify the issues we
+faced when implementing a previously proposed phase-based control
+(\cref{sec:nm_vs_imp_phase_imp}). In the proposed control method, we
+obtain a continuous phase estimate using a multitude of measurements and an
+extended Kalman filter. We evaluate the robustness, naturalness, and
+adaptability of the proposed control in experiments with seven able bodied
+subjects and one amputee subject.
