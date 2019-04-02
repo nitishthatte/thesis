@@ -81,21 +81,6 @@ naturalness of the knee and ankle torques produced by the GP-EKF controller,
 which currently trail those produced by the NM and IMP controllers
 (see~figs.~\labelcref{fig:kinematic_errors}c and d).
 
-Our work bears some resemblance to the complementary limb motion estimation
-(CLME) approach proposed by \citet{vallery2011complementary}. This approach uses
-linear regression to learn a direct mapping between the angles and velocities of
-the user's limbs to the prosthesis' joint angles and velocities. There are two
-key differences between our and the CLME approach.  First, our approach only
-uses signals from sensors mounted to the prosthesis itself, whereas the CLME
-approach used many IMUs mounted to the torso and sound side leg. Donning these
-sensors may be impractical for everyday use by an amputee in the real world.
-Second, the CLME approach directly maps from human to prosthetic joint angles
-and velocities via linear regression. In contrast, our approach goes through the
-latent phase and phase velocity states first, which decouples the observation
-models from the prosthesis control models. This allows us to separately learn
-the observation models and tune the control models to optimize user preference
-and performance.
-
 There are several avenues for future research to expand the proposed control
 approach. First, we only used prosthesis joint angles and velocities for the
 observation models. It is worth investigating if additional measurements such as

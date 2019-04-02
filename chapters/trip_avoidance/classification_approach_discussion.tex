@@ -26,11 +26,11 @@ implement this information. The amputee may have concentrated on more
 rudimentary aspects of gait, as evidenced by his use of the handrails to walk,
 whereas the able-bodied subject did not need to use the hand rails. Moreover,
 the amputee's socket may have provided less control over the prosthesis than did
-the intact subject's able-bodied adapter (shown in \cref{fig:prosthesis}).
-Finally, we noted that the relationship between joint flexion and obstacle
-height tended to oscillate over the course of our trials. This may imply that
-the gains we used for the target knee angle regression (\cref{eq:tgt_angle})
-were too high.
+the intact subject's able-bodied adapter (shown in
+\cref{fig:prosthesis_actual}).  Finally, we noted that the relationship between
+joint flexion and obstacle height tended to oscillate over the course of our
+trials. This may imply that the gains we used for the target knee angle
+regression (\cref{eq:tgt_angle}) were too high.
 
 Before settling on the specifics of the obstacle avoidance system presented
 here, we also tested other options for its components. For example, we also
@@ -59,12 +59,14 @@ how to update trajectories in hindsight as we never see the obstacle. For this
 reason, we used bang-bang trajectories during obstacle avoidance, which maximize
 the time the joints remain flexed.
 
-In the future, we plan to overcome this issue by incorporating a laser distance
-sensor into the prosthesis. This sensor should allow precise measurement of the
+In the future, this issue could be solved by incorporating a laser distance
+sensor into the prosthesis. This sensor could enable precise measurement of the
 ground and obstacle shape during the initial part of swing as the hip moves
 forward. We plan to then use this information to explicitly plan knee and ankle
 trajectories that will avoid the obstacle and the floor until the appropriate
-touch down time.
+touch down time. In the second half of this chapter, we present an initial step
+in this direction in which we incorporate information from a laser distance
+sensor to plan swing trajectories that help prevent trips on flat terrain.
 
 There are several other limitations of the current study we should address in
 future work as well. First, we only tested the algorithm with two subjects. More

@@ -1,12 +1,33 @@
 \section{Introduction}
 
-In this work, we seek to compare the neuromuscular and impedance controllers 
-in a similar way as in \cref{sec:control_sim}.
+To date, there have been many proposed controllers for prostheses, which we
+reviewed in \cref{sec:back_walking_control}. However, there has been a dearth of
+studies directly comparing the merits and detriments of these different
+strategies. 
 
-Want to make comparison as objective as possible
-    -Minimize experimenter influence on contrller parameter design/selection
-    -Both NM and impedance control use similar procedure for generating
-    parameters
-    -Preferences allow user instead of experimenter to select parameters
-    -Iterative learning for fine tuning instead of hand tuning as in section
-    \cref{sec:preference_optimization}
+In this work, we provide one such study by comparing the neuromuscular (NM) and
+impedance (IMP) control strategies in a similar manner as in
+\cref{sec:control_sim}.  We seek to make this comparison as objective as
+possible. To do this, we minimize the experimenter's influence on controller
+parameter selection by using the dueling bandits parameter selection method
+presented in \cref{sec:preference_optimization}. This method comprises of two
+parts: 1) We first generate parameters for both controllers through offline
+optimizations that try to match the controller output to able-bodied gait data
+of different subjects. 2) We use a preference-based optimization that allows
+users to select their preferred parameter set. Finally, we also replace the hand
+tuning of offset angles that we used in \cref{sec:preference_optimization}
+(\cref{eq:bias_param}) with an iterative learning procedure.
+
+We are primarily interested in potential robustness improvements provided by
+neuromuscular prosthesis control, as predicted by the simulation results
+presented in \cref{sec:control_sim}. To examine controller robustness, we tested
+both controllers with able-bodied subjects walking with their preferred
+parameters at constant speed and with treadmill velocity disturbances. We then
+evaluate the user ratings, number of falls, reasons for falls, and gait
+variability for each condition. 
+
+We also hoped to compare neuromuscular and impedance control to the continuous
+phase-based control proposed by \citet{quintero2016preliminary}. However, we
+were unable to achieve a consistent walking pattern with this control strategy.
+We present our results trying to implement this control strategy in
+\cref{sec:nm_vs_imp_phase_imp}.

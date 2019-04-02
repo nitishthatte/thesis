@@ -42,24 +42,29 @@ trip recovery strategies after their occurrence is a necessary step towards
 obstacle avoidance, it does not provide a proactive prosthesis control strategy
 that prevents obstacle encounters in the first place.
 
-Another major drawback of the previous studies is that they train and test the
+Another major drawback of the previous studies is that they train and test 
 classifiers offline. However, a deployed trip classifier needs to function
 online and deal with temporal adaptation of the learner and amputee. The
 adaptation is required as the obstacle avoidance behavior triggered by a trip
 classifier alters the amputee's movements and, therefore, the data used to train
 the classifier. Consequently, trip classifiers trained offline may be
-ineffective due to the mismatch of training and testing data, a common problem
-faced in imitation and reinforcement learning \citep{ross2011reduction}. 
+ineffective due to a mismatch of training and testing data. In
+\cref{sec:back_high_level_control} we reviewed high-level classifiers that
+detect transitions between gait modes such as standing, level ground walking,
+and stair/ramp ascent/descent. In that setting, classification approaches often
+run into a similar problem of training and testing data mismatch.
+\citet{spanias2018online} provides a method of rectifying this data distribution
+mismatch.
 
 Here we present the first pilot study that combines online learning and
 proactive control of a powered transfemoral prosthesis to implement obstacle
 avoidance in amputee locomotion. The obstacle avoidance system uses early-swing
 measurements of the residual limb angle, angular velocity, and linear
 acceleration to recognize in-process obstacle avoidance attempts. To address the
-online learning aspect of this system, we adapted a previously proposed
-algorithm for detecting gait modes \citep{spanias2018online}. We also changed
-the existing swing leg behavior of the prosthesis to facilitate obstacle
-avoidance. This change includes a regression to predict the appropriate degree
-of knee and ankle flexion given the user's previous obstacle response motions.
-Finally, we evaluated the system behavior in trials with both non-amputee and
-amputee subjects.
+online learning aspect of this system, we adapted the method proposed by
+\citet{spanias2018online} for online learning of gait mode classification. We
+also changed the existing swing leg behavior of the prosthesis to facilitate
+obstacle avoidance. This change includes a regression to predict the appropriate
+degree of knee and ankle flexion given the user's previous obstacle response
+motions. Finally, we evaluated the system behavior in trials with both
+non-amputee and amputee subjects.

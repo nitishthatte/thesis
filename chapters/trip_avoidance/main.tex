@@ -1,6 +1,15 @@
 \chapter{Reactive Swing Control for Trip Avoidance}\label{sec:trip_avoidance}
-
 \graphicspath{{chapters/trip_avoidance/figures/}}
+
+The experimental results from \cref{sec:nm_vs_imp}, in which we compared
+neuromuscular and impedance control, revealed that trips during swing were one
+of the most common causes for falls (\cref{tab:treadmill_exp_fall_reasons}). In
+this chapter we explore two potential methods for avoiding swing trips. The
+first focuses on avoidance of obstacles during gait through online learning of
+classifiers that can recognize the user's obstacle avoidance intent. In the
+second, we directly address the trips during normal walking that were observed
+in \cref{sec:nm_vs_imp} by incorporating LIDAR distance sensor information into
+the prosthesis state estimation and swing trajectory planning.
 
 \input{classification_approach_intro.tex}
 \input{classification_approach_methods.tex}

@@ -1,26 +1,25 @@
 \section{Bayesian Approach Results}\label{s:results}
-We test the ability of PES-P to solve optimization problems in four cases with
+We test the ability of PES-P to solve optimization problems in three cases with
 increasing realism from the optimization of randomly generated objective
 functions drawn from a GP, to the tuning of feedback gains of random linear
-systems and a neuromuscular walking model, to the optimization of control
-parameters for a powered transfemoral prosthesis given real user feedback. In
-all four cases, we compare the performance of the proposed algorithm to the
-expected improvement criterion (EI) (\cref{eq:expected_improvement}) and random
-sampling via Latin hypercubes (LH)\sidenote[][2.25in]{LH sampling divides the
-parameter space into ${(2N)}^D$ hypercubes, where $D$ is the dimensionality of
-the space.  $2N$ samples are placed such that each hypercube has at most one
-sample and there is at most one filled hypercube along any row of hypercubes
-when viewed along any direction.  This method ensures that the samples are
-roughly uniformly distributed in the entire space. At each iteration we choose
-two of these samples to query users.}~\citep{mckay2000comparison}. For the three
-simulated cases, we show results over 20 trials and measure performance in terms
-of the immediate regret, defined as $IR = |f(\tilde x_n^*) - f(x^*)|$, versus
-the number iterations.  Here, $f(\tilde x_n^*)$ is the objective value of the
-current estimate of the optimum at this iteration, $f(x^*)$ is the value of the
-true optimum, and an iteration consists of a single preference query between two
-points.  Additionally, we also check the statistical significance of the
-reduction in IR obtained by PES-P compared to both EI and LH via two-sided
-Mann-Whitney $U$ tests $(p < 0.05)$.
+systems and a neuromuscular walking model. In all cases, we compare the
+performance of the proposed algorithm to the expected improvement criterion (EI)
+(\cref{eq:expected_improvement}) and random sampling via Latin hypercubes
+(LH)\sidenote[][2.25in]{LH sampling divides the parameter space into ${(2N)}^D$
+hypercubes, where $D$ is the dimensionality of the space. $2N$ samples are
+placed such that each hypercube has at most one sample and there is at most one
+filled hypercube along any row of hypercubes when viewed along any direction.
+This method ensures that the samples are roughly uniformly distributed in the
+entire space. At each iteration we choose two of these
+samples.}~\citep{mckay2000comparison}. For the three simulated cases, we show
+results over 20 trials and measure performance in terms of the immediate regret,
+defined as $IR = |f(\tilde x_n^*) - f(x^*)|$, versus the number iterations.
+Here, $f(\tilde x_n^*)$ is the objective value of the current estimate of the
+optimum at this iteration, $f(x^*)$ is the value of the true optimum, and an
+iteration consists of a single preference query between two points.
+Additionally, we also check the statistical significance of the reduction in IR
+obtained by PES-P compared to both EI and LH via two-sided Mann-Whitney $U$
+tests $(p < 0.05)$.
 
 \begin{figure*}[t!]
     \centering

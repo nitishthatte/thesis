@@ -1,5 +1,100 @@
 \section{Prosthesis Optimization}\label{sec:back_optimization}
-\begin{enumerate}
-    \item Zhange actor critic reinforcement learning
-    \item Collins CMAES
-\end{enumerate}
+
+Optimizing control policies for prostheses and exoskeletons presents a
+challenging task due to four key issues. First, there is significant
+variability gait characteristics that precludes using the same parameters for
+all users. Recently, \citet{zhang2017human} demonstrated this by optimizing an
+ankle exoskeleton's torque trajectory for specific users.  The authors found
+that optimized torque trajectories could reduce metabolic energy consumption
+beyond that provided by a generic assistance strategy.
+ 
+Second, to optimize prostheses and exoskeletons, it is necessary to define an
+objective function that includes and correctly assigns importance to all
+characteristics that determine system performance. Most prior work in this area
+assumes a certain form for the objective function. For example, in the work
+described above, the author's assume that the metabolic energy consumption of
+the user is the only important factor. The authors then use the Covariance
+Matrix Evolution Strategy \citep{hansen2006cma} to optimize the parameters of
+the exoskeleton. In other work, \citet{huang2016cyber} optimize a transfemoral
+leg prosthesis assuming the objective is to improve the ability of the knee to
+track an able-bodied trajectory. In this work, the authors use a
+\emph{cyber-expert system} (CES) that encodes how a human expert's tuning of
+impedance parameters effects the trajectory error. With this strategy, the
+author's improved trajectory tracking of a knee prosthesis, but also note that
+other metrics might be important such as metabolic energy, symmetry, and
+disturbance rejection. This approach was later improved by using adaptive
+reinforcement learning to circumvent predefining the tuning rules
+\citep{wen2016adaptive,wen2019online}. 
+
+If we choose to optimize more than one outcome simultaneously, we need to
+assign weights to each feature to each feature that reflect the users individual
+needs. Moreover, other aspects of gait may also be important but difficult to
+quantify, such as the amputee's comfort and sense of stability. In any case,
+measuring gait features require a high level of technical expertise and
+equipment to measure, and therefore preclude an amputee tuning his or her own
+prosthesis.
+
+To solve the problem of defining and measuring objective functions for robotic
+systems that human operators can directly control, researchers have proposed
+\emph{learning from demonstration} (LfD)~\citep{argall2009survey}. In this
+paradigm, one can either circumvent learning the objective function by directly
+learning a policy that matches the distribution of state-action pairs recorded
+during human demonstrations of the desired
+behavior~\citep{pomerleau1991efficient, schaal1999imitation}, or one can learn a
+reward function consistent with the demonstrator's actions and visited states
+and use it to derive an optimal control~\citep{ng2000algorithms,
+ratliff2006maximum, ziebart2009human}. LfD methods are attractive because they
+allow non-experts to specify both the quantifiable and qualitative aspects of
+the desired robot behavior via the non-technical language of demonstration.
+
+For robot behavior that people cannot demonstrate, such as the optimal behavior
+of an amputee's prosthesis, or the desired behavior of complex, dynamic robots,
+we can alternatively query human users for qualitative feedback in order to
+shape the robot policy. For example, the TAMER
+framework~\citep{knox2009interactively, knox2013training} utilizes good/bad
+assessments of a robot's recent actions to optimize its policy.
+\citeauthor{pilarski2011online} use this method to allow subjects to optimize
+the policy of an EMG-controlled prosthesis arm via their positive and negative
+feedback signals~\citep{pilarski2011online}.  Another paradigm in qualitative
+feedback is to obtain \emph{preference feedback} between two or more policies or
+sequences of actions, which may provide more nuanced feedback than absolute
+ratings. For example, \citeauthor{jain2013learning} and
+\citeauthor{akrour2014programming} propose methods that learn a user's
+trajectory scoring function based on his rankings of possible
+policies~\citep{jain2013learning, akrour2014programming}. Similarly,
+\citeauthor{wilson2012bayesian} provide a method to directly identify a user's
+preferred policy based on her preferences between pairs of demonstrated
+trajectories~\citep{wilson2012bayesian}. These prior works demonstrate that we
+may be able to use qualitative feedback, such as preferences, from non-expert
+users to program robot behavior, without prescribing an objective function.
+However, a drawback of the aforementioned methods that learn from preference
+feedback is their reliance on simulators to predict system behavior.
+Human-in-the-loop systems, such as lower-limb prostheses and exoskeletons, are
+challenging to simulate accurately, making these methods difficult to apply.
+
+The third issue an operator tasked with optimizing control policies for
+human-in-the-loop systems faces is the expense, in terms of time and effort, of
+repeatedly executing policies. Consequently, stochastic sampling approaches may
+be less applicable in this domain. To minimize the number of trials needed,
+researchers have proposed black-box \emph{Bayesian Optimization} (BO) methods
+that model both the objective function and its uncertainty. In these methods,
+the uncertainty informs an acquisition function that speeds up the optimization
+by exploiting regions of the parameter space with believed high objective value
+while still exploring regions where the objective function is uncertain. For
+example, researchers have successfully employed BO methods to efficiently
+optimize the gait parameters of a robotic snake~\citep{tesch2011using} and a
+dynamic bipedal robot~\citep{calandra2014bayesian}. In
+\cref{sec:preference_optimization} we present a new bayesian optimization method
+that uses learning from preferences between pairs of control parameters to avoid
+priori definition of features and to consider unquantifiable qualities of the
+desired behavior. We apply this method to optimize several simulated tasks.
+
+However, we also find through these experiments that the proposed Bayesian
+optimization approach, cannot scale to the dimensionality required for
+prosthesis optimization. This reveals the fourth challenge of prosthesis
+optimization, which is that prosthesis controllers typically have dozens of
+parameters, causing optimization routines to suffer from the curse of
+dimensionality. Therefore, in \cref{sec:preference_optimization} we also explore
+using a dueling bandits \citep{yue2012k} approach to optimizing the prosthesis
+parameters. This approach uses significant offline computation to generate a
+discrete library of viable parameter sets from which the user can choose.

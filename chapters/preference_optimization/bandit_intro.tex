@@ -1,48 +1,19 @@
-\section{Bandit Approach - Introduction} 
+\section{Bandit Approach Introduction} 
 
-There is a clear trend in research and recent commercial products towards
-robotic prostheses that promise to ameliorate the gait deficiencies imposed by
-prevailing mechanically-passive devices. With the robotization of prostheses,
-clinicians can now tune a large number of control parameters in order to
-maximize the performance of these devices for each user.
-
-Given the variability in human gait patterns, it is important to tailor these
-gait policies for specific users.  Recently, \citet{zhang2017human} demonstrated
-this by optimizing an ankle exoskeleton's torque trajectory for specific users.
-The authors found that optimized torque trajectories could reduce metabolic
-energy consumption beyond that provided by a generic assistance strategy.
-
-Others have investigated optimization methods for prostheses specifically. For
-example, \citet{huang2016cyber} propose a cyber expert system that uses
-pre-defined rules to modify impedance control parameters in order to improve the
-trajectory-tracking performance of a powered knee prosthesis. This approach was
-later improved by using adaptive reinforcement learning to circumvent
-predefining the tuning rules \citep{wen2016adaptive}. 
-
-A drawback of these previously proposed methods are their reliance on numeric
-optimization criteria, such as metabolic energy or trajectory tracking
-performance. It is unclear if optimizing prostheses to follow a specific
-trajectory will result in a positive outcome given the asymmetries in actuation,
-kinematics, and inertia induced by an amputation and wearing a prosthesis.
-Moreover, myopic optimization of a single aspect of gait may neglect other
-characteristics that are often subjective such as comfort and confidence.
-Therefore, in this work, we utilize subjective preferences between pairs of
-policy parameters in order to achieve a more holistic approach to prosthesis
-optimization.
-
-A second difficulty for existing methods is tackling the high dimensional,
-constrained optimization problem imposed by multi-joint assistive devices such
-as transfemoral prostheses. Previously published impedance control strategies
-for transfemoral prostheses have roughly 30 tunable parameters for a given gait
-condition, such as walking at a specific speed. \citet{sup2011upslope} show that
-these parameters also vary with alternative conditions such as incline.
-Therefore, these kinds of parameterized policies could require on the order of
-100 parameters to deal with a range of situations. Previous work has attempted
-to reduce the number of parameters via heuristic rules that tie impedance
-parameters to other states of the prosthesis such as joint angles
-\citep{simon2014configuring}.  However, it is not obvious how to translate these
-heuristics to other control strategies, such as neuromuscular control
-\citep{thatte2016toward}, which models muscles and neural reflexes, or
+In the first half of this chapter, we explored the potential of a method that
+combines Bayesian optimization with learning from preferences. However, the
+simulation results presented demonstrate the it is unlikely the proposed method
+can scale to the dimensionality needed for prosthesis optimization. Previously
+published impedance control strategies for transfemoral prostheses have roughly
+20 tunable parameters for a given gait condition, such as walking at a specific
+speed. \citet{sup2011upslope} show that these parameters also vary with
+alternative conditions such as incline.  Therefore, these kinds of parameterized
+policies could require on the order of 100 parameters to deal with a range of
+situations. Previous work has attempted to reduce the number of parameters via
+heuristic rules that tie impedance parameters to other states of the prosthesis
+such as joint angles \citep{simon2014configuring}.  However, it is not obvious
+how to translate these heuristics to other control strategies, such as the
+neuromuscular control we propose in \cref{sec:nm_control_prosthesis}, or
 phase-based control \citep{quintero2016preliminary}, which follows knee and
 ankle trajectories parameterized as functions of hip angle and hip angle
 integral.

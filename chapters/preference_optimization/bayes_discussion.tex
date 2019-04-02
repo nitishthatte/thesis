@@ -31,5 +31,11 @@ who successfully used EI with preferences to optimize parameters for a graphics
 application, possibly because the associated visual task produced less noisy
 responses than did our simulations or prosthesis walking task. 
 
-\todo{discuss how it could not handle high enough dimensions which motivates
-bandit based approach tried next}
+However, a major drawback of the proposed PES-P approach is its limited ability
+to scale to problems of sufficient dimensionality. As shown in
+\cref{fig:y_err_sim}d PES-P provides little benefit over random sampling on 5D
+problems. In contrast, to optimize the neuromuscular model control proposed in
+\cref{sec:nm_control_prosthesis} we need to be able to solve problems with
+dozens of dimensions. Therefore, in the next half of this chapter, we explore an
+alternative approach, that frames prosthesis optimization as a dueling bandits
+problem \citep{yue2012k}.

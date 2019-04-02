@@ -33,7 +33,7 @@ control strategy takes advantage of the simple double-pendulum dynamics during
 swing to derive a strong feedforward term that allows the use of small,
 compliant feedback gains.
 
-\subsection{Finite State Impedance Control}
+\subsection{Finite State Impedance Control}\label{sec:back_walk_fsm}
 \begin{marginfigure}
     \centering
     \includegraphics[width=\linewidth]{impedance_control_state_flow}
@@ -87,47 +87,136 @@ sound-side leg. In this thesis, however, we focus on control strategies that do
 not require extra instrumentation of the body. Therefore, in later chapters we
 will explore, through simulations (\cref{sec:control_sim}) and through
 experiments with our robotic prosthesis
-(\cref{sec:nm_vs_imp,sec:phase_estimation}), the potential consequences of
-mistimed phase transitions in a finite state impedance control scheme that does
-not use external sensing.
+(\cref{sec:nm_vs_imp,sec:phase_estimation}), the consequences of mistimed phase
+transitions in a finite state impedance control scheme that does not use
+external sensing.
 
 \subsection{Continuous Phase Control}
-Another approach to walking control in active prostheses is to estimate a
-continuous notion of phase. This may avoid the gait instabilities that may be
-caused by joint torques changing discontinuously in finite state impedance
-control. Recently, \citet{gregg2014virtual} have proposed
-methods similar to the centralized virtual constraint control discussed in
-\cref{sec:back_centralized_control}, in which the natural progression of a phase
-variable determines the rate at which the control follows preplanned
-trajectories. \citet{gregg2014virtual} chooses to follow the ankle-foot and
-knee-ankle-foot rollover shapes, which are defined as the location of the center
-of pressure with respect to coordinate systems attached to the shank and the
-ankle-hip line respectively. The center-of-pressure naturally becomes the phase
-variable for these trajectories. The observation that the roll-over shapes are
-invariant across walking speed, shoe geometry, and amputee weight motivates this
-choice. In this strategy, a model-based feedback linearization controller
-enforces adherence to these desired trajectories as the center of pressure
-progress through its natural dynamics. This formulation provides both the
-feed-forward torque command and a disturbance response command that provides
-exponential converge to the desired rollover shapes. 
+Another approach to walking control in active prostheses is to estimate or
+measure a continuous phase variable. This may avoid the gait instabilities that
+can be caused by joint torques that change discontinuously in finite state
+impedance control. Previous work in this area has focused on deriving phase
+variables from single information sources. For example, \citet{gregg2014virtual}
+enforce virtual constraints on the effective rollover shapes during walking.
+The rollover shapes are the locations of the center of pressure (COP) in frames
+attached to the shin and thigh. Proportional derivative control or feedback
+linearization can be used to drive the error between the measured rollover shape
+and desired rollover shape to zero. Typically, during walking the COP progresses
+monotonically from heel to toe, making it an effective phase variable. However,
+when walking on uneven terrain this assumption could be violated. Additionally,
+this definition of phase is only applicable during stance.
 
-As we noted earlier for centralized robotic control approaches, a downside of
-these two trajectory following controllers is their reliance on accurate
-dynamics models to compute feed-forward torques. To overcome this issue,
-\citet{zhao2016first} propose a model-independent virtual constraint control. In
-this scheme, quasi-stiffness control provides a feed-forward torque signal that
-reduces the dependence on the model. A quadratic program then computes the
-minimum required extra effort to ensure convergence to a preplanned trajectory
-that is parameterized with respect to hip angle.
+To obtain a phase variable that is applicable in a wider variety of situations,
+\citet{quintero2016preliminary} propose using the thigh angle and its integral
+to derive a continuous phase variable. In this approach, one starts by plotting
+in a chart the thigh angle on the $x$ axis and its (normalized) integral on the
+$y$ axis. Assuming the thigh angle approximately follows a cosine trajectory
+during gait, and with the right normalization constants, the thigh angle/thigh
+angle integral form a circle over one gait cycle. Therefore, one can use the
+polar angle of the thigh angle integral vs thigh angle as a phase variable.
+However, in order for the method to calculate a phase angle that increases at a
+predictable constant rate, the thigh angle/integral plot should be centered
+about the origin and the correct normalization needs to be applied to the thigh
+integral.  Furthermore, in order for the thigh integral to reach zero again at
+the end of a gait cycle, the average thigh angle must be subtracted from the
+thigh angle before integration. The thigh angle shift, integral shift, integral
+normalization, and angle average must be estimated online in order to use this
+method. Incorrect estimation of these parameters can cause the phase estimate to
+diverge. Consequently, using this method for non-periodic motions is difficult.
+In \cref{sec:nm_vs_imp_phase_imp} we present our attempt to implement this style
+of control on our robotic prosthesis. We found that the variability from step to
+step alone was enough to cause significant drift in the thigh angle. Thus we
+were not able to achieve a consistent gait with this control scheme.
 
-\begin{enumerate}
-    \item Phase Variable
-        \begin{enumerate}
-            \item using COP
-            \item using hip angle/integral
-            \item splitting up into phases again
-        \end{enumerate}
-    \item Aaron Ames - Nonlinear control 
-    \item CLME
-    \item Neuromuscular Ankle
-\end{enumerate}
+As a possible solution, \citet{rezazadeh2018phase} recently proposed a method
+that eliminates the thigh angle integral and instead uses the thigh angle only.
+This method relies on the insight that, for the most part, during gait the thigh
+angle decreases monotonically from heel strike to shortly before toeoff, and
+then increases from that point until the next heel strike. Therefore, one can
+define two different relationships between the hip angle and phase for these two
+portions of gait and use a finite state machine to transition between them.
+However, reintroducing a finite state machine into the controller necessitates
+tuning of transitions rules between phases and may cause similar issues as in
+finite state impedance control.
+
+\citet{azimi2019model} Finally, another approach to continuous phase-based
+control of prostheses uses the forward translational hip position to
+parameterize the desired gait trajectory. The trajectory is designed in
+simulation subject to a partial hybrid zero dynamics constraint that allows one
+to use a adaptive, control Lyapunov function-based controllers with convergence
+guarantees. However, to date, this control has only been used to actuate the
+knee of a powered prosthesis while the ankle remained passive, perhaps due to
+the additional complexity of dealing with multiple hybrid dynamics transitions
+between swing, heel contact only, heel and toe contact, and toe contact only.
+
+In \cref{sec:phase_estimation}, we propose an alternative approach to continuous
+gait phase estimation that uses an extended Kalman filter to derive the phase
+estimate. Unlike these reviewed approaches, the proposed approach can fuse
+information from any combination of sensors that produce continuous output and
+does not need a finite state machine. Moreover, we shown the resulting control
+can use the phase estimate to enable automatic transitions to standing mode. 
+
+\subsection{Non Phase-Based Control}
+
+So far, all walking controllers we reviewed keep track of either a discrete or
+continuous estimate of phase during gait. However, researchers have also
+proposed prosthesis controllers that do not take this approach. For example the
+complementary limb motion estimation (CLME) approach proposed by
+\citet{vallery2011complementary} uses linear regression to learn a direct
+mappings between the angles and velocities of the user's limbs to the
+prosthesis' joint angles and velocities. However, this approach used many IMUs
+mounted to the torso and sound side leg to measure the user's kinematics, and
+thus may be impractical for everyday use by an amputee.
+
+Another class of non-phase based control uses neuromuscular models that simulate
+the dynamics of the muscle tendon units in the leg and hypothesized reflex
+pathways to generate the desired torques for walking. Prior work in simulation
+of biped walking controlled by neuromuscular models has demonstrated that this
+control approach can produce very natural and robust gait patterns
+\citep{geyer2010muscle,song2013integration,song2015neural}.
+\begin{marginfigure}[1in]
+    \centering
+    \includegraphics[width=\linewidth]{eilenberg_diagram} \caption{Neuromuscular
+    model used by \citet{eilenberg2010control} to control an active ankle
+    prosthesis. During stance, a virtual muscle driven by positive force
+    feedback, generates plantarflexion torque. During swing, a virtual spring
+    damper provides dorsiflexion torque to prevent toe scuffing.}
+    \label{fig:eilenberg_diagram}
+\end{marginfigure}
+Motivated by the robustness and natural gait achievable by neuromuscular reflex
+control, past research has applied this model to active ankle prostheses.
+\citet{eilenberg2010control} applied a simplified version of the control to a
+powered ankle prosthesis (\cref{fig:eilenberg_diagram}). In this work, the
+neuromuscular model was reduced to a single ankle plantarflexor muscle driven by
+a positive force feedback reflex during stance. During swing, the control
+applies torque to dorsiflex the ankle according to a virtual spring damper
+model. In amputee testing of a prosthesis controlled by the neuromuscular model
+the control produced ankle kinematics and kinetics similar to those observed in
+healthy human walking. Significantly, \citeauthor{eilenberg2010control} found
+evidence that the robustness  properties observed in neuromuscular model
+simulations may carry over to amputee gait as well. The author's note that the
+prosthesis automatically adapts torque output when walking on slopes, producing
+more plantarflexion torque when walking up slopes and less when walking down
+slopes. Additionally, \citet{markowitz2011speed} found that a similar
+neuromuscular reflex model automatically produced more ankle plantarflexion work
+as the amputee increased his gait speed.
+
+The inclusion of user intent recognition via surface electromyography (EMG)
+signals represents an interesting extension of neuromuscular reflex prosthesis
+control. In these approaches, muscle activity in the residual limb is directly
+measured via EMG sensors embedded in the amputee's prosthesis socket. These EMG
+sensors are then used to control the torque generation of the amputee's leg
+prosthesis. Because neuromuscular models describe how joint torque is generated
+in response to muscle activations, a natural approach is to use the EMG signal
+in reflex pathways in order to activate virtual muscles. This is the approach
+proposed by \citet{wu2011electromyography}. In this work,
+\citeauthor{wu2011electromyography} control an active transfemoral prosthesis
+using EMG sensor readings from the residual thigh to activate virtual knee
+flexor and extensor muscles according to a linearised Hill muscle model. The
+resulting prosthesis control allowed an intact subject wearing the prosthesis
+via an able-bodied emulator to achieve nearly normal gait. In a similar
+approach, \citet{wang2013proportional} use EMG signals to modify the gain on a
+positive torque feedback loop (similar to positive force feedback used in
+\citet{geyer2010muscle}) in order to control ankle plantarflexion torque. As
+seen in healthy human walking, toe off angle and ankle net work increased with
+increasing walking speed.
