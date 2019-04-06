@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 pgf_with_custom_preamble = {
     "pgf.texsystem": "xelatex",
     "font.family": "sans-serif", # use san serif/main font for text elements
-    "font.size": 10,
+    "font.size": 8,
     "text.usetex": False,    # use inline math for ticks
     "pgf.rcfonts": False,   
     "pgf.preamble": [
@@ -84,6 +84,8 @@ try:
     ax.xaxis.get_label().set_position(xlabelpos_axes)
 except:
     pass
+
+plt.tight_layout()
 
 filename = 'force_length_ce.pdf'
 fig.savefig(filename, bbox_inches='tight')

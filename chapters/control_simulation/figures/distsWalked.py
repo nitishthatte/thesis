@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 import scipy.io as sio
 import matplotlib as mpl
+mpl.use("pgf")
 import pdb
 
 pgf_with_custom_preamble = {
@@ -119,9 +120,8 @@ p2, = ax1.plot(positions2,impedanceMedians,'^-',color=color2,markersize=5,
 ax1.xaxis.set_label_text('Ground Roughness (cm)')
 ax1.yaxis.set_label_text('Distance Walked (m)')
 
-ax1.legend((p0, p1, p2), ('Intact Model', 'Neuromuscular Control', 
-    'Impedance Control'), 
-    frameon = False, loc = 'upper center', prop={'size': 6}, ncol = 3,
+ax1.legend((p0, p1, p2), ('Intact Model', 'Neuromuscular\nControl', 
+    'Impedance\nControl'), frameon = False, loc = 'upper center', ncol = 3,
     bbox_to_anchor =(0.45,1.2))
 
 #set axis properties
@@ -163,3 +163,4 @@ except:
     pass
 
 plt.savefig('distsWalked.pdf', bbox_inches='tight')
+plt.close()
