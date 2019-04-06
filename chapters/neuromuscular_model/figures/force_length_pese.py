@@ -46,43 +46,42 @@ ax.xaxis.set_label_text('Length')
 ax.yaxis.set_label_text('Force')
 
 #set axis properties
-ax.xaxis.set_tick_params(direction = 'out', width = 1)
-ax.yaxis.set_tick_params(direction = 'out', width = 1)
-ax.yaxis.set_tick_params(which='minor', direction = 'out', width = 1)
-ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
-ax.xaxis.set_ticks_position('bottom')
-ax.yaxis.set_ticks_position('left')
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
 
 ax.axis([-0.2, 2.1, -0.1, 1.1])
-ax.spines['left'].set_bounds(0, 1)
 ax.set_yticks(np.arange(0, 2, 1))
 ax.set_yticklabels(['0', r'$\mathsf{F_{max}}$'])
-
-ax.spines['bottom'].set_bounds(0, 2)
 ax.set_xticks(np.arange(0,3,1))
 ax.set_xticklabels(['0', r'$\mathsf{l_{ref}}$', r'$\mathsf{\epsilon_{ref}}$'])
 
-#adjust label pos
+#center all axis labels in bounds
 inv_data = ax.transData.inverted()
 inv_axes = ax.transAxes.inverted()
 
-ylabelpos_axes = ax.yaxis.get_label().get_position()
-ylabelpos_display = ax.transAxes.transform(ylabelpos_axes)
-ylabelpos_data = inv_data.transform(ylabelpos_display)
-ylabelpos_data[1] = np.array(ax.spines['left'].get_bounds()).mean()
-ylabelpos_display = ax.transData.transform(ylabelpos_data)
-ylabelpos_axes = inv_axes.transform(ylabelpos_display)
-ax.yaxis.get_label().set_position(ylabelpos_axes)
+try:
+    ylabelpos_axes = ax.yaxis.get_label().get_position()
+    ylabelpos_display = ax.transAxes.transform(ylabelpos_axes)
+    ylabelpos_data = inv_data.transform(ylabelpos_display)
+    ylabelpos_data[1] = np.array(ax.get_yticks).mean()
+    ylabelpos_display = ax.transData.transform(ylabelpos_data)
+    ylabelpos_axes = inv_axes.transform(ylabelpos_display)
+    ax.yaxis.get_label().set_position(ylabelpos_axes)
+except:
+    pass
 
-xlabelpos_axes = ax.xaxis.get_label().get_position()
-xlabelpos_display = ax.transAxes.transform(xlabelpos_axes)
-xlabelpos_data = inv_data.transform(xlabelpos_display)
-xlabelpos_data[0] = np.array(ax.spines['bottom'].get_bounds()).mean()
-xlabelpos_display = ax.transData.transform(xlabelpos_data)
-xlabelpos_axes = inv_axes.transform(xlabelpos_display)
-ax.xaxis.get_label().set_position(xlabelpos_axes)
-
+try:
+    xlabelpos_axes = ax.xaxis.get_label().get_position()
+    xlabelpos_display = ax.transAxes.transform(xlabelpos_axes)
+    xlabelpos_data = inv_data.transform(xlabelpos_display)
+    xlabelpos_data[0] = np.array(ax.get_xticks).mean()
+    xlabelpos_display = ax.transData.transform(xlabelpos_data)
+    xlabelpos_axes = inv_axes.transform(xlabelpos_display)
+    ax.xaxis.get_label().set_position(xlabelpos_axes)
+except:
+    pass
 
 filename = 'force_length_pese.pdf'
 fig.savefig(filename, bbox_inches='tight')
