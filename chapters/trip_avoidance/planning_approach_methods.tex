@@ -175,20 +175,6 @@ such that
 where $A_\tn{eq}$,  $b_\tn{eq}$, $A_\tn{ineq}$, and $b_\tn{ineq}$ are derived
 from linearizing the equality and inequality constraints.
 
-\begin{marginfigure}[-1in]
-    \centering
-    \includegraphics[width=\columnwidth]{ekf_fig}
-    \caption[Trajectories of extended Kalman Filter (EKF) estimate of the
-    position of the leg during swing compared to ground truth data from motion
-    capture system]{Trajectories of extended Kalman Filter (EKF) estimate of the
-    position of the leg during swing (blue). Ground truth positions given by
-    motion capture (yellow). EKF estimate without LIDAR information shown in
-    red. Thick lines show the leg configuration at peak toe height during swing.
-    Dotted lines indicate heel trajectories while dashed lines show the toe
-    trajectories. Knee and ankle trajectories given by solid
-    lines.}\label{fig:ekf}
-\end{marginfigure}
-
 To identify the appropriate parameters of the Kalman filter, we collected ground
 truth training and testing kinematic data using a Vicon motion capture system
 and optimized the parameters of the EKF to minimize the error of the kinematic
@@ -205,20 +191,20 @@ toe positions during swing is \unit[18.6]{mm} for the EKF with LIDAR
 information. In contrast, the EKF without LIDAR information has an error of
 \unit[46.7]{mm}. Thus, including the LIDAR sensor data reduces the error by
 60\%.
-
-\begin{figure}[t]
+\begin{marginfigure}
     \centering
-    \includegraphics[width=\columnwidth]{gp_plots_w_legend}
-    \caption[Example of hip angle and height trajectory predictions]{Example of
-    hip angle and height trajectory predictions \unit[0.15]{s} into swing. The
-    prediction algorithm uses the previous 10 measured hip angles and heights
-    (sampled at \unit[100]{Hz}, black dots) along with the learned joint
-    distributions of hip angles/heights versus time (red) to obtain the
-    conditional distributions of future hip angles/heights (blue). The planning
-    algorithm uses the means of the conditional distributions to generate knee
-    and ankle trajectories. The actual hip height and angle trajectories are
-    shown in black.}\label{fig:gp_plots}
-\end{figure}
+    \includegraphics[width=\columnwidth]{ekf_fig}
+    \caption[Trajectories of extended Kalman Filter (EKF) estimate of the
+    position of the leg during swing compared to ground truth data from motion
+    capture system]{Trajectories of extended Kalman Filter (EKF) estimate of the
+    position of the leg during swing (blue). Ground truth positions given by
+    motion capture (yellow). EKF estimate without LIDAR information shown in
+    red. Thick lines show the leg configuration at peak toe height during swing.
+    Dotted lines indicate heel trajectories while dashed lines show the toe
+    trajectories. Knee and ankle trajectories given by solid
+    lines.}\label{fig:ekf}
+\end{marginfigure}
+
 \subsection{Gaussian Process Hip Trajectory Prediction}
 
 \label{sec:predict_gp}
@@ -233,6 +219,19 @@ predict the distribution of the future trajectories for the rest of the swing
 these conditional distributions in the motion planning phase
 (compare \cref{sec:traj_plan}). 
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{gp_plots_w_legend}
+    \caption[Example of hip angle and height trajectory predictions]{Example of
+    hip angle and height trajectory predictions \unit[0.15]{s} into swing. The
+    prediction algorithm uses the previous 10 measured hip angles and heights
+    (sampled at \unit[100]{Hz}, black dots) along with the learned joint
+    distributions of hip angles/heights versus time (red) to obtain the
+    conditional distributions of future hip angles/heights (blue). The planning
+    algorithm uses the means of the conditional distributions to generate knee
+    and ankle trajectories. The actual hip height and angle trajectories are
+    shown in black.}\label{fig:gp_plots}
+\end{figure}
 For example, to calculate the conditional mean of future hip angles, we first
 compute the joint distribution of completed $(\theta_h^\tn{c})$ and future
 $(\theta_h^\tn{f})$ hip angles,

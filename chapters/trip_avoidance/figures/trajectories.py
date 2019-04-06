@@ -12,7 +12,7 @@ import sys
 pgf_with_custom_preamble = {
     "pgf.texsystem": "xelatex",
     "font.family": "sans-serif", # use san serif/main font for text elements
-    "font.size": 6,
+    "font.size": 8,
     "text.usetex": False,    # use inline math for ticks
     "pgf.rcfonts": False,   
     "pgf.preamble": [
@@ -67,7 +67,7 @@ mpc_disturb_time = data['constrained_disturb_time']
 mpc_disturb_knee = 180.0/np.pi*data['constrained_disturb_knee']
 mpc_disturb_ankle = 180.0/np.pi*data['constrained_disturb_ankle']
 
-fig = plt.figure(figsize=(3,2))
+fig = plt.figure(figsize=(4.5,3))
 ax = []
 ax.append(fig.add_subplot(221))
 ax.append(fig.add_subplot(222, sharex=ax[0], sharey=ax[0]))
