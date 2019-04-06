@@ -23,6 +23,15 @@ def add_barplot_sigstars(ax, condition_combs, pvalues, xloc, sig_space=0.1,
         xloc = xloc[condition_combs]
         y_bottom = 1.1
         yloc = np.linspace(y_bottom, y_bottom+sig_space*(num_comps-1), num_comps)
+    if star_loc == '3x1':
+        if pvalues[0] < 0.05 and pvalues[2] < 0.05:
+            x01 = [0, 0.9]
+            x12 = [1.1, 2]
+        else:
+            x01 = [0, 1]
+            x12 = [1, 2]
+        xloc = np.array((x01, [0, 2], x12))
+        yloc = 1.1 + sig_space*np.array((0, 1, 0))
     if star_loc == '3x3':
         if pvalues[0] < 0.05 and pvalues[2] < 0.05:
             x01 = [0, 0.9]

@@ -26,10 +26,10 @@ or exceed the requirements for walking~(\cref{tab:walking_requirements}).
     Power & \unit[350]{W} & \unit[120]{W}\\
     \bottomrule
   \end{tabular}
-  \caption{Required knee and ankle torque, velocity, and power for walking
-  (\unitfrac[1.40]{m}{s} average speed, scaled to \unit[85]{kg} subject,
-  data from \citet{winter2009biomechanics})}
-  \label{tab:walking_requirements}
+  \caption[knee and ankle torque, velocity, and power for walking]{Required knee
+  and ankle torque, velocity, and power for walking (\unitfrac[1.40]{m}{s}
+  average speed, scaled to \unit[85]{kg} subject, data from
+  \citet{winter2009biomechanics})} \label{tab:walking_requirements}
 \end{margintable}
 
 In this \namecref{sec:back_pros_design}, we review a number of recent prosthesis
@@ -80,7 +80,8 @@ its knee and ankle joints
         ankle units \citep{lawson2014robotic}.}
         \label{fig:vanderbilt_gen_3}
 	\end{subfigure}
-    \caption{Vanderbilt University's Robotic Transfemoral Prostheses.}
+    \caption[Vanderbilt University's Robotic Transfemoral Prostheses]{Vanderbilt
+    University's Robotic Transfemoral Prostheses.}
     \label{fig:vanderbilt_prostheses}
 \end{figure*}
 
@@ -143,11 +144,11 @@ frictional losses as they are included in the torque measurement.
 \begin{marginfigure}
     \centering
     \includegraphics[width=\linewidth]{ankle_torque_vs_angle}
-    \caption{Torque vs angle relationship for the ankle during level ground
+    \caption[Torque vs angle relationship for the ankle during level ground
+    walking]{Torque vs angle relationship for the ankle during level ground
     walking. A linear spring relationship captures a significant portion of
     ankle function during stance. Data from \citet{winter2009biomechanics}
-    scaled to 85 kg subject.}
-    \label{fig:ankle_torque_vs_angle}
+    scaled to 85 kg subject.}\label{fig:ankle_torque_vs_angle}
 \end{marginfigure}
 
 However, this method may still not address a second problem: sluggish passive
@@ -201,14 +202,14 @@ may be significantly slower than assumed.
     percent increase & 17\% & 8400\% \\
     \bottomrule
   \end{tabular}
-  \caption{Estimated reflected inertia at knee and ankle joints of Generation 3
-  Vanderbilt Prosthesis \citep{lawson2014robotic}. Motor data taken from Maxon
-  Motors Catalog\citep{maxon_flat_motor,
-  maxon_ec4pole} Knee reflected inertia compared to inertia of human shank and
-  foot about knee. Ankle inertia compared to human foot about its center of
-  mass. Human inertias estimated from \citet{winter2009biomechanics} for an
-  \unit[85]{kg}, \unit[1.7]{m} tall person.}
-  \label{tab:vanderbilt_reflec_interita}
+  \caption[Estimated reflected inertia of Generation 3 Vanderbilt
+  Prosthesis]{Estimated reflected inertia at knee and ankle joints of Generation
+  3 Vanderbilt Prosthesis \citep{lawson2014robotic}. Motor data taken from Maxon
+  Motors Catalog\citep{maxon_flat_motor, maxon_ec4pole} Knee reflected inertia
+  compared to inertia of human shank and foot about knee.  Ankle inertia
+  compared to human foot about its center of mass. Human inertias estimated from
+  \citet{winter2009biomechanics} for an \unit[85]{kg}, \unit[1.7]{m} tall
+  person.}\label{tab:vanderbilt_reflec_interita}
 \end{table}
 
 
@@ -230,17 +231,6 @@ impact shock could cause damage to gearing and discomfort for the amputee.
 %human foot for 1.7m 85 kg = 0.0187 kg*m^2
 
 \subsection{Design of Dynamic Prostheses}\label{sec:back_dyn_pros}
-\begin{marginfigure}[0in]
-    \centering
-    \includegraphics[width=2in]{sea_diagram}
-    \caption{Series elastic actuation inserts a spring between the gear output
-    and the load (here drawn as linear actuator for simplicity). Torque is
-    measured via the spring deflection, $\tau = k(\theta_l - \theta_m -
-    \theta_0)$ where $\tau$ is the output joint torque, $k$ is the spring
-    constant, and $\theta_l$ and $\theta_m$ are the load and motor positions and
-    $\theta_0$ is the spring's rest length.}
-    \label{fig:sea_diagram}
-\end{marginfigure}
 In contrast to the rigid transmission actuation discussed in the previous
 subsection, prostheses that employ series elastic actuation may be better poised
 to achieve dynamic locomotion \citep{pratt1995series}. This actuation scheme
@@ -253,6 +243,17 @@ in response to the external load.  Due to these properties, designers have
 integrated series elastic actuators into a number of bipedal robots that seek to
 achieve dynamic locomotion such as M2V2 \citep{pratt2008design} and ATRIAS
 \citep{grimes2013atrias}.
+\begin{marginfigure}[0in]
+    \centering
+    \includegraphics[width=2in]{sea_diagram}
+    \caption[Series elastic actuator diagram]{Series elastic actuation inserts a
+    spring between the gear output and the load (here drawn as linear actuator
+    for simplicity). Torque is measured via the spring deflection, $\tau =
+    k(\theta_l - \theta_m - \theta_0)$ where $\tau$ is the output joint torque,
+    $k$ is the spring constant, and $\theta_l$ and $\theta_m$ are the load and
+    motor positions and $\theta_0$ is the spring's rest
+    length.}\label{fig:sea_diagram}
+\end{marginfigure}
 
 Series elastic actuators have found use in a variety of transtibial and
 transfemoral prostheses. We can further split these applications into two
@@ -337,12 +338,13 @@ required, one for extension and one for flexion.
 \begin{marginfigure}[0in]
     \centering
     \includegraphics[width=\linewidth]{knee_torque_vs_angle}
-    \caption{Torque vs angle relationship for the knee during level ground
+    \caption[Torque vs angle relationship for the knee during level ground
+    walking]{Torque vs angle relationship for the knee during level ground
     walking. Knee displays more complicated functionality than the ankle (see
     \cref{fig:ankle_torque_vs_angle}), with two distinct springs need to explain
     early stance and pre-swing/swing behavior. Data from
-    \citet{winter2009biomechanics} scaled to 85 kg subject.}
-    \label{fig:knee_torque_vs_angle}
+    \citet{winter2009biomechanics} scaled to 85 kg
+    subject.}\label{fig:knee_torque_vs_angle}
 \end{marginfigure}
 
 A second concept is to use a series elastic actuator with a clutch on the motor

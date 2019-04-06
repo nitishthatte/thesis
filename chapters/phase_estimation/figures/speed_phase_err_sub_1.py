@@ -29,7 +29,7 @@ colors = np.array(((217., 82., 25.),
 
 data = sio.loadmat('speed_phase_est_sub_1_data.mat')
 
-fig = plt.figure(figsize=(2,2.5))
+fig = plt.figure(figsize=(4.5,2.5))
 ax = fig.add_subplot(111)
 
 ax.set_xlabel('True Phase')
@@ -43,7 +43,7 @@ ekf_handle = ax.plot(data['phase_actual'].transpose(),
 
 ax.legend((time_handle[0], ekf_handle[0]), 
     ('Time-Based Phase Estimation', 'EKF phase estimation'), frameon=False,
-    loc='upper center', bbox_to_anchor=(0.3, 1.5))
+    loc='lower center', bbox_to_anchor=(0.45, 1.01), ncol=2)
 
 #set spline visibility, axis limits tick marks
 ax.spines['top'].set_visible(False)

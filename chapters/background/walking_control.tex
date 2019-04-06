@@ -37,8 +37,9 @@ compliant feedback gains.
 \begin{marginfigure}
     \centering
     \includegraphics[width=\linewidth]{impedance_control_state_flow}
-    \caption{Finite state machine used for the impedance control scheme proposed
-    in \citet{sup2009preliminary}. In each state the control employs linear
+    \caption[Example finite state machine for the impedance control].{Finite
+    state machine used for the impedance control scheme proposed in
+    \citet{sup2009preliminary}. In each state the control employs linear
     impedance functions that determine the behavior of the ankle and knee joints
     of an active transfemoral
     prosthesis.}\label{fig:impedance_control_state_flow}
@@ -91,7 +92,7 @@ experiments with our robotic prosthesis
 transitions in a finite state impedance control scheme that does not use
 external sensing.
 
-\subsection{Continuous Phase Control}
+\subsection{Continuous Phase Control}\label{sec:back_walk_cont_phase}
 Another approach to walking control in active prostheses is to estimate or
 measure a continuous phase variable. This may avoid the gait instabilities that
 can be caused by joint torques that change discontinuously in finite state
@@ -123,10 +124,10 @@ thigh angle before integration. The thigh angle shift, integral shift, integral
 normalization, and angle average must be estimated online in order to use this
 method. Incorrect estimation of these parameters can cause the phase estimate to
 diverge. Consequently, using this method for non-periodic motions is difficult.
-In \cref{sec:nm_vs_imp_phase_imp} we present our attempt to implement this style
-of control on our robotic prosthesis. We found that the variability from step to
-step alone was enough to cause significant drift in the thigh angle. Thus we
-were not able to achieve a consistent gait with this control scheme.
+In \cref{sec:back_walk_cont_phase} we present our attempt to implement this
+style of control on our robotic prosthesis. We found that the variability from
+step to step alone was enough to cause significant drift in the thigh angle.
+Thus we were not able to achieve a consistent gait with this control scheme.
 
 As a possible solution, \citet{rezazadeh2018phase} recently proposed a method
 that eliminates the thigh angle integral and instead uses the thigh angle only.
@@ -176,12 +177,13 @@ control approach can produce very natural and robust gait patterns
 \citep{geyer2010muscle,song2013integration,song2015neural}.
 \begin{marginfigure}[1in]
     \centering
-    \includegraphics[width=\linewidth]{eilenberg_diagram} \caption{Neuromuscular
-    model used by \citet{eilenberg2010control} to control an active ankle
-    prosthesis. During stance, a virtual muscle driven by positive force
-    feedback, generates plantarflexion torque. During swing, a virtual spring
-    damper provides dorsiflexion torque to prevent toe scuffing.}
-    \label{fig:eilenberg_diagram}
+    \includegraphics[width=\linewidth]{eilenberg_diagram} 
+    \caption[Neuromuscular model used by \citet{eilenberg2010control} to control
+    an active ankle prosthesis.]{Neuromuscular model used by
+    \citet{eilenberg2010control} to control an active ankle prosthesis. During
+    stance, a virtual muscle driven by positive force feedback, generates
+    plantarflexion torque. During swing, a virtual spring damper provides
+    dorsiflexion torque to prevent toe scuffing.}\label{fig:eilenberg_diagram}
 \end{marginfigure}
 Motivated by the robustness and natural gait achievable by neuromuscular reflex
 control, past research has applied this model to active ankle prostheses.

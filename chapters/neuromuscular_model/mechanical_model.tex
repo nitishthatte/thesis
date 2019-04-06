@@ -1,14 +1,14 @@
 \section{Mechanical Model}\label{sec:neuro_mech_model}
 
 To obtain the simulation results we present in \cref{sec:control_sim}, we
-construct a mechanical model in the Matlab Simscape Multibody environment
-similar to those presented in \citet{geyer2010muscle, song2013integration,
-song2015neural}. This model represents the seven link biped in
-\cref{fig:neuro_seven_link} and includes two legs with thigh, shank, and foot
-segments as well as a lumped head-arms-trunk (HAT) segment.
-\Cref{tab:model_mech_params} lists the segment lengths, center of mass and joint
-locations measured from the distal end, masses, and inertias that approximate
-those of a \unit[80]{kg}, \unit[1.8]{m} tall person.
+construct a mechanical model in the Matlab Simscape
+Multibody\textsuperscript{TM} environment similar to those presented in
+\citet{geyer2010muscle, song2013integration, song2015neural}. This model
+represents the seven link biped in \cref{fig:neuro_seven_link} and includes two
+legs with thigh, shank, and foot segments as well as a lumped head-arms-trunk
+(HAT) segment.  \Cref{tab:model_mech_params} lists the segment lengths, center
+of mass and joint locations measured from the distal end, masses, and inertias
+that approximate those of a \unit[80]{kg}, \unit[1.8]{m} tall person.
 
 \begin{table}[b]
   \centering
@@ -23,9 +23,9 @@ those of a \unit[80]{kg}, \unit[1.8]{m} tall person.
         $J         \ (\unit{kg})$ & 0.005 & 0.05 & 0.15 & 3    \\
         \bottomrule
       \end{tabular}
-  \caption{Segment lengths $(l_s)$, center of mass $(d_\tn{COM})$ and joint
-  $(d_\tn{Joint})$ locations measured from the distal end, masses $(m)$, and
-  inertias $(J)$ approximated from
+  \caption[Skeletal model parameter values]{Segment lengths $(l_s)$, center of
+  mass $(d_\tn{COM})$ and joint $(d_\tn{Joint})$ locations measured from the
+  distal end, masses $(m)$, and inertias $(J)$ approximated from
   \citet{gunther2003synthesis}.}\label{tab:model_mech_params}
 \end{table}
 
@@ -95,24 +95,25 @@ engagement angles for the joint limits.
       knee  &   5 &    \\
       ankle & -40 & 20 \\
   \end{tabular}
-  \caption{Joint limits for the hip, knee, and ankle joints listed in degrees.
-  Positive joint angles represent flexion and negative joint angles represent
-  extension (see \cref{fig:neuro_seven_link}).}\label{tab:joint_lim}
+  \caption[Joint limits for the hip, knee, and ankle joints]{Joint limits for
+  the hip, knee, and ankle joints listed in degrees.  Positive joint angles
+  represent flexion and negative joint angles represent extension (see
+  \cref{fig:neuro_seven_link}).}\label{tab:joint_lim}
 \end{margintable}
 
 To obtain simulation results, we simulate the mechanical system with the
 \verb+ode15s+
 variable step solver. We set the maximum step size to $\unit[10]{ms}$, relative
-error tolerance to $10^{-4}$, and abolute error to $10^{-6}$.
+error tolerance to $10^{-4}$, and absolute error to $10^{-6}$.
 
 \section{Hill Muscle Models}\label{sec:neuro_hill_muscle}
 \begin{marginfigure}[-0.25in]
     \centering
     \includegraphics[width=\linewidth]{mtu_figure}
     \vspace{-0.4in}
-    \caption{Hill-type muscle tendon unit with contractile element (CE),
-    parallel elasticity (PE), and series elasticity (SE).}
-    \label{fig:hill_type_mtu}
+    \caption[Hill-type muscle tendon unit diagram]{Hill-type muscle tendon unit
+    with contractile element (CE), parallel elasticity (PE), and series
+    elasticity (SE).}\label{fig:hill_type_mtu}
 \end{marginfigure}
 Our proposed transfemoral prosthesis control is comprised of biological muscle
 actuators that are stimulated according to hypothesized reflex pathways.
@@ -218,10 +219,10 @@ by these elements are
 \begin{marginfigure}
     \centering
     \includegraphics[width=\linewidth]{force_length_pese}
-    \caption{PE and SE force length relationship. For the PE, $l_\tn{ref} = l_\tn{opt}$
-    and $\epsilon_\tn{ref} = \epsilon_\tn{PE}$. Likewise, for the SE, $l_\tn{ref} =
-    l_\tn{slack}$ and $\epsilon_\tn{ref} = \epsilon_\tn{SE}$.} 
-    \label{fig:force_length_pese}
+    \caption[PE and SE force length relationship]{PE and SE force length
+    relationship. For the PE, $l_\tn{ref} = l_\tn{opt}$ and $\epsilon_\tn{ref} =
+    \epsilon_\tn{PE}$. Likewise, for the SE, $l_\tn{ref} = l_\tn{slack}$ and
+    $\epsilon_\tn{ref} = \epsilon_\tn{SE}$.}\label{fig:force_length_pese}
 \end{marginfigure}
 
 The left-hand side of \cref{tab:neuromusc_params} lists the parameters common

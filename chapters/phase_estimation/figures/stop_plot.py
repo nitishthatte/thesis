@@ -28,7 +28,7 @@ mpl.rcParams.update(pgf_with_custom_preamble)
 #                   (0., 114., 189.)))/255;
 colors = color_pallette.mpl_colors
 
-fig, ax = plt.subplots(4, 1, figsize=(3,4.5), sharex='all')
+fig, ax = plt.subplots(4, 1, figsize=(3,4), sharex='all')
 ax[0].set_ylabel('Estimated Phase')
 ax[1].set_ylabel('Estimated Phase\nVelocity (phase/s)')
 ax[2].set_ylabel('Knee Angle (deg)')

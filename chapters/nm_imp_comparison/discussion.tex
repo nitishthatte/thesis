@@ -30,26 +30,6 @@ no such obvious transition and thus users may attempt to enter swing too early.
 However, with better sensing of ground reaction forces, the threshold on leg
 angle would not be necessary, and thus this problem would be resolved.
 
-\begin{comment}
-One possible important difference between the
-implemented neuromuscular and impedance control strategies was that impedance
-control typically provided much more ankle push of work, as shown in
-\cref{fig:treadmill_exp_ankle_work}. In impedance control, the transition
-transition to the third phase of gait generates a large burst of ankle power,
-which users may interpret as a signal that the prosthesis is ready to enter
-swing. In contrast, neuromuscular control may not have provided any such signal
-due to the lack of ankle work. It is possible that such cues to the user should
-be explicitly considered in the design of prosthesis controllers, especially
-when they can help inform correct transition of discrete state.
-\begin{marginfigure}
-    \centering 
-    %\includegraphics[width=\textwidth]{phase_success}
-    \missingfigure[figwidth=\textwidth]{ankle work}
-    \caption{Normal Walking, impedance and neuromuscular control ankle
-    work.}\label{fig:treadmill_exp_ankle_work}
-\end{marginfigure}
-\end{comment}
-
 While impedance control's discrete phase transitions may have helped users avoid
 missing the stance to swing transition, it directly caused two other failure
 modes. The first, missed transitions between the second and third phases of
@@ -74,9 +54,10 @@ control, in contrast, is smooth throughout stance with no discrete transitions,
 and thus may transition to swing more consistently and cause fewer swing trips.
 Nevertheless, even with its smoother stance phase, subjects still tripped during
 swing several times with the Neuromuscular control. Therefore, in
-\cref{sec:swing_control_planning} we seek to explicitly minimize the risk of
-tripping by using estimates of the current and future hip height and orientation
-to plan knee and ankle swing trajectories that avoid premature ground contact.
+\crefrange{sec:swing_control_planning_intro}{sec:swing_control_planning_discuss}
+we seek to explicitly minimize the risk of tripping by using estimates of the
+current and future hip height and orientation to plan knee and ankle swing
+trajectories that avoid premature ground contact.
 
 The smooth stance phase of the neuromuscular model, which eliminates failure
 modes such as knee collapses and missed stance phase transitions and may help

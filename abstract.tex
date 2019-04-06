@@ -1,0 +1,39 @@
+\chapter*{Abstract}
+
+Amputees face a number of gait deficits due to a lack of control and power
+from their mechanically-passive prostheses. Of crucial among these deficits are
+those related to balance, as falls and a fear of falling can cause an avoidance
+of activity that leads to further debilitation. In this thesis, we investigate
+the role that prosthesis control strategies play in maintaining balance with a
+powered robotic transfemoral prosthesis. Our approach involves comparing
+state-of-the-art prosthesis controllers on a common platform and learning from
+this experiment to propose two new prosthesis control strategies that directly
+address causes of falls in both the swing and stance phases.
+
+We begin by designing and manufacturing our own powered transfemoral prosthesis
+capable of large torques for stumble recovery and accurate reproduction of
+desired torques from different control strategies. We also propose a pair of
+optimization methods that allow us to select prosthesis control parameters using
+qualitative preference feedback from the user.
+
+Next, we test a hypothesis that a stance control approach based on a model of
+the human neuromuscular system may help improve gait robustness and user
+satisfaction over the commonly used impedance control method. This hypothesis
+stems from previous research applying neuromuscular control to simulated biped
+models and to powered ankle prostheses that suggest that this approach can adapt
+to changes in speed, incline, and rough ground. While our experiment did not
+find a significant reduction in falls using neuromuscular control, it did reveal
+that a lack of robust gait phase estimation caused a large number of falls for
+the impedance control strategy and that both controllers suffered from trips
+during swing.
+
+Therefore, we next proposed and tested two new control strategies that directly
+address these causes of falls. In the first, we user information from an inertial
+measurement unit and LIDAR distance sensor to estimate the position, orientation
+and future trajectory of the hip. This information is then used to plan
+trajectories for the prosthesis' knee and ankle that avoid tripping during
+swing. Second, we propose using an extended Kalman filter to improve phase
+estimation during stance. We show the resulting control strategy significantly
+reduced the number of falls compared impedance control, when users are asked to
+step on uneven terrain. These results demonstrate the importance of state
+estimation for improving gait stability.

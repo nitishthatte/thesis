@@ -1,4 +1,4 @@
-\section{Planning Approach Discussion}
+\section{Planning Approach Discussion}\label{sec:swing_control_planning_discuss}
 
 We presented initial work toward a real-time reactive control of powered
 prostheses to help amputees avoid tripping in the swing phase of gait. At any
@@ -42,19 +42,20 @@ to subtle changes in leg kinematics, and it remains to be seen in experiments if
 our approach can avoid trips in these more subtle situations.
 
 At the implementation level, there is also room for further exploration. To keep
-the  computational costs low, we used quadratic programs that iterate between
-finding solutions for the ankle and knee joints. While this iterative approach
-is fast when compared to trajectory optimization methods that deal with multiple
-joints simultaneously, the iterations occasionally get stuck when the planner
-for one joint trajectory cannot find a solution based on the assumed fixed
-trajectory of the other joint. Moreover, if a solution cannot be found, the
-current approach simply reuses the last identified trajectory, rather than
-moving the trajectory to be more safe, even if it cannot fully satisfy the
-bounds. It seems worthwhile to investigate whether non-convex trajectory
-optimization methods such as CHOMP \citep{ratliff2009chomp}, in which the bounds
-are represented as soft rather than hard constraints, can help solve for the
-knee and ankle trajectories simultaneously without sacrificing computational
-speed.
+the  computational costs low, and due to ease of implementation in the
+prosthesis' Simulink Real-Time\textsuperscript{TM} environment, we plan
+trajectories using quadratic programs that iterate between finding solutions for
+the ankle and knee joints.  While this iterative approach is fast when compared
+to trajectory optimization methods that deal with multiple joints
+simultaneously, the iterations occasionally get stuck when the planner for one
+joint trajectory cannot find a solution based on the assumed fixed trajectory of
+the other joint. Moreover, if a solution cannot be found, the current approach
+simply reuses the last identified trajectory, rather than moving the trajectory
+to be more safe, even if it cannot fully satisfy the bounds. It seems worthwhile
+to investigate whether non-convex trajectory optimization methods such as CHOMP
+\citep{ratliff2009chomp}, in which the bounds are represented as soft rather
+than hard constraints, can help solve for the knee and ankle trajectories
+simultaneously without sacrificing computational speed.
 
 In addition, several technical simplifications can be considered to bring this
 technology closer to commercialization. We used an accurate and expensive laser
@@ -65,14 +66,3 @@ likely sufficient. It may also be possible to simplify the trajectory planning
 phase by, for example, forgoing formal guarantees on satisfying bounds and
 instead relying on heuristics to increase knee and ankle flexion and adjust
 timing in response to decreased hip height during swing.
-
-Our immediate goal, however, is to generalize the presented approach to
-incorporating perception in control beyond the avoidance of flat ground. We are
-currently investigating the approach's ability to plan trajectories around
-obstacles that are scanned by the laser range finder. Previous studies such as
-\citet{mohagheghi2004effects} with able-bodied subjects have shown that vision
-plays a crucial role in both planning and control of the lower limb motion over
-obstacles. We also envision using the approach to target objects instead of
-avoiding them. For example, a prosthetic leg could scan, recognize, and target
-secure foot holds and stair treads, or provide enhanced sports capabilities by
-targeting and kicking a ball.

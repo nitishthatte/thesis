@@ -45,12 +45,13 @@ measurement variances, respectively.
 \begin{marginfigure}
     \centering
     \includegraphics[width=\columnwidth]{kinematics}
-    \caption{Kinematic model of the user and prosthesis used for state
-    estimation and motion planning. The model includes the hip (H), knee (K),
-    ankle (A), heel (L) and toe points (T). Additionally, the start ($Lid_0$)
-    and end ($Lid_f$) points of the LIDAR beam (with length $\ell$) are
-    indicated. The IMU is located at point $I$. Both the LIDAR and IMU are
-    mounted to the thigh portion of the powered knee-and-ankle
+    \caption[Kinematic model of the user and prosthesis used for state
+    estimation and motion planning]{Kinematic model of the user and prosthesis
+    used for state estimation and motion planning. The model includes the hip
+    (H), knee (K), ankle (A), heel (L) and toe points (T). Additionally, the
+    start ($Lid_0$) and end ($Lid_f$) points of the LIDAR beam (with length
+    $\ell$) are indicated. The IMU is located at point $I$. Both the LIDAR and
+    IMU are mounted to the thigh portion of the powered knee-and-ankle
     prosthesis.}\label{fig:kinematics}
 \end{marginfigure}
 
@@ -177,12 +178,15 @@ from linearizing the equality and inequality constraints.
 \begin{marginfigure}[-1in]
     \centering
     \includegraphics[width=\columnwidth]{ekf_fig}
-    \caption{Trajectories of extended Kalman Filter (EKF) estimate of the
+    \caption[Trajectories of extended Kalman Filter (EKF) estimate of the
+    position of the leg during swing compared to ground truth data from motion
+    capture system]{Trajectories of extended Kalman Filter (EKF) estimate of the
     position of the leg during swing (blue). Ground truth positions given by
     motion capture (yellow). EKF estimate without LIDAR information shown in
     red. Thick lines show the leg configuration at peak toe height during swing.
     Dotted lines indicate heel trajectories while dashed lines show the toe
-    trajectories. Knee and ankle trajectories given by solid lines.}\label{fig:ekf}
+    trajectories. Knee and ankle trajectories given by solid
+    lines.}\label{fig:ekf}
 \end{marginfigure}
 
 To identify the appropriate parameters of the Kalman filter, we collected ground
@@ -205,15 +209,15 @@ information. In contrast, the EKF without LIDAR information has an error of
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{gp_plots_w_legend}
-    \caption{Example of hip angle and height trajectory predictions
-    \unit[0.15]{s} into swing. The prediction algorithm uses the previous 10
-    measured hip angles and heights (sampled at \unit[100]{Hz}, black dots)
-    along with the learned joint distributions of hip angles/heights versus time
-    (red) to obtain the conditional distributions of future hip angles/heights
-    (blue). The planning algorithm uses the means of the conditional
-    distributions to generate knee and ankle trajectories. The actual hip height
-    and angle trajectories are shown in black.}
-    \label{fig:gp_plots}
+    \caption[Example of hip angle and height trajectory predictions]{Example of
+    hip angle and height trajectory predictions \unit[0.15]{s} into swing. The
+    prediction algorithm uses the previous 10 measured hip angles and heights
+    (sampled at \unit[100]{Hz}, black dots) along with the learned joint
+    distributions of hip angles/heights versus time (red) to obtain the
+    conditional distributions of future hip angles/heights (blue). The planning
+    algorithm uses the means of the conditional distributions to generate knee
+    and ankle trajectories. The actual hip height and angle trajectories are
+    shown in black.}\label{fig:gp_plots}
 \end{figure}
 \subsection{Gaussian Process Hip Trajectory Prediction}
 
@@ -267,7 +271,7 @@ mean (compare \cref{fig:gp_plots}).
 
 \begin{pagefigure}
     \includegraphics[width=\textwidth]{planning}
-    \caption{Planning Algorithm Steps: Panels B and D
+    \caption[Planning Algorithm Steps]{Planning Algorithm Steps: Panels B and D
     show the generated knee and ankle trajectories respectively.  The planned
     trajectory (red) lies within the computed bounds (dashed gray).  In
     contrast, standard minimum jerk trajectories (blue) do not respect the

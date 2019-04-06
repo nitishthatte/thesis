@@ -39,7 +39,7 @@ ax.set_ylabel('RMS Phase Error')
 num_subjects = 8
 bar_color = [0.75, 0.75, 0.75]
 x_pos = np.arange(0,2)
-rand_scatter_pts = 0.075*np.random.randn(num_subjects)
+scatter_pts = np.linspace(-0.1,0.1,num_subjects)
 
 phase_err_data = np.concatenate((data['phase_ekf_err_mean'], 
     data['phase_time_err_mean']), 1)
@@ -62,7 +62,7 @@ for i in range(2):
         else:
             marker = marker_able
 
-        ax.scatter(x_pos[i] + rand_scatter_pts[sub], phase_err_data[sub,i], 
+        ax.scatter(x_pos[i] + scatter_pts[sub], phase_err_data[sub,i], 
             marker=marker, color=colors[sub], **scatter_opts)
 
 #turn off all spines

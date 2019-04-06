@@ -2,10 +2,11 @@
 \begin{marginfigure}[1.25in]
     \centering
     \includegraphics[width=\linewidth]{prosthesis_render_annotated}
-    \caption{Render of proposed powered knee and ankle prosthesis design. The
-    prosthesis includes series elastic actuators to enable accurate torque
-    control and an optional unidirectional parallel ankle spring to offset the
-    required angle torque.}\label{fig:prosthesis_render_annotated}
+    \caption[Render of proposed powered knee and ankle prosthesis design]{Render
+    of proposed powered knee and ankle prosthesis design. The prosthesis
+    includes series elastic actuators to enable accurate torque control and an
+    optional unidirectional parallel ankle spring to offset the required angle
+    torque.}\label{fig:prosthesis_render_annotated}
 \end{marginfigure}
 
 \newthought{To test our proposed control approaches} and compare to the state of
@@ -57,9 +58,10 @@ outside of the lab environment like a standalone prosthesis.
         \bottomrule
     \end{tabular}
     \vspace{0.25in}
-    \caption{Designed and achieved design specifications. ($^*$Maximum total
-    ankle torque is $\unit[290]{N \cdot m}$ if the optional unidirectional
-    springs are used. This torque is achieved at $10^\circ$ of
+    \caption[Designed and achieved prosthesis design specifications]{Designed
+    and achieved design specifications. ($^*$Maximum total ankle torque is
+    $\unit[290]{N \cdot m}$ if the optional unidirectional springs are used.
+    This torque is achieved at $10^\circ$ of
     dorsiflexion.)}\label{tab:pros_requirements}
 \end{table*}
 \Cref{tab:pros_requirements} shows the desired design specifications for the
@@ -203,7 +205,8 @@ than the repeated peak torque limit of the Harmonic Drive Gear set.
 \begin{marginfigure}[-0in]
     \centering 
     \includegraphics[width=\linewidth]{ankle_torque_vs_angle_ups}
-    \caption{Ankle torque vs angle curve during steady, level-ground walking
+    \caption[Ankle torque vs angle curve during steady, level-ground
+    walking]{Ankle torque vs angle curve during steady, level-ground walking
     (blue) (\citet{winter2009biomechanics} scaled to \unit[80]{kg} person). A
     unidirectional parallel spring can provide a portion of this torque (green)
     and reduces the required actuator torque (purple) to lie under repeated
@@ -223,13 +226,13 @@ trajectory without exceeding the torque limit of the motor.
 \begin{figure}[b]
     \centering 
     \includegraphics[height=2in]{ankle_motor_torque_tripping}
-    \caption{Ankle motor torque required to take the trip recovery action
-    observed by \citet{pijnappels2005early} (blue, trajectory obtained by
-    scaling walking data from \citet{winter2009biomechanics} to a peak torque of
-    $\unit[202]{N \cdot m}$, $75\%$ gear efficiency assumed). Using a parallel
-    spring allows the motor to produce the required torque (green) while
-    remaining within it's torque limit (purple).
-    }\label{fig:ankle_motor_torque_tripping}
+    \caption[Ankle motor torque required to take the trip recovery action]{Ankle
+    motor torque required to take the trip recovery action observed by
+    \citet{pijnappels2005early} (blue, trajectory obtained by scaling walking
+    data from \citet{winter2009biomechanics} to a peak torque of $\unit[202]{N
+    \cdot m}$, $75\%$ gear efficiency assumed). Using a parallel spring allows
+    the motor to produce the required torque (green) while remaining within it's
+    torque limit (purple).  }\label{fig:ankle_motor_torque_tripping}
 \end{figure}
 
 Finally, \cref{fig:ankle_motor_torque_running} shows the torque and speed
@@ -242,11 +245,11 @@ will allow the torque trajectory to fit completely within the motor limits.
 \begin{marginfigure}[-0in]
     \centering 
     \includegraphics[width=\linewidth]{ankle_motor_torque_running}
-    \caption{Ankle motor torque required to reproduce the running trajectory
+    \caption[Ankle motor torque required to reproduce a running
+    trajectory]{Ankle motor torque required to reproduce the running trajectory
     recorded by \citet{novacheck1998biomechanics} assuming a parallel spring
     stiffness of $\unitfrac[267]{N \cdot m}{rad}$ and a gear efficiency of
-    $75\%$.
-    }\label{fig:ankle_motor_torque_running}
+    $75\%$.}\label{fig:ankle_motor_torque_running}
 \end{marginfigure}
 
 \Cref{fig:ankle_design} shows an internal view of the ankle actuator and
@@ -307,4 +310,4 @@ the required torque bandwidth of \unit[3.5]{Hz} given by \citet{au2008powered}
 To measure ground reaction forces, we measure the deflection in the prosthesis'
 fiberglass foot (Freedom Innovations Pacifica LP). We measure this deflection by
 embedding Hall effect sensors and magnets in the foot. \Cref{fig:grf_sensing}
-shows the measured heel and toe grf signals during normal walking.
+shows the measured heel and toe GRF signals during normal walking.

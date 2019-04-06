@@ -1,3 +1,84 @@
-\chapter{Future Work}\label{sec:future_work}
+\chapter{Conclusion}\label{sec:thesis_conclusion}
 
-Get reflex control model to reproduce disturbed walking data results.
+This thesis began with the goal of improving the robustness of gait with
+transfemoral prostheses so as to reduce amputees risk of falling and increase
+their quality of life. Towards the goal, we started by comparing a proposed
+neuromuscular strategy for transfemoral prosthesis control to the established
+impedance control strategy. We attempted to make this comparison as objective as
+possible by building a robotic prosthesis capable of accurate torque control
+(\cref{sec:pros_design}) and developing methods that use the user's feedback to
+select prosthesis control parameters (\cref{sec:preference_optimization}). While
+the experiment comparing neuromuscular and impedance control did not confirm our
+hypothesis that neuromuscular control would lead to a significant reduction in
+falls (\cref{sec:nm_vs_imp}), it did clarify the importance of state estimation
+in prosthesis control. This insight motivated the development of swing and
+stance controllers with state estimation via an extended Kalman filter (EKF) at
+the core of each (\cref{sec:trip_avoidance,sec:phase_estimation}). The proposed
+swing controller uses an EKF to estimate the position and orientation of the
+hip, which is then used to plan knee and ankle swing trajectories that avoid
+trips. The proposed stance controller uses an EKF to estimate the phase of
+stance. This phase estimate made the gait robust to ground height disturbances
+and able to adapt to both sudden and gradual changes in gait speed. 
+
+In performing the work in this thesis we have assembled a substantial amount of
+practical knowledge and suggestions for future research in the field. First,
+when it comes to prosthesis design, in hindsight, we likely put too much
+emphasis on prosthesis performance, and did not consider enough whether the user
+would actually be able to make use of the performance. In our experiments,
+able-bodied users wore the prosthesis through a L-shaped adapter
+(\cref{fig:prosthesis_actual}) while amputees used their own socket
+(\cref{fig:prosthesis_phase_exp}). Both of these interfaces are not very secure,
+limiting the weight of the prosthesis and the dynamism of movements. Therefore,
+while our prosthesis design, at \unit[6]{kg}, is of comparable mass to a
+biological limb, it is too heavy to use comfortably for an extended period of
+time. Future prosthesis designs should be mindful of the constraint the
+interface places on useable torque and comfortable prosthesis mass. One solution
+for a transfemoral prostheses design for research purposes, which achieves high
+performance and keeps weight to a minimum, is to create an knee-ankle prosthesis
+emulator, similar to the ankle emulator created by
+\citet{caputo2013experimental}.
+
+A difficulty faced when conducting this research was the substantial time spent
+implementing various controllers from the literature on our transfemoral
+prosthesis prototype.  This challenge would be significantly reduced with
+standardization of the interface between the low-level controls and the mid
+level behavior controls. Standardizing this interface would more easily allow
+researchers to share code and try controllers on their own prostheses.
+Standardizing the hardware design too would also help in this effort and
+substantially decrease the time required to make progress in this field. The
+recent development of open source knee and ankle prosthesis designs should help
+significantly in this regard \citep{azocar2018design}.
+
+Another development that would help decrease the time required to improve
+prosthesis controls is better simulations of amputees and their interactions
+with hardware. In \cref{sec:control_sim}, we presented results from one such
+simulation that predicted more falls for impedance control than neuromuscular
+control when walking on rough ground. Based on the experimental results on the
+real prosthesis that we have gathered, it seems these simulations may have
+overstated the potential improvement in gait robustness offered by neuromuscular
+control. We may be able to improve these sorts of simulations to better predict
+real-world results in two ways. First, through the course of conducting this
+research, we have recorded large amounts of motion capture data of users walking
+on the prosthesis. This data could be used to improve the neuromuscular model to
+better capture actual subject responses to disturbances. Second, in
+\cref{sec:control_sim}, we used the shooting method and a genetic algorithm
+\citep{hansen2006cma} to optimize the control parameters of the prosthesis.
+These optimizations often required days to converge on a solution. In future
+work, more advanced simulation/trajectory optimization techniques should be
+considered such as using symbolic differentiation to derive the change in the
+control action with respect to parameters and using nonlinear programming and
+collocation to directly solve the optimal control problem
+\citep{hargraves1987direct}. 
+
+Finally, an innovation provided by the planning-based swing control described in
+\crefrange{sec:swing_control_planning_intro}{sec:swing_control_planning_discuss}
+is that it considers environmental information in real-time within the mid-level
+controller. The environmental information directly and precisely impacts the
+trajectories that are generated during swing. In contrast, previous prosthesis
+controllers that have considered environmental information have primarily only
+done so at the high-level for gait mode recognition (see
+\cref{sec:back_high_level_control}). These high-level strategies switch the
+mid-level control parameters within a discrete set of options. Our results
+motivate further research into mid-level controllers that can directly act on
+more sources of information. Doing so will allow prostheses to take a broader
+range of actions that are more suited to the specific situation at hand. 

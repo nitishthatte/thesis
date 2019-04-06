@@ -2,10 +2,11 @@
 
 \begin{marginfigure}[-1in]
 \centerline{\includegraphics[width=\columnwidth]{pros_with_labels}}
-\caption{Prosthesis configuration used for experiments. An IMU attached on the
-thigh measures the thigh angle. Note: the optional unidirectional ankle springs
-were not installed for experiments presented in this thesis as the ankle motor
-alone produces sufficient torque for the results presented
+\caption[Prosthesis configuration used for experiments]{Prosthesis configuration
+used for experiments. An IMU attached on the thigh measures the thigh angle.
+Note: the optional unidirectional ankle springs were not installed for
+experiments presented in this thesis as the ankle motor alone produces
+sufficient torque for the results presented
 herein.}\label{fig:prosthesis_actual}
 \end{marginfigure}
 
@@ -30,9 +31,9 @@ to follow the desired torques during a typical bout of walking.
 \subsection{Torque Tracking Bode Plot}
 \begin{figure}[htb]
 \centerline{\includegraphics[width=\columnwidth]{bode_fixture}}
-\caption{Fixture for testing bandwidth of actuators. The knee was constrained by
-a clamp on the shank. The ankle was constrained by a floor under the
-foot.}\label{fig:bode_fixture}
+\caption[Fixture for testing bandwidth of actuators]{Fixture for testing
+bandwidth of actuators. The knee was constrained by a clamp on the shank. The
+ankle was constrained by a floor under the foot.}\label{fig:bode_fixture}
 \end{figure}
 To measure the torque tracking bandwidth of the prosthesis' knee and ankle
 actuators, we construct bode plots of the transfer function between measured and
@@ -59,7 +60,8 @@ ankle we sweep frequencies in the range \unit[1-20]{Hz}.
 \begin{figure}[htb]
     \centering 
     \includegraphics[width=\textwidth]{bode_plot_fixed_labels}
-    \caption{Experimentally obtained bode plots of knee and ankle actuator
+    \caption[Experimentally obtained bode plots of knee and ankle actuator
+    torque]{Experimentally obtained bode plots of knee and ankle actuator
     torque. Knee is phase limited at \unit[24]{Hz} while the ankle is gain
     limited at \unit[7]{Hz}.}\label{fig:pros_eval_bode_plots}
 \end{figure}
@@ -80,11 +82,12 @@ from \citet{au2008powered}).
 \begin{figure}[htb]
     \centering 
     \includegraphics[width=\textwidth]{zero_torque}
-    \caption{Zero torque tracking of knee and ankle joints. The prosthesis was
-    fixed to a rigid mount and commanded to maintain zero net joint torque while
-    the knee and ankle joints were manually oscillated (blue) by hand at
-    increasingly fast rate (purple). The resulting measured torque is shown in
-    the second row of axes in black.}\label{fig:pros_eval_zero_torque}
+    \caption[Zero torque tracking of knee and ankle joints]{Zero torque tracking
+    of knee and ankle joints. The prosthesis was fixed to a rigid mount and
+    commanded to maintain zero net joint torque while the knee and ankle joints
+    were manually oscillated (blue) by hand at increasingly fast rate (purple).
+    The resulting measured torque is shown in the second row of axes in
+    black.}\label{fig:pros_eval_zero_torque}
 \end{figure}
 Also important is the ability of the prosthesis to track the desired torque in
 the presence of external disturbances. To test this ability, we removed the
@@ -105,11 +108,12 @@ less reflected inertia. The peak measured torque of both joints is less than
 \begin{figure}[htb]
     \centering 
     \includegraphics[width=\textwidth]{torque_tracking}
-    \caption{Knee and ankle torque tracking during a typical step. Torque
-    tracking during stance is significantly better than during swing due to the
-    significantly increased load inertia during stance (see
-    \cref{tab:torque_tracking_tab}). During swing, trajectory tracking
-    performance is prioritized.}\label{fig:torque_tracking_plot}
+    \caption[Knee and ankle torque tracking during a typical step]{Knee and
+    ankle torque tracking during a typical step. Torque tracking during stance
+    is significantly better than during swing due to the significantly increased
+    load inertia during stance (see \cref{tab:torque_tracking_tab}). During
+    swing, trajectory tracking performance is
+    prioritized.}\label{fig:torque_tracking_plot}
 \end{figure}
 Finally, we show the torque tracking performance of the prosthesis during normal
 walking. \Cref{fig:torque_tracking_plot} shows the desired and measured torque

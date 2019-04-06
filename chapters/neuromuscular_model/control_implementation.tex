@@ -44,8 +44,9 @@ During swing, only the swing leg torques are used.
 \begin{figure*}[htb]
     \centering
     \includegraphics[width=0.9\textwidth]{pros_and_nm_model}
-    \caption{(a) Custom transfemoral prosthesis with series elastic actuators. In
-    experiments in this thesis, we use an adaptor to test the prosthesis with
+    \caption[Interaction between transfemoral prosthesis and neuromuscular
+    control]{(a) Custom transfemoral prosthesis with series elastic actuators.
+    In experiments in this thesis, we use an adaptor to test the prosthesis with
     able-bodied subjects. (b) During stance, we propose a control based on a
     neuromuscular model of human physiology that generates joint torques through
     virtual muscles that are stimulated by hypothesized local reflex
@@ -75,7 +76,7 @@ prevent knee over extension via length feedback of the form
         \func{L}[\tn{bfsh}][]{t_\tn{l}}\label{eq:bfsh_stim}.
 \end{align}
 In this model, knee over extension is further prevented by inhibiting the vastus
-in proportion to the BFsH length. Consquently, the vastus stimulation becomes 
+in proportion to the BFsH length. Consequently, the vastus stimulation becomes 
 \begin{align}
 \func{S}[][\tn{vas}]{t} &= S_0^\tn{vas} 
     + G_\tn{vas}^\tn{vas} \func{F}[\tn{vas}][]{t_\tn{m}} 
@@ -132,7 +133,8 @@ open research question and is not addressed in this thesis.
 \begin{marginfigure}
     \centering
     \includegraphics[width=\linewidth]{stance_swing_state_machine}
-    \caption{Universal stance/swing state machine utilized for all hardware
+    \caption[Universal stance/swing state machine]{Universal stance/swing state
+    machine utilized for all hardware
     experiments.}\label{fig:stance_swing_state_machine}
 \end{marginfigure} 
 To switch between stance and swing phases, the prosthesis follows the state

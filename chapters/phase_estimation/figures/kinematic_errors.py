@@ -47,7 +47,7 @@ ax[0,1].set_title('Ankle', **title_props)
 num_subjects = 9
 bar_color = [0.75, 0.75, 0.75]
 x_pos = np.arange(0,3)
-rand_scatter_pts = 0.05*np.random.randn(num_subjects)
+scatter_pts = np.linspace(-0.1,0.1,num_subjects)
 scatter_opts = {'s':8, 'zorder':10}
 
 subject_list = np.concatenate((np.arange(1,8), [0], [8]))
@@ -59,26 +59,22 @@ marker_exp = 's'
 ax[0,0].bar(x_pos, 180/np.pi*data['knee_angle_errors_median'].flatten(), 
     color = bar_color)
 add_barplot_sigstars(ax[0,0], data['condition_combinations']-1, 
-    data['p_values_knee_angle'].flatten(), 
-    180/np.pi*np.max(data['knee_angle_errors']))
+    data['p_values_knee_angle'].flatten(), x_pos, star_loc='3x1')
 
 ax[0,1].bar(x_pos, 180/np.pi*data['ankle_angle_errors_median'].flatten(), 
     color = bar_color)
 add_barplot_sigstars(ax[0,1], data['condition_combinations']-1, 
-    data['p_values_ankle_angle'].flatten(), 
-    180/np.pi*np.max(data['ankle_angle_errors']))
+    data['p_values_ankle_angle'].flatten(), x_pos, star_loc='3x1')
 
 ax[1,0].bar(x_pos, data['knee_moment_errors_median'].flatten(), 
     color = bar_color, tick_label=('GP-EKF','NM','IMP'))
 add_barplot_sigstars(ax[1,0], data['condition_combinations']-1, 
-    data['p_values_knee_moment'].flatten(), 
-    np.max(data['knee_moment_errors']))
+    data['p_values_knee_moment'].flatten(), x_pos, star_loc='3x1')
 
 ax[1,1].bar(x_pos, data['ankle_moment_errors_median'].flatten(), 
     color = bar_color, tick_label=('GP-EKF','NM','IMP'))
 add_barplot_sigstars(ax[1,1], data['condition_combinations']-1, 
-    data['p_values_ankle_moment'].flatten(), 
-    np.max(data['ankle_moment_errors']))
+    data['p_values_ankle_moment'].flatten(), x_pos, star_loc='3x1')
 
 for i in range(3):
     for sub in subject_list:
@@ -90,19 +86,19 @@ for i in range(3):
             marker = marker_able
 
         color = colors[sub]
-        ax[0,0].scatter(x_pos[i] + rand_scatter_pts[sub], 
+        ax[0,0].scatter(x_pos[i] + scatter_pts[sub], 
             180/np.pi*data['knee_angle_errors'][sub,i], color=color, 
             marker=marker, **scatter_opts)
 
-        ax[0,1].scatter(x_pos[i] + rand_scatter_pts[sub], 
+        ax[0,1].scatter(x_pos[i] + scatter_pts[sub], 
             180/np.pi*data['ankle_angle_errors'][sub,i], color=color, 
             marker=marker, **scatter_opts)
 
-        ax[1,0].scatter(x_pos[i] + rand_scatter_pts[sub], 
+        ax[1,0].scatter(x_pos[i] + scatter_pts[sub], 
             data['knee_moment_errors'][sub,i], color=color, 
             marker=marker, **scatter_opts)
 
-        ax[1,1].scatter(x_pos[i] + rand_scatter_pts[sub], 
+        ax[1,1].scatter(x_pos[i] + scatter_pts[sub], 
             data['ankle_moment_errors'][sub,i], color=color, 
             marker=marker, **scatter_opts)
 

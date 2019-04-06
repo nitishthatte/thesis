@@ -27,12 +27,13 @@ classifier we hand label obstacle avoidance attempts and normal steps for
 roughly ten obstacles. \Cref{fig:fwd_back} provides an overview of this system.
 
 \begin{figure}[tb]
-\centerline{\includegraphics[width=\columnwidth]{Forward-Backward_Block_Diagram}}
-\caption{Forward-Backward Classifier Overview. The backwards classifier uses
-features from the entire swing to provide training class labels to a forwards
-classifier. The forwards classifier uses features from late stance and early
-swing in order to predict if an upcoming swing will be an obstacle avoidance
-attempt.}\label{fig:fwd_back}
+    \centerline{\includegraphics[width=\columnwidth]{Forward-Backward_Block_Diagram}}
+    \caption[Forward-Backward Classifier Overview]{Forward-Backward Classifier
+    Overview. The backwards classifier uses features from the entire swing to
+    provide training class labels to a forwards classifier. The forwards
+    classifier uses features from late stance and early swing in order to
+    predict if an upcoming swing will be an obstacle avoidance
+    attempt.}\label{fig:fwd_back}
 \end{figure}
 
 \subsection{Target Knee Angle Regression}
@@ -46,8 +47,11 @@ linear feedback law that assigns higher target flexion knee angles to obstacle
 avoidance attempts that are more difficult according to this metric.
 \Cref{fig:knee_reg} outlines this feedback mechanism, which has the form
 \begin{align}
-    \theta_{n+1}^{tgt} &= \theta_{n}^{tgt} - k_\tn{decay}(\theta_{n}^{tgt} - \theta_\tn{min})     + k_\tn{score} \hat{\xi},\label{eq:tgt_angle}\\
-    \hat{\xi} &= \frac{\xi - \xi_{10^\tn{th} \ \tn{percentile}}}{\xi_{90^\tn{th} \ \tn{percentile}} - \xi_{10^\tn{th} \ \tn{percentile}}}, \label{eq:score_norm}
+    \theta_{n+1}^{tgt} &= \theta_{n}^{tgt} - k_\tn{decay}(\theta_{n}^{tgt} 
+        - \theta_\tn{min})     + k_\tn{score} \hat{\xi},\label{eq:tgt_angle}\\
+    \hat{\xi} &= \frac{\xi - \xi_{10^\tn{th} \ \tn{percentile}}}{
+        \xi_{90^\tn{th} \ \tn{percentile}} - \xi_{10^\tn{th} \ \tn{percentile}}},
+        \label{eq:score_norm}
 \end{align}
 where $\theta_\tn{tgt}$ is the current target angle for a given set of features,
 $n$ is the current time step, $k_\tn{decay}$ is a gain that prevents continual
@@ -65,16 +69,17 @@ specified by \cref{eq:tgt_angle}, to a training data set. The system retrains
 the regression using this data set every ten trip-avoidance steps.
 
 \begin{figure}[tb]
-\centerline{\includegraphics[width=\linewidth]{Regression_Block_Diagram}}
-\caption{Knee Angle Regression Feedback. In order to enable volitional control
-of the knee and ankle flexion angles to allow users to achieve greater flexion
-angles for larger obstacles, we implement a feedback system that uses the
-backwards classifier class score to quantify obstacle difficulty. After each
-step, the system increases the desired target angle for that step's forward
-features proportionally to the normalized back classifier score. We also decay
-the current desired target angle for those features to prevent continual growth
-of the target angle. The regression is retrained every ten avoidance attempts.}
-\label{fig:knee_reg}
+    \centerline{\includegraphics[width=\linewidth]{Regression_Block_Diagram}}
+    \caption[Knee Angle Regression Feedback]{Knee Angle Regression Feedback. In
+    order to enable volitional control of the knee and ankle flexion angles to
+    allow users to achieve greater flexion angles for larger obstacles, we
+    implement a feedback system that uses the backwards classifier class score
+    to quantify obstacle difficulty. After each step, the system increases the
+    desired target angle for that step's forward features proportionally to the
+    normalized back classifier score. We also decay the current desired target
+    angle for those features to prevent continual growth of the target angle.
+    The regression is retrained every ten avoidance
+    attempts.}\label{fig:knee_reg}
 \end{figure}
 
 \subsection{Feature Extraction}
@@ -112,8 +117,9 @@ obstacles are given in \cref{fig:avoid_trajs}.
 
 \begin{figure}[tb]
 \centerline{\includegraphics[width=\linewidth]{trajectories_legend}}
-\caption{Bang-bang obstacle avoidance trajectories (yellow) vs normal minimum
-jerk trajectories (blue) for the knee and ankle.}\label{fig:avoid_trajs}
+\caption[Bang-bang obstacle avoidance and minimum jerk swing
+trajectories]{Bang-bang obstacle avoidance trajectories (yellow) vs normal
+minimum jerk trajectories (blue) for the knee and ankle.}\label{fig:avoid_trajs}
 \end{figure}
 
 \subsection{Experimental Protocol}

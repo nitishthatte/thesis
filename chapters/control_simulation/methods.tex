@@ -18,11 +18,11 @@ desired torques \citep{pratt1995series}.
 
 To compare the performance of the proposed control, we also simulate the
 commonly-used impedance control method, which we reviewed in
-\cref{sec:back_walk_fsm}, \todo{check reference} at the behavior level.
-Specifically, we implement the impedance control presented in
-\citet{sup2008design} as it tended to perform better than other versions in our
-simulations. This control partitions the gait cycle into four phases. In each
-phase $i$, the torque of an actuated joint is governed by an impedance function
+\cref{sec:back_walk_fsm}, at the behavior level.  Specifically, we implement the
+impedance control presented in \citet{sup2008design} as it tended to perform
+better than other versions in our simulations. This control partitions the gait
+cycle into four phases. In each phase $i$, the torque of an actuated joint is
+governed by an impedance function
 \begin{align} 
     \tau_i = -k_{1,i} (\theta - \theta_{1,i}) - k_{2,i} 
         {(\theta - \theta_{2,i})}^3 - b_i \dot{\theta}, 
@@ -63,7 +63,7 @@ of both the modeled amputee's muscles and the prosthesis' virtual muscles
 according to \citet{umberger2003model}, $\tau_\tn{cmd}$ is the sum of the
 torques commanded by the neuromuscular swing control or the impedance control,
 $\tau_\tn{limit}$ is the sum of torques produced by the model's mechanical
-hardstops, which prevent knee and ankle hyperextension, $m$ is the mass of the
+hard stops, which prevent knee and ankle hyperextension, $m$ is the mass of the
 amputee, $g$ is the gravitational acceleration, and $x$ is the distance
 travelled in 20 seconds. The hand tuned constants, $c_1 = 0.1$ and $c_2 = 0.01$,
 ensure that the terms of the cost function have similar order-of-magnitude. 
@@ -72,7 +72,7 @@ We run the above optimization for 300 iterations, and use the best resulting set
 of control parameters to seed an optimization for robustness to unexpected
 changes in ground height. For this second step, the cost function becomes
 \begin{align}
-    \mathit{Cost} = -x + c_3 \int \tau_\tn{limit}^2 dt,
+    \mathit{Cost} = -x + c_3 \int \tau_\tn{limit}^2 \tn{d}t,
 \end{align}
 rewarding the distance travelled and penalizing joint hyperextension ($c_3 =
 0.0005$). Instead of level ground, the simulations evaluating the cost are

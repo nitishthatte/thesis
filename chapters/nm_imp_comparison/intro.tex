@@ -18,6 +18,12 @@ users to select their preferred parameter set. Finally, we also replace the hand
 tuning of offset angles that we used in \cref{sec:preference_optimization}
 (\cref{eq:bias_param}) with an iterative learning procedure.
 
+We had also hoped to compare neuromuscular and impedance control to the
+continuous phase-based control proposed by \citet{quintero2016preliminary}.
+However, we were unable to achieve a consistent walking pattern with this
+control strategy. We present our results trying to implement this control
+strategy later in this thesis in \cref{sec:polar_phase}.
+
 We are primarily interested in potential robustness improvements provided by
 neuromuscular prosthesis control, as predicted by the simulation results
 presented in \cref{sec:control_sim}. To examine controller robustness, we tested
@@ -25,9 +31,3 @@ both controllers with able-bodied subjects walking with their preferred
 parameters at constant speed and with treadmill velocity disturbances. We then
 evaluate the user ratings, number of falls, reasons for falls, and gait
 variability for each condition. 
-
-We also hoped to compare neuromuscular and impedance control to the continuous
-phase-based control proposed by \citet{quintero2016preliminary}. However, we
-were unable to achieve a consistent walking pattern with this control strategy.
-We present our results trying to implement this control strategy in
-\cref{sec:nm_vs_imp_phase_imp}.

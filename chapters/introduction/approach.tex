@@ -58,10 +58,10 @@ we hypothesized that neuromuscular control would be less susceptible to falls
 than impedance control. While we could not verify this hypothesis at the $p <
 0.05$ level, we were able to identify failure modes that were unique to
 impedance control and found that identifying trips during swing could have a
-major impact on gait robustness. Additionally, in this section we intended to
+major impact on gait robustness. Additionally, in this experiment we intended to
 also compare neuromuscular and impedance control to a third phase-based
 approach. We were unable to successfully implement this approach our prosthesis
-but present our efforts in \cref{sec:nm_vs_imp_phase_imp}.
+but present our efforts in \cref{sec:polar_phase}.
 
 Based on the results of the preceding experiment we make three
 additional contributions. The first two, presented in \cref{sec:trip_avoidance}
@@ -76,14 +76,14 @@ filter to estimate the user's hip height and orientation. We use this state
 estimate to explicitly plan swing trajectories for the knee and ankle joints
 that avoid premature toe and heel contact.
 
-Finally, in the last contribution presented in \cref{sec:nm_vs_imp_phase_imp},
-we propose a new stance control strategy in which we seek a simpler control
-method that retains one of the potential benefits of neuromuscular stance
-control, which is that it is smooth and does not rely upon discrete phase
-transitions. Moreover, this new proposed strategy seeks to rectify the issues we
-faced when implementing a previously proposed phase-based control
-(\cref{sec:nm_vs_imp_phase_imp}). In the proposed control method, we
-obtain a continuous phase estimate using a multitude of measurements and an
-extended Kalman filter. We evaluate the robustness, naturalness, and
-adaptability of the proposed control in experiments with seven able bodied
-subjects and one amputee subject.
+Finally, in the last contribution presented in \cref{sec:phase_estimation}, we
+propose a new stance control strategy in which we seek a simpler control method
+that retains one of the potential benefits of neuromuscular stance control,
+which is that it is smooth and does not rely upon discrete phase transitions.
+Moreover, this new proposed strategy seeks to rectify the issues we faced when
+implementing a previously proposed phase-based control
+\citep{quintero2016preliminary}. In the proposed control method, we obtain a
+continuous phase estimate using a multitude of measurements and an extended
+Kalman filter. We evaluate the robustness, naturalness, and adaptability of the
+proposed control in experiments with seven able bodied subjects and one amputee
+subject.

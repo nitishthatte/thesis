@@ -1,52 +1,40 @@
 \section{Introduction}
 
-The number of lower limb amputees in the United States is projected to increase
-from 1.6 million in 2005 to 3.6 million in 2050~\citep{ziegler2008estimating}.
-Expected causes include increases in the rates of vascular disease, diabetes,
-and the size of the elderly population. Prosthetic legs currently prescribed to
-these lower limb amputees are mostly passive or semi-passive devices; unlike
-human limbs, they cannot produce positive net work over a gait cycle.
-Consequently, amputees often suffer from slow walking speeds, high energy
-consumption~\citep{waters1976energy}, and an increased risk of
-falling~\citep{miller2001prevalence}. Development of active powered prostheses
-may help address these gait deficiencies and improve the quality of life for
-amputees.
+In \cref{sec:nm_vs_imp} we compared the neuromuscular and impedance controllers.
+The results showed that there were reasons for falls with the impedance
+controller that did not occur with neuromuscular control. Chief among the types
+of falls that occurred with impedance control were knee collapses caused by
+premature transitions to the third phase of stance and swing trips, which were
+often preceded by a missed transition to the third phase of stance. In contrast,
+the neuromuscular control did not suffer from this issue, likely due to its
+smooth torque output.
 
-A variety of strategies have been proposed to control active-powered prostheses.
-Currently, the most widely used control method for powered transfemoral
-prostheses is finite state impedance control. This strategy divides the gait
-cycle into several discrete phases, each with a different function mapping from
-joint angle and speed to torque~\citep{lawson2014robotic}. This control method
-relies on the detection of gait events, such as joint angles crossing
-thresholds, to trigger phase transitions that may cause abrupt changes in torque
-output as well as unreliable responses to gait disturbances. 
+In the neuromuscular controller, the phase of gait is implicitly captured in the
+muscle states that emerge from the interplay between multi-segment limb
+dynamics, muscle dynamics, and reflexes. A downside to this approach, however,
+is that it relies on many parameters that may be difficult to tune, thus
+limiting clinical applicability. An alternative approach to achieving smooth
+phase estimation during stance is the controller proposed by
+\citet{quintero2016preliminary}. This controller explicitly derives a continuous
+phase estimate by comparing the hip angle to its integral. However, as we show
+in \cref{sec:polar_phase} this approach may be sensitive to step-to-step changes
+in gait due as it relies on the integral of the hip angle over a gait cycle .
+Recently, \citet{rezazadeh2018phase} eliminated the reliance on the hip integral
+by re-introducing discrete state transitions based on thigh angle and velocity
+thresholds. However, this approach could face similar robustness issues as the
+previously described finite-state impedance control.
 
-To achieve a more smooth and robust control of lower limb prostheses,
-researchers have investigated alternative approaches. One such alternative uses
-models of the human neuromuscular system. In this approach, the phase of gait is
-implicitly captured in the muscle states that emerge from the interplay between
-multi-segment limb dynamics, muscle dynamics, and
-reflexes~\citep{eilenberg2010control, thatte2016toward}. A downside to these
-approaches, however, is that they often involve many parameters that may be
-difficult to tune, thus limiting clinical applicability. Another alternative
-approach is exemplified with the phase variable controller proposed by
-\citet{quintero2016preliminary}. This controler explicitly derives a continuous
-phase estimate by comparing the hip angle to its integral. This approach may be
-sensitive to step-to-step changes in gait due to drift in the hip angle integral
-term. In later work, \citet{rezazadeh2018phase} eliminated the reliance on the
-hip integral by re-introducing discrete state transitions based on thigh angle
-and velocity thresholds. However, this approach could face similar robustness
-issues as the previously described finite-state impedance control.
-
-Here we propose a control strategy for lower limb prostheses that is built on a
-robust and smooth estimate of the phase of gait and does not require a large
-number of tuning parameters. In \Cref{sec:methods}, we present an Extended
-Kalman Filter (EKF) that estimates the phase and its rate of change during the
-stance portion of gait based on a multitude of sensor measurements.  We then use
-sparse Gaussian Process (GP) observation models to learn relationships between
-phase and sensor measurements for specific users and to choose the appropriate
-control actions for the prosthesis. In \Cref{sec:results}, we evaluate the
-performance of the proposed controller with experiments on able-bodied subjects
-and a single amputee subject. Finally, in \cref{sec:discussion} we discuss the
-results and highlight potential limitations of this study as well as avenues for
-future research.
+Therefore, in this chapter, we propose a new control strategy for lower limb
+prostheses that is built on a robust and smooth estimate of the phase of gait
+and parameterizes the control outputs in an interpretable manner. We start by
+presenting our attempt at implementing the phase-based controller proposed by
+\citet{quintero2016preliminary} (\cref{sec:polar_phase}). In \Cref{sec:methods},
+we present an Extended Kalman Filter (EKF) that estimates the phase and its rate
+of change during the stance portion of gait based on a multitude of sensor
+measurements.  We then use sparse Gaussian Process (GP) observation models to
+learn relationships between phase and sensor measurements for specific users and
+to choose the appropriate control actions for the prosthesis. In
+\Cref{sec:results}, we evaluate the performance of the proposed controller with
+experiments on able-bodied subjects and a single amputee subject. Finally, in
+\cref{sec:discussion} we discuss the results and highlight potential limitations
+of this study as well as avenues for future research.

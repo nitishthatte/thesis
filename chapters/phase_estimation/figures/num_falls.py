@@ -39,13 +39,13 @@ ax.set_ylabel('Number of Falls')
 num_subjects = 8
 bar_color = [0.75, 0.75, 0.75]
 x_pos = np.arange(0,3)
-rand_scatter_pts = 0.05*np.random.randn(num_subjects)
+scatter_pts = np.linspace(-0.1,0.1,num_subjects)
 
 #add num falls
 ax.bar(x_pos, data['all_falls_median'].flatten(), color = bar_color,
     tick_label=('GP-EKF','NM','IMP'))
 add_barplot_sigstars(ax, data['condition_combinations']-1, 
-    data['p_values_falls'].flatten(), x_pos)
+    data['p_values_falls'].flatten(), x_pos, star_loc='3x1')
 
 subject_list = np.concatenate((np.arange(1,8), [0]))
 marker_able = 'o'
@@ -58,7 +58,7 @@ for i in range(3):
         else:
             marker = marker_able
 
-        ax.scatter(x_pos[i] + rand_scatter_pts[sub], data['all_falls'][sub,i], 
+        ax.scatter(x_pos[i] + scatter_pts[sub], data['all_falls'][sub,i], 
             marker=marker, color=colors[sub], **scatter_opts)
 
 #turn off all spines

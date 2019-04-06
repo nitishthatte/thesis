@@ -24,8 +24,8 @@ half, which explains some of the low overall sensitivity.
     Forward Overall           & 98\% ~            &  85\% \vsigstartwo & 99\%\\
     Backward                  & 99\% ~            & 100\% ~            & 99\%
 \end{tabular}
-\caption[Classifier Performance, Able-Bodied]{Classifier Performance
-\protect\footnotemark, Able-Bodied Steps: 446, Avoidance Attempts:
+\caption[Obstacle avoidance classifier performance, able-bodied]{Classifier
+performance \protect\footnotemark, able-bodied steps: 446, Avoidance attempts:
 53}\label{tab:able_class_perf}
 \end{table}
 \footnotetext{$\star \implies p<0.05$, $\star\star \implies p<0.01$,
@@ -44,9 +44,9 @@ test}
     Forward Overall           & 95\% & 83\% \vsigstarone & 98\%\\
     Backward                  & 98\% & 90\% ~            & 99\%
 \end{tabular}
-\caption[Classifier Performance, Amputee]{Classifier Performance, Amputee, Total
-Steps\protect\footnotemark[\value{footnote}]: 222, Avoidance Attempts:
-40}\label{tab:amputee_class_perf}
+\caption[Obstacle avoidance classifier performance, amputee]{Classifier
+performance, amputee, total steps\protect\footnotemark[\value{footnote}]: 222,
+Avoidance attempts: 40}\label{tab:amputee_class_perf}
 \end{table}
 
 Importantly, the ability of the forward classifier to correctly trigger the
@@ -64,8 +64,8 @@ the minimum jerk trajectory controller.
     Minimum Jerk       & 37\% \vsigstarthree & 35\% \vsigstarthree\\
     Adaptive Bang-Bang & 89\% ~~             & 71\% ~~\\
 \end{tabular}
-\caption[Obstacle Avoidance Success Rates]{Obstacle Avoidance Success
-Rates\protect\footnotemark[\value{footnote}]}\label{tab:success}
+\caption[Obstacle avoidance success rates]{obstacle avoidance success
+rates\protect\footnotemark[\value{footnote}]}\label{tab:success}
 \end{table}
 
 We also compared our online learning approach for obstacle avoidance to an
@@ -111,15 +111,17 @@ $R^2 = 0.10$).
 
 \begin{figure*}[tb]
 \centering
-\includegraphics[width=\textwidth]{reg_and_height}
-\caption{Obstacle height vs backwards classifier score for (a) the able-bodied
-and (b) amputee subjects. The system uses the backwards classifier score as a
-metric for obstacle avoidance difficulty. This score is used in a feedback loop
-that forms the training set for the flexion target angle regression (c-d). With
-this feedback system, the able bodied user (e) is able to achieve a degree of
-volitional control over flexion angle as evidenced by the linear relationship
-between knee flexion angle and obstacle height $(R^2=0.31)$. However, the
-amputee (f) was not able to achieve meaningful control over the flexion of the
-prosthesis $(R^2=0.10)$, possibly due to the decreased experience level of this
-subject.}\label{fig:reg_and_height}
+    \includegraphics[width=\textwidth]{reg_and_height}
+    \caption[Obstacle height vs backwards classifier score, knee angle training
+    data, realized knee angles]{Obstacle height vs backwards classifier score
+    for (a) the able-bodied and (b) amputee subjects. The system uses the
+    backwards classifier score as a metric for obstacle avoidance difficulty.
+    This score is used in a feedback loop that forms the training set for the
+    flexion target angle regression (c-d). With this feedback system, the able
+    bodied user (e) is able to achieve a degree of volitional control over
+    flexion angle as evidenced by the linear relationship between knee flexion
+    angle and obstacle height $(R^2=0.31)$. However, the amputee (f) was not
+    able to achieve meaningful control over the flexion of the prosthesis
+    $(R^2=0.10)$, possibly due to the decreased experience level of this
+    subject.}\label{fig:reg_and_height}
 \end{figure*}
