@@ -59,14 +59,14 @@ for axis in ax_twin:
     axis.spines['left'].set_visible(False)
 
 ax[0,0].plot(data['knee_time'], data['knee_angle_filt'] - 
-    data['knee_angle_filt'][0], color=colors[0])
+    data['knee_angle_filt'][0], color=colors[0], linewidth=0.25)
 ax[0,0].set_ylabel('Angle (deg)', color=colors[0])
 ax[0,0].tick_params('y', colors=colors[0])
 
 ax_twin[0].plot(data['knee_pks_time'], data['knee_freq'], color=colors[1])
 
 ax[0,1].plot(data['ankle_time'], data['ankle_angle_filt'] -
-    data['ankle_angle_filt'][0], color=colors[0])
+    data['ankle_angle_filt'][0], color=colors[0], linewidth=0.25)
 
 ax_twin[1].plot(data['ankle_pks_time'], data['ankle_freq'], color=colors[1])
 ax_twin[1].set_ylabel('Approx Freq (Hz)', color=colors[1])
@@ -112,7 +112,7 @@ ax_twin[1].set_yticks([0, 2, 4])
 
 ax[1,0].set_yticks([-20, 0, 20])
 
-fig.savefig('zero_torque.pdf', bbox_inches='tight')
+fig.savefig('../zero_torque.pdf', bbox_inches='tight')
 
 ax[0,0].set_xticks(np.arange(0, 40, 10))
 ax[1,1].set_xticks(np.arange(0, 50, 10))

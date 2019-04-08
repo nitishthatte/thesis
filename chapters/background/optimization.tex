@@ -1,12 +1,13 @@
 \section{Prosthesis Optimization}\label{sec:back_optimization}
 
-Optimizing control policies for prostheses and exoskeletons presents a
-challenging task due to four key issues. First, there is significant
-variability gait characteristics that precludes using the same parameters for
-all users. Recently, \citet{zhang2017human} demonstrated this by optimizing an
-ankle exoskeleton's torque trajectory for specific users.  The authors found
-that optimized torque trajectories could reduce metabolic energy consumption
-beyond that provided by a generic assistance strategy.
+Optimizing control policies for prostheses presents a challenging task due to
+four key issues. First, there is significant variability gait characteristics
+that precludes using the same parameters for all users. Recently,
+\citet{zhang2017human} demonstrated the effect of gait variability on lower limb
+assistive device optimizatoin. In this work the researchers optimized an ankle
+exoskeleton's torque trajectory for specific users. The authors found that
+optimized torque trajectories could reduce metabolic energy consumption beyond
+that provided by a generic assistance strategy.
  
 Second, to optimize prostheses and exoskeletons, it is necessary to define an
 objective function that includes and correctly assigns importance to all
@@ -84,14 +85,14 @@ while still exploring regions where the objective function is uncertain. For
 example, researchers have successfully employed BO methods to efficiently
 optimize the gait parameters of a robotic snake~\citep{tesch2011using} and a
 dynamic bipedal robot~\citep{calandra2014bayesian}. In
-\cref{sec:preference_optimization} we present a new bayesian optimization method
+\cref{sec:preference_optimization} we present a new Bayesian optimization method
 that uses learning from preferences between pairs of control parameters to avoid
 priori definition of features and to consider unquantifiable qualities of the
 desired behavior. We apply this method to optimize several simulated tasks.
 
 However, we also find through these experiments that the proposed Bayesian
 optimization approach, cannot scale to the dimensionality required for
-prosthesis optimization. This reveals the fourth challenge of prosthesis
+prosthesis optimization. This highlights the fourth challenge of prosthesis
 optimization, which is that prosthesis controllers typically have dozens of
 parameters, causing optimization routines to suffer from the curse of
 dimensionality. Therefore, in \cref{sec:preference_optimization} we also explore

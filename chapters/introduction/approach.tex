@@ -3,16 +3,16 @@
 We first investigate whether a novel neuromuscular transfemoral prosthesis
 control can improve gait robustness. This control approach seeks to mimic the
 underlying dynamics and control of the human neuromuscular system. Unlike the
-popular finite state impedance control methods, which we review in section
+popular finite state impedance control methods, which we review in
 \cref{sec:back_walk_fsm}, during stance, the neuromuscular control approach
 provides smooth torque outputs that do not vary drastically due to discrete
 phase transitions.  We are motivated to evaluate this control approach by
 simulations of biped walking models driven by neuromuscular control that
 demonstrate its robustness \citep{song2013integration,song2015neural} and
-potential benefits of finite state impedance control (\cref{sec:control_sim}
-\citep{thatte2016toward}) and by previous work demonstrating the adaptability of
-neuromuscular control on powered ankle prostheses
-\citep{eilenberg2010control,markowitz2011speed}.
+potential for improvement over finite state impedance control
+(\cref{sec:control_sim} \citep{thatte2016toward}) and by previous work
+demonstrating the adaptability of neuromuscular control on powered ankle
+prostheses \citep{eilenberg2010control,markowitz2011speed}.
 
 To objectively compare the proposed neuromuscular prosthesis control approach to
 other methods we required a transfemoral prosthesis capable of accurately
@@ -39,16 +39,17 @@ for the neuromuscular control scheme we propose in
 \cref{sec:nm_control_prosthesis}, we optimize at least 18 parameters.
 
 We present two contributions in \cref{sec:preference_optimization} to tackle
-this problem. Both approaches utilize preference feedback between pairs of
-control parameters in order to allow the user to implicitly define the cost
-function via their qualitative feedback. In the first approach, we examine a
-Bayesian optimization scheme that chooses pairs of parameters to compare in
-order to maximize information gained about the location of the user's optimum.
-This approach was unable to address problems of large enough dimensionality.
-Therefore, in the second contribution, we propose an alternative approach that
-utilizes offline optimizations to generate a discrete selection of control
-parameter sets from which the user chooses their optimum, again through pairwise
-preference feedback.
+these issues. Both approaches utilize preference feedback between pairs of
+control parameters that allow the user to implicitly define the cost function
+via their qualitative feedback. In the first approach, we examine a Bayesian
+optimization scheme that chooses, at each iteration, a pair of parameter vectors
+to compare that is expected to maximize information gained about the location of
+the user's optimum. Our experimental results show that this approach is unable
+to address problems of large enough dimensionality. Therefore, in the second
+contribution, we propose an alternative approach that utilizes offline
+optimizations to generate a discrete library of control parameter sets from
+which the user chooses their optimum, again through pairwise preference
+feedback.
 
 With the prosthesis and parameter selection method in place, in
 \cref{sec:nm_vs_imp}, we present the results of an objective comparison between
@@ -58,28 +59,24 @@ we hypothesized that neuromuscular control would be less susceptible to falls
 than impedance control. While we could not verify this hypothesis at the $p <
 0.05$ level, we were able to identify failure modes that were unique to
 impedance control and found that identifying trips during swing could have a
-major impact on gait robustness. Additionally, in this experiment we intended to
-also compare neuromuscular and impedance control to a third phase-based
-approach. We were unable to successfully implement this approach our prosthesis
-but present our efforts in \cref{sec:polar_phase}.
+major impact on gait robustness.
 
-Based on the results of the preceding experiment we make three
-additional contributions. The first two, presented in \cref{sec:trip_avoidance}
-are motivated by the observation that trips account for a significant number of
+Based on the results of the preceding experiment we make three additional
+contributions. The first two, presented in \cref{sec:trip_avoidance} are
+motivated by the observation that trips account for a significant number of
 falls recorded in the above experiment. Prosthesis swing controls that reduce
 the risk of tripping is a largely unexplored area. We explore two distinct
 approaches to tackle this problem. In the first, we employ online learning to
-train a classifier that can detect the user's obstacle avoidance intent switch
-the prosthesis swing trajectory to a safer one. In the second approach, we
-attach a laser distance sensor to the prosthesis and employ an extended Kalman
-filter to estimate the user's hip height and orientation. We use this state
-estimate to explicitly plan swing trajectories for the knee and ankle joints
-that avoid premature toe and heel contact.
+train a classifier that can detect the user's obstacle avoidance intent and
+switch the prosthesis swing trajectory to a safer one. In the second approach,
+we attach a laser distance sensor to the prosthesis and develop an extended
+Kalman filter to estimate the user's hip height and orientation. We use this
+state estimate to explicitly plan swing trajectories for the knee and ankle
+joints that avoid premature toe and heel contact.
 
 Finally, in the last contribution presented in \cref{sec:phase_estimation}, we
-propose a new stance control strategy in which we seek a simpler control method
-that retains one of the potential benefits of neuromuscular stance control,
-which is that it is smooth and does not rely upon discrete phase transitions.
+propose a new stance control strategy that seeks to rectify the observed issues
+with impedance control without the complexity of neuromuscular control.
 Moreover, this new proposed strategy seeks to rectify the issues we faced when
 implementing a previously proposed phase-based control
 \citep{quintero2016preliminary}. In the proposed control method, we obtain a

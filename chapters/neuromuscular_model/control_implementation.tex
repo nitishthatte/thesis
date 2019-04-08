@@ -23,7 +23,7 @@ torque.  Second, we do not use the adaptive leg placement policy of the swing
 control (\cref{eq:simbicon}) as the prosthesis does not have access to
 information about the amputee's center of mass and stance leg ankle position.
 Instead the prosthesis swing leg control employs a constant target leg angle,
-$\alpha_\tn{tgt} = const$.
+$\alpha_\tn{tgt} = \mathrm{const}$.
 
 The torques produced by the swing controller augment the net torques produced by
 the Hill-type muscles and reflexes during stance. At heel strike, the control
@@ -33,7 +33,7 @@ specified by the stance and swing controllers by scaling the stance and swing
 torques and muscle stimulations in proportion to the normalized ground reaction
 force,
 \begin{align}
-    \tau_\tn{late stance} &= \tau_\tn{stance}(GRF) +
+    \tau_\textrm{late stance} &= \tau_\tn{stance}(GRF) +
     \tau_\tn{swing}(1 - GRF), \label{eq:stance_grf_trans}\\ 
     S^\tn{m}_\textrm{late stance}  &= S^\tn{m}(GRF).\label{eq:swing_grf_trans}
 \end{align}
@@ -90,7 +90,7 @@ While our simulated experiments used the idealized reflexive swing control
 described in \cref{sec:neuro_swing_reflexes}, in our prosthesis experiments we
 instead use the minimum-jerk trajectory swing controller proposed by
 \citet{lenzi2014speed}, which automatically adapts to walking speed and produces
-human-like trajectories. In this method, at every toeoff the control method
+human-like trajectories. In our implementation, at every toeoff the control method
 generates a pair of minimum jerk trajectories for each joint: one that starts at
 the toeoff angle, velocity and acceleration and reaches peak knee flexion or
 ankle dorsiflexion and another that goes from the peak flexion state to the heel
@@ -114,18 +114,18 @@ discovered during the experiment presented in \cref{sec:nm_vs_imp}.
 these swing trips that explicitly predicts and plans to avoid premature foot
 contact with the ground.
 
-We switched to this this trajectory following swing control approach for two
+We switched to this minimum jerk trajectory swing control approach for two
 reasons: First, preliminary experiments with the idealized swing control on the
 prosthesis hardware revealed that it was more sensitive to errors in the torque
-control. This seemed especially true in the second phase of the control, in
-which small damping torques are used to control the rate of extension of the
-knee. In our SEA design (\cref{sec:pros_mech_design}), small errors in the torque
-measurement can build up over time due to encoder shift and thermal expansion.
-While these torque errors are insignificant during stance, they appeared to
-cause marked differences in the behavior of idealized swing control. In
-contrast, a trajectory based approach can compensate for these errors through
-its explicit position feedback. Second, in our simulated experiments, we held
-the target angle constant. However, in a real system, the target angle
+control. This seemed especially true in the second phase of the idealized swing
+control, in which small damping torques are used to control the rate of
+extension of the knee. In our SEA design (\cref{sec:pros_mech_design}), small
+errors in the torque measurement can build up over time due to encoder shift and
+thermal expansion.  While these torque errors are insignificant during stance,
+they appeared to affect the behavior of idealized swing control. In contrast, a
+trajectory based approach can compensate for these errors through its explicit
+position feedback. Second, in our simulated experiments, we held the target
+angle $\alpha_\tn{tgt}$ constant. However, in a real system, the target angle
 prediction should adapt to specific users and to variations in speed, terrain,
 and balance recovery intent. How best to predict this target angle remains an
 open research question and is not addressed in this thesis.

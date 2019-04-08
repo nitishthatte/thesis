@@ -2,17 +2,17 @@
 
 To control the prosthesis we use Simulink Real-Time (Mathworks, USA), which
 samples all sensors (joint encoders, IMU on thigh, force sensors in foot),
-computes the desired torques for the knee and ankle joints using a high-level
-control strategy, runs the low-level SEA control, which calculates the velocity
-of needed to achieve these desired torques, and finally sends the velocity
-commands to the motor controllers at a rate of \unit[1]{KHz}. Here, we describe
-the low-level SEA control.
+computes the desired torques for the knee and ankle joints using a mid-level
+control strategy (\cref{sec:back_walking_control}), runs the low-level SEA
+control, which calculates the motor velocity needed to achieve these desired
+torques, and finally sends the velocity commands to the motor controllers at a
+rate of \unit[1]{KHz}. Here, we describe the low-level SEA control.
 
-First in order to ensure the safety of both the user and the prosthesis, the SEA
-controller first saturates the desired torque provided by the high level
+First, in order to ensure the safety of both the user and the prosthesis, the SEA
+controller saturates the desired torque commanded by the mid-level
 controller. During normal operation, we allow a maximum of $\unit[\pm 100]{N
 \cdot m}$ of torque at the knee and $\unit[\pm 150]{N \cdot m}$ of torque at the
-ankle. Furthermore, when either joint gets within \unit[5]{degrees} of its joint
+ankle. Furthermore, when either joint passes within \unit[5]{degrees} of its joint
 limits, a software joint limit stop is activated that calculates torques that
 prevent the actuator from damaging itself. The joint limit torque is inspired by
 the limit torque used in the neuromuscular model simulation presented in
@@ -30,18 +30,19 @@ penetration velocity, and $\dot \theta_\tn{max}$ defines the retraction
 velocity at which the limit torque drops to zero. The knee extension limit
 activates below \unit[5]{degrees} of flexion at which point above torque is
 added to the desired torque. The knee flexion limit is set to
-\unit[90]{degrees} beyond which the above limit torque saturates the desired
-torque from above. For the ankle joint, the extension and flexion activate at
-$\unit[\pm 20]{degrees}$ after which the limit torque saturates the desired
-torque from below and above respectively. 
+\unit[90]{degrees} beyond which the limit torque upper bounds the desired knee
+torque. For the ankle joint, the flexion and extension limits activate at
+$\unit[\pm 20]{degrees}$ beyond which the limit torque upper and lower bound the
+desired ankle torque respectively.
 
 Next, to improve the behavior of the prosthesis knee during swing, damping
-compensation is added to the desired torque to compensate for friction and
-damping in the knee bearing. Finally, after saturation and friction
-compensation, a low pass filter is applied to ensure the derivatives of the
-desired torque are smooth and to remove frequencies that may excite the SEA
-spring. For both joints we use second order Butterworth filters with a cutoff
-frequency of \unit[25]{Hz} at the knee and \unit[20]{Hz} at the ankle.
+compensation in proportion to the knee velocity is added to the desired knee
+torque to compensate for friction and damping in the knee bearing. Finally,
+after saturation and friction compensation, a low pass filter is applied to
+ensure the derivatives of the desired torque are smooth and to remove
+frequencies that may excite the SEA spring. For both joints we use second order
+Butterworth filters with a cutoff frequency of \unit[25]{Hz} at the knee and
+\unit[20]{Hz} at the ankle.
 
 \begin{marginfigure}[-0.0in]
     \centering 
@@ -66,9 +67,9 @@ is the measured torque. As shown in \cref{fig:sea_diagram_ctrl}, the torque on
 the load can be measured through the deflection of the SEA spring as
 $\tau_\tn{meas} = k (\theta_\tn{l} - \theta_\tn{m})$ where $\theta_\tn{l}$ is
 the position of the load side of the spring and $\theta_\tn{m}$ is the position
-of the motor side. To this feed-back control we also add a feed-forward velocity
-term. We derive this term by differentiating the desired torque on the load and
-solving for the motor velocity
+of the motor side. To increase performance, we also add a feed-forward velocity
+term to the feedback term. We derive this term by differentiating the desired
+torque on the load and solving for the motor velocity
 \begin{align}
     \dot \tau_\tn{des} &= k (\dot \theta_\tn{l} - \dot \theta_\tn{m}) \\
     \implies \dot \theta_\tn{m} &= \frac{\dot \tau_\tn{des}}{k} 

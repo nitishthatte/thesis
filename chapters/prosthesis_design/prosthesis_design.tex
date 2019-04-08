@@ -54,15 +54,15 @@ outside of the lab environment like a standalone prosthesis.
             & \unitfrac[1.22]{rev}{s} & \\
         Ankle Torque Bandwidth & \unit[3.5]{Hz} & \unit[5.9]{Hz} & \unit[7]{Hz}\\
         Mass                  & \unit[6.8]{kg} & \unit[5.9]{kg}  & \\
-        Minimum Height        & \unit[42.5]{cm} & \unit[42]{cm}  & \\
+        Minimum Height        & \unit[42.5]{cm} & \unit[42]{cm}  & \unit[42]{cm}\\
         \bottomrule
     \end{tabular}
     \vspace{0.25in}
     \caption[Designed and achieved prosthesis design specifications]{Designed
-    and achieved design specifications. ($^*$Maximum total ankle torque is
+    and achieved design specifications. $^*$Maximum total ankle torque is
     $\unit[290]{N \cdot m}$ if the optional unidirectional springs are used.
     This torque is achieved at $10^\circ$ of
-    dorsiflexion.)}\label{tab:pros_requirements}
+    dorsiflexion.}\label{tab:pros_requirements}
 \end{table*}
 \Cref{tab:pros_requirements} shows the desired design specifications for the
 transfemoral prosthesis, the design's theoretical specifications, and the
@@ -79,11 +79,11 @@ subjects' responses to simulated trips induced by unseen obstacles on a walkway.
 We obtain the maximum ankle torque requirement from \citet{pijnappels2005early},
 who tripped subjects using a obstacles that could suddenly emerge through the
 floor. The maximum ankle speed requirement comes from the running data of
-\citet{novacheck1998biomechanics}. We set to the minimum height specification,
+\citet{novacheck1998biomechanics}. We set the minimum height specification,
 measured between the center of the knee and bottom of the foot, to accommodate
 the $10^\tn{th}$ percentile female~\citep{gordon1989anthropometric}.  Finally,
-the required mass corresponds to the mean leg mass of a $50^\tn{th}$
-percentile male \citep{winter2009biomechanics}.
+the required mass corresponds to the mean leg mass of a $50^\tn{th}$ percentile
+male \citep{winter2009biomechanics}.
 
 \subsection{Knee Joint}
 \begin{marginfigure}[2in]
@@ -125,7 +125,7 @@ inspiration from the design of the bipedal robot Atrias
 \citep{grimes2013atrias}, which uses fiberglass series leaf springs. In our
 design, the output of the gear set drives the proximal end of a fiberglass leaf
 spring in series with the shank. Two Renishaw Resolute absolute encoders measure
-the deflection of this spring to enable torque control.
+the deflection of this spring.
 
 \begin{marginfigure}[2.5in]
     \centering 
@@ -165,9 +165,9 @@ to be
 \end{align}
 For a spring stiffness of $\unitfrac[2300]{N \cdot m}{rad}$ we estimate the
 torque bandwidth is \unit[11.7]{Hz}. This value exceeds the required torque
-bandwidth of \unit[4]{Hz} given by \citet{sergi2012design} (obtained by
+bandwidth of \unit[4]{Hz} given by \citet{sergi2012design}\footnote{obtained by
 analyzing the torque data for walking reported by
-\citet{winter2009biomechanics}). However, it should be noted that this is a very
+\citet{winter2009biomechanics}}. However, it should be noted that this is a very
 crude estimate of bandwidth. On the one hand, it may underestimate the true
 value, as it assumes that to achieve a desired output torque, the motor control
 applies the same torque to the motor side of the spring. In practice, a
@@ -256,10 +256,13 @@ external views of the actuator and foot mechanism. In the ankle design, the
 output of the actuator actuates the foot through a four-bar mechanism. The
 actuator pulls or pushes on the proximal end of a length-adjustable tendon. The
 distal end of the tendon attaches to one end of a fiberglass series elastic leaf
-spring that is also connected to the foot. By measuring the angles of the ankle
-actuator output and the ankle joint and using the equations of the four-bar
-mechanism's kinematics, we can calculate the deflection of the leaf spring and
-thus the torque applied to the ankle.
+spring that is also connected to the foot. To measure torque in the ankle joint,
+we measure the deviation from the nominal relationship between the ankle motor
+encoder and ankle encoder under the zero torque condition.
+
+We perform a calibration routine with
+the prosthesis mounted sideways 
+
 \begin{figure*}[b!]
     \centering 
     \includegraphics[width=\linewidth]{ankle_design}
@@ -309,4 +312,4 @@ the required torque bandwidth of \unit[3.5]{Hz} given by \citet{au2008powered}
 To measure ground reaction forces, we measure the deflection in the prosthesis'
 fiberglass foot (Freedom Innovations Pacifica LP). We measure this deflection by
 embedding Hall effect sensors and magnets in the foot. \Cref{fig:grf_sensing}
-shows the measured heel and toe GRF signals during normal walking.
+shows the measured heel and toe GRF signals during a single walking stride.

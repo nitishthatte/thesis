@@ -102,10 +102,10 @@ try:
 except:
     pass
 
-'''
 filename = 'ankle_motor_torque_running.pdf'
 fig.savefig(filename, bbox_inches='tight')
 
+'''
 #create figure
 plt.close(fig)
 fig = plt.figure(figsize = (2,2))

@@ -7,6 +7,21 @@
 \citet{thatte2018method}\cite{thatte2018method} 
 \linebreak
 
+In \cref{sec:neuro_model} we optimized the neuromuscular and impedance control
+strategies in simulation using a sampling-based optimization method called
+CMA-ES \citep{hansen2006cma}. This method targeted specific cost functions.
+However, as discussed in \cref{sec:back_optimization}, optimizing a single
+objective may ignore other aspects of gait that are important. Therefore in this
+thesis, we instead allow users to select parameters for the prosthesis by
+providing qualitative feedback in the form of preferences between parameter
+vectors. In this chapter, we discuss two approaches to optimizing parameters
+with preferences. The first approach, outlined in
+\crefrange{sec:bayes_intro}{sec:bayes_discussion}, uses Bayesian optimization.
+This approach, however, was unable to scale to the dimensionality needed for
+application to prosthesis control. Therefore, in
+\crefrange{sec:bandit_intro}{sec:bandit_discussion} we outline a second method
+that poses parameter selection as a dueling bandits problem \citep{yue2012k}.
+
 \input{bayes_intro}
 \input{bayes_methods}
 \input{bayes_results}

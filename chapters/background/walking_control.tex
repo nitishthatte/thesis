@@ -22,7 +22,7 @@ movement of the knee and ankle joints. For the knee joint, two trajectories are
 computed, one that starts at the position, velocity, and acceleration of the
 knee at toeoff and goes to a peak flexion angle with zero velocity, and one that
 starts at the peak flexion state and goes to a final state of zero angle,
-velocity and acceleration. The peak angle is tuned to ensure adequate foot
+velocity and acceleration. The peak knee angle is tuned to ensure adequate foot
 clearance while the acceleration at the peak angle is based on able-bodied data.
 For the ankle, one minimum jerk trajectory is used that starts at the position
 and velocity at toeoff and proceeds to a final position, velocity, and
@@ -63,9 +63,9 @@ In each state, the impedance of a joint is governed by
 \end{align}
 where $\tau$ is the desired torque of a joint, $k$ is a stiffness parameter
 $\theta_{0}$ is the joint angle offset, $b$ is a damping parameter and $\dot
-\theta$ is the joint velocity. If the stiffness, damping, and offset parameters
-for each joint are tuned appropriately, this control scheme can be made to suit
-sloped walking \citep{sup2011upslope} and speed variations
+\theta$ is the joint velocity. If the stiffness, damping, and angle offset for
+each joint and the transition rules are tuned appropriately, this control scheme
+can be made to suit sloped walking \citep{sup2011upslope} and speed variations
 \citep{shultz2016variable} including running \citep{shultz2015running}. There
 have also been a number of variations on this general control scheme including
 those with nonlinear impedance functions at the ankle
@@ -86,11 +86,10 @@ instrument the sound-side leg, then \citet{liu2014improving} provides a method
 to improve transition rules by using online learning and gait events of the
 sound-side leg. In this thesis, however, we focus on control strategies that do
 not require extra instrumentation of the body. Therefore, in later chapters we
-will explore, through simulations (\cref{sec:control_sim}) and through
-experiments with our robotic prosthesis
-(\cref{sec:nm_vs_imp,sec:phase_estimation}), the consequences of mistimed phase
-transitions in a finite state impedance control scheme that does not use
-external sensing.
+will explore, through simulations (\cref{sec:control_sim}) and experiments with
+our robotic prosthesis (\cref{sec:nm_vs_imp,sec:phase_estimation}), the
+consequences of mistimed phase transitions in a finite state impedance control
+scheme that does not use external sensing.
 
 \subsection{Continuous Phase Control}\label{sec:back_walk_cont_phase}
 Another approach to walking control in active prostheses is to estimate or
@@ -110,24 +109,25 @@ this definition of phase is only applicable during stance.
 To obtain a phase variable that is applicable in a wider variety of situations,
 \citet{quintero2016preliminary} propose using the thigh angle and its integral
 to derive a continuous phase variable. In this approach, one starts by plotting
-in a chart the thigh angle on the $x$ axis and its (normalized) integral on the
-$y$ axis. Assuming the thigh angle approximately follows a cosine trajectory
-during gait, and with the right normalization constants, the thigh angle/thigh
-angle integral form a circle over one gait cycle. Therefore, one can use the
-polar angle of the thigh angle integral vs thigh angle as a phase variable.
-However, in order for the method to calculate a phase angle that increases at a
-predictable constant rate, the thigh angle/integral plot should be centered
-about the origin and the correct normalization needs to be applied to the thigh
-integral.  Furthermore, in order for the thigh integral to reach zero again at
-the end of a gait cycle, the average thigh angle must be subtracted from the
-thigh angle before integration. The thigh angle shift, integral shift, integral
-normalization, and angle average must be estimated online in order to use this
-method. Incorrect estimation of these parameters can cause the phase estimate to
-diverge. Consequently, using this method for non-periodic motions is difficult.
-In \cref{sec:back_walk_cont_phase} we present our attempt to implement this
-style of control on our robotic prosthesis. We found that the variability from
-step to step alone was enough to cause significant drift in the thigh angle.
-Thus we were not able to achieve a consistent gait with this control scheme.
+in a chart the thigh angle on the $x$-axis and its (normalized) integral on the
+$y$-axis. Assuming the thigh angle approximately follows a cosine trajectory
+during gait, and with the right normalization and shift parameters, the thigh
+angle/thigh angle integral form a circle over one gait cycle. Therefore, one can
+use the polar angle of the thigh angle integral vs thigh angle as a phase
+variable.  However, in order for the method to calculate a phase angle that
+increases at a predictable constant rate, the thigh angle/integral plot should
+be centered about the origin and the correct normalization needs to be applied
+to the thigh integral.  Furthermore, in order for the thigh integral to reach
+zero again at the end of a gait cycle, the average thigh angle must be
+subtracted from the thigh angle before integration. The thigh angle shift,
+integral shift, integral normalization, and angle average must be estimated
+online in order to use this method. Incorrect estimation of these parameters can
+cause the phase estimate to diverge. Consequently, using this method for
+non-periodic motions is difficult.  In \cref{sec:back_walk_cont_phase} we
+present our attempt to implement this style of control on our robotic
+prosthesis. We found that the variability from step to step alone was enough to
+cause significant drift in the thigh angle integral.  Thus we were not able to
+achieve a consistent gait with this control scheme.
 
 As a possible solution, \citet{rezazadeh2018phase} recently proposed a method
 that eliminates the thigh angle integral and instead uses the thigh angle only.
@@ -140,11 +140,11 @@ However, reintroducing a finite state machine into the controller necessitates
 tuning of transitions rules between phases and may cause similar issues as in
 finite state impedance control.
 
-\citet{azimi2019model} Finally, another approach to continuous phase-based
-control of prostheses uses the forward translational hip position to
+Finally, \citet{azimi2019model} propose another approach to continuous
+phase-based control of prostheses uses the forward translational hip position to
 parameterize the desired gait trajectory. The trajectory is designed in
 simulation subject to a partial hybrid zero dynamics constraint that allows one
-to use a adaptive, control Lyapunov function-based controllers with convergence
+to use a adaptive, control Lyapunov function-based, controllers with convergence
 guarantees. However, to date, this control has only been used to actuate the
 knee of a powered prosthesis while the ankle remained passive, perhaps due to
 the additional complexity of dealing with multiple hybrid dynamics transitions
@@ -154,8 +154,9 @@ In \cref{sec:phase_estimation}, we propose an alternative approach to continuous
 gait phase estimation that uses an extended Kalman filter to derive the phase
 estimate. Unlike these reviewed approaches, the proposed approach can fuse
 information from any combination of sensors that produce continuous output and
-does not need a finite state machine. Moreover, we shown the resulting control
-can use the phase estimate to enable automatic transitions to standing mode. 
+does not need a finite state machine. Moreover, we show the resulting control
+can use the phase estimate to adapt to different gait speeds and enable
+automatic transitions to standing mode. 
 
 \subsection{Non Phase-Based Control}
 
@@ -182,7 +183,7 @@ control approach can produce very natural and robust gait patterns
     an active ankle prosthesis.]{Neuromuscular model used by
     \citet{eilenberg2010control} to control an active ankle prosthesis. During
     stance, a virtual muscle driven by positive force feedback, generates
-    plantarflexion torque. During swing, a virtual spring damper provides
+    plantarflexion torque. During swing, a virtual spring and damper provides
     dorsiflexion torque to prevent toe scuffing.}\label{fig:eilenberg_diagram}
 \end{marginfigure}
 Motivated by the robustness and natural gait achievable by neuromuscular reflex
@@ -191,7 +192,7 @@ control, past research has applied this model to active ankle prostheses.
 powered ankle prosthesis (\cref{fig:eilenberg_diagram}). In this work, the
 neuromuscular model was reduced to a single ankle plantarflexor muscle driven by
 a positive force feedback reflex during stance. During swing, the control
-applies torque to dorsiflex the ankle according to a virtual spring damper
+applies torque to dorsiflex the ankle according to a virtual spring-damper
 model. In amputee testing of a prosthesis controlled by the neuromuscular model
 the control produced ankle kinematics and kinetics similar to those observed in
 healthy human walking. Significantly, \citeauthor{eilenberg2010control} found
@@ -218,7 +219,6 @@ flexor and extensor muscles according to a linearised Hill muscle model. The
 resulting prosthesis control allowed an intact subject wearing the prosthesis
 via an able-bodied emulator to achieve nearly normal gait. In a similar
 approach, \citet{wang2013proportional} use EMG signals to modify the gain on a
-positive torque feedback loop (similar to positive force feedback used in
-\citet{geyer2010muscle}) in order to control ankle plantarflexion torque. As
-seen in healthy human walking, toe off angle and ankle net work increased with
-increasing walking speed.
+positive torque feedback loop in order to control ankle plantarflexion torque.
+As seen in healthy human walking, toe off angle and ankle net work increased
+with increasing walking speed.

@@ -15,8 +15,8 @@ used for the results presented in this thesis. As large ankle torques were not
 required for the experiments conducted in this thesis, the optional
 unidirectional ankle springs were not installed. Of crucial importance for the
 work presented in this thesis is that the prosthesis faithfully reproduce the
-torques commanded by the high level control. This is important so that we can
-ensure differences between different high-level control strategies are due to
+torques commanded by the mid-level control. This is important so that we can
+ensure differences between different mid-level control strategies are due to
 the differences in those strategies, and not due to an inability of the
 prosthesis to follow the desired behaviors.
 
@@ -51,11 +51,11 @@ Finally, we calculate the Gain, $G(\omega) = 20 \log_{10}
 \phi_\tn{meas} - \phi_\tn{des}$, between the measured and desired signals at
 each frequency. For both joints, we construct Bode plots at two amplitudes of
 desired torque, a common amplitude of $\unit[20]{N \cdot m}$ and at the root
-mean square (RMS) torques during stance for that joint ($\unit[11.5]{N \cdot m}$
-for the knee, $\unit[55.6]{N \cdot m}$ for the ankle according to data from
-\citet{bovi2011multiple} for \unit[80]{kg} person). For the knee joint we sweep
-frequencies in the range \unit[1-35]{Hz} in \unit[1]{Hz} increments, and for the
-ankle we sweep frequencies in the range \unit[1-20]{Hz}.
+mean square (RMS) torques during stance for that joint.\footnote{$\unit[11.5]{N
+\cdot m}$ for the knee, $\unit[55.6]{N \cdot m}$ for the ankle according to data
+from \citet{bovi2011multiple} for \unit[80]{kg} person} For the knee joint we
+sweep frequencies in the range \unit[1-35]{Hz} in \unit[1]{Hz} increments, and
+for the ankle we sweep frequencies in the range \unit[1-20]{Hz}.
 
 \begin{figure}[htb]
     \centering 
@@ -74,9 +74,9 @@ report the lower of the two bandwidth values obtained from the $\unit[20]{N
 limited at \unit[24]{Hz} by the $\unit[20]{N \cdot m}$ signal. The ankle
 bandwidth is gain limited at \unit[7]{Hz} by the RMS stance torque signal. The
 measured bandwidth of the knee and ankle actuators is higher than the desired
-values based on able-bodied walking data (compare \cref{tab:pros_requirements}
-desired knee bandwidth from \citep{sergi2012design}, desired ankle bandwidth
-from \citet{au2008powered}).
+values based on able-bodied walking data.\footnote{compare
+\cref{tab:pros_requirements} desired knee bandwidth from
+\citep{sergi2012design}, desired ankle bandwidth from \citet{au2008powered}}
 
 \subsection{Zero Torque Tracking}
 \begin{figure}[htb]

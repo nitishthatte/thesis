@@ -27,23 +27,23 @@ number of important challenges:
     \cref{sec:control_sim,sec:nm_vs_imp,sec:trip_avoidance,sec:phase_estimation}.
     
     \item\label{chal:sensing} \emph{Control should ideally only use information
-    that can be garnered from sensors on the prosthesis itself}~~The above
-    robust control robustness problem is complicated by sensing restrictions in
-    a practical prosthetic device. While full instrumentation of the amputee's
-    limbs and the prosthesis may help guarantee the stability of the overall
-    system, in a practical prosthesis device, donning and doffing these sensors
-    may be overly burdensome for amputees in the real world. Therefore, in this
-    thesis, we only consider approaches that use information that could be
-    reasonably garnered from sensors on the prosthesis and its socket.
+    that can be garnered from sensors on the prosthesis itself}~~Prosthesis
+    control is complicated by sensing restrictions in a practical prosthetic
+    device. While full instrumentation of the amputee's limbs and the prosthesis
+    may help guarantee the stability of the overall system, in a practical
+    prosthesis device, donning and doffing these sensors may be overly
+    burdensome for amputees in the real world. Therefore, in this thesis, we
+    only consider approaches that use information that could be reasonably
+    garnered from sensors on the prosthesis and its socket.
 
     \item\label{chal:unique} \emph{Control must adapt to suit the needs of
     individual users}~~Variations in gait between amputees arise due to a number
-    of factors including, but not limited to, the amputee's limb-lengths,
-    weight, strength, endurance, reason for amputation, time since amputation,
-    experience, and personal preferences. Consequently, prostheses and
-    controllers should be optimized to suit individual users. In this thesis we
-    also explore methods for optimizing prosthesis parameters from user
-    preferences (\cref{sec:preference_optimization}) and in latter work propose
+    of factors including the amputee's limb-lengths, weight, strength,
+    endurance, reason for amputation, time since amputation, experience, and
+    personal preferences. Consequently, prostheses and controllers should be
+    optimized to suit individual users. In this thesis we explore methods for
+    optimizing prosthesis parameters from user preferences
+    (\cref{sec:preference_optimization}) and in latter work propose control
     methods that automatically adapt to the user's gait
     (\cref{sec:trip_avoidance,sec:phase_estimation}).
 
@@ -62,17 +62,17 @@ number of important challenges:
     Consequently, in order to ensure that amputee gaits are natural, efficient,
     and robust to disturbances, it is essential that the design and control of
     robotic prostheses admit and leverage the inherent dynamics of walking.
-    Therefore, in this thesis we detail the mechanical design and low-level
-    control of a prosthesis that allows for precise torque tracking
-    \cref{sec:pros_design}.  Furthermore, all controllers proposed in this
-    thesis command desired torques to the prosthesis to allow for compliant
-    interaction with the amputee and the environment. This is either
-    accomplished via controllers that directly command torques as a function of
-    sensor inputs, as in the case of neuromuscular control
-    (\cref{sec:neuro_model}), or, when kinematic objectives are specified,
-    accomplished via the use of feedforward torque commands and low-gain
-    feedback, as in the case of our proposed swing (\cref{sec:trip_avoidance})
-    and phase-based stance controls (\cref{sec:phase_estimation}).
+    Therefore, in \cref{sec:pros_design} we detail the mechanical design and
+    low-level control of a prosthesis that can precisely track torques.
+    Furthermore, all controllers proposed in this thesis command desired torques
+    to the prosthesis to allow for compliant interaction with the amputee and
+    the environment. This is either accomplished via controllers that directly
+    command torques as a function of sensor inputs, as in the case of
+    neuromuscular control (\cref{sec:neuro_model}), or, when kinematic
+    objectives are specified, accomplished via the use of feedforward torque
+    commands and low-gain feedback, as in the case of our proposed swing
+    (\cref{sec:trip_avoidance}) and phase-based stance controllers
+    (\cref{sec:phase_estimation}).
 \end{challenges}
 
 In this thesis, we primarily focus on addressing \cref{chal:robust} by

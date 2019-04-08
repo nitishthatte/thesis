@@ -1,17 +1,16 @@
 \section{Prosthesis Design}\label{sec:back_pros_design}
 We can trace efforts to build an active knee-ankle prostheses to the seventies
-when \citet{flowers1974use} created an active knee-ankle prosthesis emulator in
-order simulate potential control schemes. This prosthesis used a hydraulic
-actuator capable of producing $\unit[90]{N \cdot m}$ of torque and
-$\unitfrac[0.5]{rev}{s}$ of no-load speed, sufficient for simulation of passive
-prostheses. With this device, \citet{donath1974proportional} tested a controller
-based on EMG measurements. This line of research proved to be far ahead of its
-time, as most relevant research in active lower-limb prostheses design has
-occurred only in the last ten years. The recent interest in active knee ankle
-prostheses has been spurred by hardware improvements that allow designs to
-approach the strength, speed, and low weight of the biological leg.  Enabling
-technologies include power-dense brushless motors, motor controllers, and
-lithium-ion batteries, inexpensive microcontrollers and inertial measurement
+when \citet{flowers1974use} created an active knee-ankle prosthesis to test
+potential control schemes. This prosthesis used a hydraulic actuator capable of
+producing $\unit[90]{N \cdot m}$ of torque and $\unitfrac[0.5]{rev}{s}$ of
+no-load speed. With this device, \citet{donath1974proportional} tested a
+controller based on EMG measurements. This line of research proved to be far
+ahead of its time, as most relevant research in active lower-limb prostheses
+design has occurred only in the last ten years. The recent interest in active
+knee ankle prostheses has been spurred by hardware improvements that allow
+designs to approach the strength, speed, and low weight of the biological leg.
+Enabling technologies include power-dense brushless motors, motor controllers,
+and lithium-ion batteries, inexpensive microcontrollers and inertial measurement
 units (IMUs), and strong but light composite materials such as carbon fiber.
 With these advancements, engineers have successfully designed prostheses to meet
 or exceed the requirements for walking~(\cref{tab:walking_requirements}).
@@ -36,9 +35,9 @@ In this \namecref{sec:back_pros_design}, we review a number of recent prosthesis
 designs and analyze their ability to enable dynamic locomotion. To address this
 challenge, prostheses should be able to regulate their output joint torques and
 behave as though they have inertial properties similar to that of a normal human
-leg. This will ensure that the prosthesis will emulate the energy efficient
-gaits of normal walking and remain compliant to unforeseen disturbances and
-uneven terrain.
+leg. Doing so ensures that a prosthesis can emulate the energy efficient gaits
+of normal walking and remain compliant to unforeseen disturbances and uneven
+terrain.
 
 \subsection{Rigid Transmission Transfemoral
 Prostheses}\label{sec:back_rigid_trans} 
@@ -101,12 +100,12 @@ wear.
 Further improvements resulted in two more generations of prostheses
 (\cref{fig:vanderbilt_prostheses}b,c) \citep{lawson2013control,
 lawson2014robotic}. These versions replaced ball screw transmissions with a
-multi-stage belt/chain which improved packaging and reduced noise and wear
-(Michael Goldfarb, personal communication, September 18, 2013).  With these
-prostheses, researchers have extensively tested a variety of control strategies
-including quasi-stiffness control \citep{sup2009preliminary, sup2011upslope,
-lawson2013control, lawson2014robotic, lenzi2014speed}, EMG-based control
-\citep{ha2011volitional, varol2010multiclass}, minimum jerk trajectory following
+multi-stage belt/chain which improved packaging and reduced noise and wear. With
+these prostheses, researchers have extensively tested a variety of control
+strategies including finite state impedance/quasi-stiffness control
+\citep{sup2009preliminary, sup2011upslope, lawson2013control, lawson2014robotic,
+lenzi2014speed}, EMG-based control \citep{ha2011volitional,
+varol2010multiclass}, minimum jerk trajectory following
 \citep{lenzi2014minimum}, and virtual constraint control
 \citep{gregg2014virtual}. 
 
@@ -114,7 +113,7 @@ Additional prostheses in the rigid transmission category include AMPRO
 \citep{zhao2016first}, and a commercially available active knee and ankle
 prostheses: the Össur Power Knee and Proprio Foot. The AMPRO prosthesis features
 two 374 W motors coupled to Harmonic Drive transmissions.
-\citet{zhao2016first}, use this prosthesis to asses the merits of a virtual
+\citet{zhao2016first}, use this prosthesis to assess the merits of a virtual
 constraint controller. The Össur Power Knee features an electric motor that can
 provide torque to facilitate sit-to-stand motions, stair climbing, and active
 extension and flexion during walking. The Proprio Foot also features electric

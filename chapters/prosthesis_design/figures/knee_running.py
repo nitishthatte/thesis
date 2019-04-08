@@ -59,8 +59,8 @@ p2, = ax.plot([0, 6000], [tau_rated, tau_rated], '--',
 p3, = ax.plot([0, 6000], [torque_motor_rms, torque_motor_rms], '--',
     linewidth=2, color=color3)
 
-ax.legend((p0, p1, p2, p3), ('motor_torque', 'torque limit', 
-    'rated torque', 'RMS motor torque'), frameon = False, loc = (-0.2, -1),
+ax.legend((p0, p1, p2, p3), ('Motor Torque', 'Torque Limit', 
+    'Rated Torque', 'RMS Motor Torque'), frameon = False, loc = (-0.2, -1),
     handlelength=3)
 ax.xaxis.set_label_text('Motor Speed (RPM)')
 ax.yaxis.set_label_text('Motor Torque (N-m)')
@@ -73,7 +73,7 @@ ax.spines['bottom'].set_visible(False)
 
 #ax.axis([-250, 6000, -0.1, 4.6])
 ax.set_yticks((0, 1.43, np.max(np.abs(torque_motor)), tau_max))
-ax.set_xticks((0, np.max(np.abs(motor_speed))/(2*np.pi)*60, vol_lim_speed[-1]))
+ax.set_xticks((0, np.max(np.abs(motor_speed))/(2*np.pi)*60, volt_lim_speed[-1]))
 for label in ax.get_xticklabels()[1:]:
     label.set_rotation(45), 
     label.set_rotation_mode('anchor'), 

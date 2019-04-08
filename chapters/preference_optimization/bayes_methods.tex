@@ -53,18 +53,18 @@ optimization of the acquisition function.  Instead, we only have to condition
 the Gaussian process $M$ times on $(x_m^*, D_n)$.
 
 For the experiments in~\cref{s:results} we choose $M = 12$, which allows us to
-construct and optimize $\alpha_n(x^\tn{a}, x^\tn{b})$ in about five seconds,
-which is fast enough for our prosthesis application. Although 12 samples of
-$x^*$ is not enough to compute an accurate expectation over $\prob{x^*|D_n}$,
-interpreting the algorithm as an example of active learning by disagreement may
-explain why it still works well.  As shown in~\cref{fig:pes_plot}b, optimizing
-the acquisition function chooses a pair $x^\tn{a}$ and $x^\tn{b}$ for which the
-preference is currently uncertain, but certain on average after conditioning on
-all $x_m^*$. The sampled $x_m^*$ do not necessarily agree on which point is
-preferred; hence, after observing the preference, the algorithm can rule out
-$x_m^*$ that made the model certain but wrong about the preference. This
-intuition is similar to that provided by \citep{houlsby2012collaborative} for
-Bayesian active learning by disagreement for GP classifiers.
+construct and optimize $\alpha_n(x^\tn{a}, x^\tn{b})$ in about five seconds.
+Although 12 samples of $x^*$ is not enough to compute an accurate expectation
+over $\prob{x^*|D_n}$, interpreting the algorithm as an example of active
+learning by disagreement may explain why it still works well.  As shown
+in~\cref{fig:pes_plot}b, optimizing the acquisition function chooses a pair
+$x^\tn{a}$ and $x^\tn{b}$ for which the preference is currently uncertain, but
+certain on average after conditioning on all $x_m^*$. The sampled $x_m^*$ do not
+necessarily agree on which point is preferred; hence, after observing the
+preference, the algorithm can rule out $x_m^*$ that made the model certain but
+wrong about the preference. This intuition is similar to that provided by
+\citep{houlsby2012collaborative} for Bayesian active learning by disagreement
+for GP classifiers.
 
 \subsection[Conditioning the Gaussian Process on optima]{Conditioning the
 Gaussian Process on $x^*$} The second term on the right side
