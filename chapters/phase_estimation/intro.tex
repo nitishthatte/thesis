@@ -1,4 +1,4 @@
-\section{Introduction}
+\section{Introduction}\label{sec:phase_est_intro}
 
 In \cref{sec:nm_vs_imp} we compared the neuromuscular and impedance controllers.
 The results showed that there were reasons for falls with the impedance
@@ -28,13 +28,14 @@ Therefore, in this chapter, we propose a new control strategy for lower limb
 prostheses that is built on a robust and smooth estimate of the phase of gait
 and parameterizes the control outputs in an interpretable manner. We start by
 presenting our attempt at implementing the phase-based controller proposed by
-\citet{quintero2016preliminary} (\cref{sec:polar_phase}). In \Cref{sec:methods},
-we present an Extended Kalman Filter (EKF) that estimates the phase and its rate
-of change during the stance portion of gait based on a multitude of sensor
-measurements.  We then use sparse Gaussian Process (GP) observation models to
-learn relationships between phase and sensor measurements for specific users and
-to choose the appropriate control actions for the prosthesis. In
-\Cref{sec:results}, we evaluate the performance of the proposed controller with
-experiments on able-bodied subjects and a single amputee subject. Finally, in
-\cref{sec:discussion} we discuss the results and highlight potential limitations
-of this study as well as avenues for future research.
+\citet{quintero2016preliminary} (\cref{sec:polar_phase}). In
+\cref{sec:phase_est_methods}, we present an Extended Kalman Filter (EKF) that
+estimates the phase and its rate of change during the stance portion of gait
+based on a multitude of sensor measurements.  We then use sparse Gaussian
+Process (GP) observation models to learn relationships between phase and sensor
+measurements for specific users and to choose the appropriate control actions
+for the prosthesis. In \cref{sec:phase_est_results}, we evaluate the performance
+of the proposed controller with experiments on able-bodied subjects and a single
+amputee subject. Finally, in \cref{sec:phase_est_discussion} we discuss the
+results and highlight potential limitations of this study as well as avenues for
+future research.

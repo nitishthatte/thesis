@@ -8,14 +8,14 @@ strategies.
 In this work, we provide one such study by comparing the neuromuscular (NM) and
 impedance (IMP) control strategies in a similar manner as in
 \cref{sec:control_sim}.  We seek to make this comparison as objective as
-possible. To do this, we minimize the experimenter's influence on controller
+possible. To do this, we minimized the experimenter's influence on controller
 parameter selection by using the dueling bandits parameter selection method
 presented in \cref{sec:preference_optimization}. This method comprises of two
-parts: 1) We first generate parameters for both controllers through offline
+parts: 1) We first generated parameters for both controllers through offline
 optimizations that try to match the controller output to able-bodied gait data
-of different subjects. 2) We use a preference-based optimization that allows
-users to select their preferred parameter set. Finally, we also replace the hand
-tuning of offset angles that we used in \cref{sec:preference_optimization}
+of different subjects. 2) We used a preference-based optimization that allows
+users to select their preferred parameter set. Finally, we also replaced the
+hand tuning of offset angles that we used in \cref{sec:preference_optimization}
 (\cref{eq:bias_param}) with an iterative learning procedure.
 
 We had also hoped to compare neuromuscular and impedance control to the
@@ -29,5 +29,5 @@ neuromuscular prosthesis control, as predicted by the simulation results
 presented in \cref{sec:control_sim}. To examine controller robustness, we tested
 both controllers with able-bodied subjects walking with their preferred
 parameters at constant speed and with treadmill velocity disturbances. We then
-evaluate the user ratings, number of falls, reasons for falls, and gait
+evaluated the user ratings, number of falls, reasons for falls, and gait
 variability for each condition. 

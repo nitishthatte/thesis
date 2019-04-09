@@ -94,12 +94,14 @@ toe-off and heel strike.
 
 \subsection{Trajectory Planning}
 
-To generate the knee and ankle motions for unperturbed swing, we follow the
-method proposed by \citet{lenzi2014speed} to generate and follow human-like
-minimum jerk trajectories that start at the toe-off state of each joint (angle,
-angular velocity, and angular acceleration), go to a target flexion state, and
-then extend to desired final angles at the estimated heel strike time. We
-estimate the swing period to be $65\%$ of the stance period.
+To generate the knee and ankle motions for unperturbed swing, we use the minimum
+jerk swing control outlined in \cref{sec:nm_control_prosthesis} and first
+proposed by \citet{lenzi2014speed}. This swing control scheme  generates and
+follows human-like trajectories for the knee and ankle joints that start at the
+toe-off angle, angular velocity, and angular acceleration of each joint, go to
+target flexion states, and then extend to desired final angles at the estimated
+heel strike time. We estimate the swing period to be $65\%$ of the stance
+period.
 
 When the forward classifier triggers an obstacle avoidance attempt, we switch to
 bang-bang trajectories for the knee and ankle joints. These trajectories

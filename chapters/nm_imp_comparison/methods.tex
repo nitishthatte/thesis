@@ -28,20 +28,20 @@
     heelstrike.}\label{tab:nm_params_treadmill_exp}
 \end{margintable}
 To obtain suitable parameters for the neuromuscular and impedance control
-methods we rely on the dueling bandits optimization approach outlined in
+methods we relied on the dueling bandits optimization approach outlined in
 \cref{sec:bandit_optimization}. Whereas in \cref{sec:bandit_optimization} we
 optimized control parameters to match gait data at different speeds to achieve a
-speed-adaptive control, in this work, we optimize control parameters to match
+speed-adaptive control, in this work, we optimized control parameters to match
 both undisturbed and disturbed gait in order to obtain robust control
-parameters. We use the dataset provided by \citet{moore2015elaborate}, which
+parameters. We used the dataset provided by \citet{moore2015elaborate}, which
 provides gait data for undisturbed walking and walking with treadmill velocity
 disturbances. 
 
-For the neuromuscular control, we use the black-box CMA-ES optimizer
+For the neuromuscular control, we used the black-box CMA-ES optimizer
 \citep{hansen2006cma} to obtain parameters that can reproduce the behavior of
-each subject in the gait dataset. We optimize the parameters listed in
+each subject in the gait dataset. We optimized the parameters listed in
 \cref{tab:nm_params_treadmill_exp} so the model's output torques match those in
-the gait dataset. Specifically, we minimize the following cost function:
+the gait dataset. Specifically, we minimized the following cost function:
 \begin{align}
     \Gamma &= \argmin_\Gamma \left(\tau_\tn{h} - \tau_\tn{nm} \right)^T
     \left(\tau_\tn{h} - \tau_\tn{nm} \right) + \alpha \xi_\tn{nm}^T \xi_\tn{nm}
@@ -59,9 +59,9 @@ one subject's joint moments.
     model.}\label{fig:treadmill_nm_fit}
 \end{figure}
 
-The impedance stance control strategy we implement, is similar to those reviewed
-in \cref{sec:back_walk_fsm}. We pair this stance control strategy with the same
-minimum jerk swing control as we used with neuromuscular control
+The impedance stance control strategy we implemented, is similar to those
+reviewed in \cref{sec:back_walk_fsm}. We paired this stance control strategy
+with the same minimum jerk swing control as we used with neuromuscular control
 (\cref{sec:nm_control_prosthesis}). \Cref{fig:impedance_control_ours} shows the
 state machine for the implemented impedance stance/minimum-jerk swing control.
 In each stance phase, we use a linear spring-damper relationship between the
@@ -78,22 +78,22 @@ output torque of a joint and the joint angle/velocity
     swing.}\label{fig:impedance_control_ours}
 \end{marginfigure}
 
-To generate parameters for impedance control, we follow a two step procedure: In
-the first step, we identify appropriate joint angle thresholds that define the
-impedance controller's finite state machine transition rules. In the impedance
-controller, the transition from phase 1 to phase 2 of stance is based on the
-knee angle crossing a threshold. We specify this threshold such that 95\% of
-steps in a subject's gait data pass from phase 1 to phase 2. As we use gait data
-with disturbances, this procedure automatically sets the threshold such that it
-allows for a large degree of gait variation. Next, we identify the ankle angle
-threshold that defines the transition between stance phases 2 and 3. Again, we
-set this threshold such that 95\% of the steps that made it through the first
-transition successfully complete the second transition as well. We set the
-thresholds so that 95\% of steps pass through, instead of 100\% of steps, so as
-to ignore potential outlier steps.
+To generate parameters for impedance control, we followed a two step procedure:
+In the first step, we identified appropriate joint angle thresholds that define
+the impedance controller's finite state machine transition rules. In the
+impedance controller, the transition from phase 1 to phase 2 of stance is based
+on the knee angle crossing a threshold. We specified this threshold such that
+95\% of steps in a subject's gait data pass from phase 1 to phase 2. As we used
+gait data with disturbances, this procedure automatically sets the threshold
+such that it allows for a large degree of gait variation. Next, we identified
+the ankle angle threshold that defines the transition between stance phases 2
+and 3.  Again, we set this threshold such that 95\% of the steps that made it
+through the first transition successfully complete the second transition as
+well. We set the thresholds so that 95\% of steps pass through, instead of 100\%
+of steps, to ignore outlier steps.
 
-Once we identify the joint angle thresholds that define state transitions, we
-next fit the impedance parameters within each phase. In each phase, the torque
+Once we identified the joint angle thresholds that define state transitions, we
+next fitted the impedance parameters within each phase. In each phase, the torque
 output of the impedance control for a particular joint is 
 \begin{align}
     \tau_\tn{imp} &= -k \left( \theta - \theta_0 \right) - b \dot{\theta} \\
@@ -103,26 +103,27 @@ output of the impedance control for a particular joint is
 \end{align}
 where $\Theta$ is a matrix of the subject's joint angles and velocities and
 $\vec{k}$ is a vector of the impedance parameters. Therefore, the squared error
-between the subject's joint torque and the impedance control model is
+between the subject's joint torque $\tau_\tn{h}$ and the impedance control model
+is
 \begin{align}
     \epsilon_\tau & = {\left( \tau_\tn{imp} - \tau_\tn{h} \right)}^T 
         \left( \tau_\tn{imp} - \tau_\tn{h} \right) \\
         &= \vec{k}^T \Theta^T \Theta \vec{k} - 2\tau_\tn{h}^T \Theta \vec{k} 
         + \tau_\tn{h}^T \tau_\tn{h}.
 \end{align}
-To calculate the impedance parameters for each phase we minimize the squared
-error subject to the constraints $k>0$ and ${b > 0}$, which ensure that
-the resulting impedance models are stable. Finally, to obtain model parameters
-that are robust to outlier steps in the dataset, we utilize the RANSAC
-procedure, which iteratively solves the above optimization on randomly sampled
-subsets of the data in order to classify outliers and fit to inliers only
+To calculate the impedance parameters for each phase we minimized the squared
+error subject to the constraints $k>0$ and ${b > 0}$, which ensures that the
+resulting impedance models are stable. Finally, to obtain model parameters that
+are robust to outlier steps in the dataset, we utilized the RANSAC procedure,
+which iteratively solves the above optimization on randomly sampled subsets of
+the data in order to classify outliers and fit to inliers only
 \citep{fischler1981random}.
 
 \Cref{fig:treadmill_imp_fit} shows an example of the impedance control model
 optimized to match one subject's gait data. In this figure, the color of the
 lines indicates the phase of gait. We see that the majority of steps fit the
 subject's joint moments (grey) well. However, there are a few steps for which
-the color of the line and thus the phase does not transition properly.
+the color of the line, and thus the phase does, not transition properly.
 Consequently, the resulting torque diverges from the human data. This is
 expected as the phase transition angles were selected such that 95\% of steps
 pass through each phase transition.
@@ -147,10 +148,10 @@ flexion) during stance. In this experiment, in order to reduce the potential for
 bias induced by hand tuning, we take a more systematic, iterative learning
 approach to tuning these offsets.
 
-During the iterative learning procedure, a subject walks with each parameter set
-for both the neuromuscular and impedance controllers. The knee and ankle angle
-trajectories during stance are recorded and after each step, the following
-update rules are applied to the knee and ankle joint offsets
+During the iterative learning procedure, each subject walked with each parameter
+set for both the neuromuscular and impedance controllers. The knee and ankle
+angle trajectories during stance were recorded and after each step, the
+following update rules were applied to the knee and ankle joint offsets
 \begin{fullwidth}
 \begin{align}
     \theta_\tn{knee}^\tn{offset} &\leftarrow \theta_\tn{knee}^\tn{offset} +
@@ -172,26 +173,26 @@ $\theta_\tn{knee}^\textrm{flex}$, crosses a threshold
 $\theta_\tn{knee}^\tn{flex,max} = 10^\circ$.
 
 \subsection{Treadmill Disturbance}\label{sec:treadmill_exp_disturbance}
-In our experiment we probe the robustness of the impedance and neuromuscular
-prosthesis controllers. To this end, we disturb gait using treadmill velocity
+In our experiment we probed the robustness of the impedance and neuromuscular
+prosthesis controllers. To this end, we disturbed gait using treadmill velocity
 disturbances similar to those in the gait dataset we used to generate parameters
 \citep{moore2015elaborate}. During the disturbed walking conditions, the
-treadmill velocity is generated as follows: First, random accelerations are
+treadmill velocity was generated as follows: First, random accelerations were
 sampled from a zero-mean Gaussian distribution with variance
-$\unitfrac[35]{m^2}{s^4}$. These accelerations are saturated to the range,
-$\unitfrac[{[-15, 15]}]{m}{s^2}$. Next, the acceleration is integrated to obtain
-a velocity signal, and the long-term drift is removed by a $2^\tn{nd}$ order
-high-pass filter with a passband edge frequency of \unit[0.5]{hz}. Finally, a
-constant offset of \unitfrac[0.8]{m}{s} is applied to the velocity signal, which
-is then saturated to the range $\unitfrac[{[0, 3.6]}]{m}{s}$.
+$\unitfrac[35]{m^2}{s^4}$. These accelerations were saturated to the range,
+$\unitfrac[{[-15, 15]}]{m}{s^2}$. Next, the acceleration was integrated to
+obtain a velocity signal, and the long-term drift as removed by a $2^\tn{nd}$
+order high-pass filter with a passband edge frequency of \unit[0.5]{hz}.
+Finally, a constant offset of \unitfrac[0.8]{m}{s} was applied to the velocity
+signal, which was then saturated to the range $\unitfrac[{[0, 3.6]}]{m}{s}$.
 
 \subsection{Experimental Protocol}
 
-In our experiment, we evaluate the robustness, user ratings, and causes for
-falls of the neuromuscular and impedance controllers in an experiment with ten
-able-bodied subjects wearing the prosthesis via an adaptor. All subjects
-provided informed consent to IRB-approved protocols. Subject's participated in
-the following six-day procedure:
+We evaluated the robustness, user ratings, and causes for falls of the
+neuromuscular and impedance controllers in an experiment with ten able-bodied
+subjects wearing the prosthesis via an adaptor. All subjects provided informed
+consent to IRB-approved protocols. Subjects participated in the following
+six-day procedure:
 
 \todo{also include subject stats}
 
@@ -216,7 +217,7 @@ the following six-day procedure:
     \item\label{list:exp_day_4} \emph{Dueling Bandits Optimization} We performed
     the dueling bandits optimization procedure (\cref{sec:bandit_methods}) to
     find each subject's preferred parameters with both controllers. The order in
-    which we optimized the controller was chosen randomly.
+    which we optimized controllers was chosen randomly.
 
     \item\label{list:exp_day_5} \emph{Disturbance Experiment - Practice} We
     performed a practice session for the full disturbance experiment. First,
@@ -232,8 +233,9 @@ the following six-day procedure:
     controller type. Odd numbered subjects tested a suboptimal neuromuscular
     parameter set, while even numbered subjects tested a suboptimal impedance
     parameter set. For the suboptimal parameter set we chose the parameter set
-    that ranked $7^\tn{th}$ out of 9 in terms of cumulative Copeland score at
-    the end of the dueling bandits tuning procedure.
+    that ranked $7^\tn{th}$ out of 9 in terms of cumulative Copeland score
+    (defined in \cref{sec:bandit_optimization}) at the end of the dueling
+    bandits tuning procedure.
 
     \item\label{list:exp_day_6} \emph{Disturbance Experiment - Data Collection}
     The procedure for this day was identical to that of \cref{list:exp_day_5}.
@@ -245,12 +247,11 @@ the following six-day procedure:
     both the undisturbed and disturbed conditions of each trial. 
 \end{days}
 
-We evaluate the robustness of the two control strategies primarily by looking at
-the number of falls experienced by each subject in the no disturbance and
-disturbance cases for each controller. As a baseline, we also compare to the no
-prosthesis case. As a secondary measures of gait robustness, we also measure the
-variability of the torso pitch and roll angles. The variability is measured by
-subtracting the median torso angle trajectory over the strides in a condition
-from the corresponding torso angle trajectories. Then the interquartile range
-(IQR) of the median subtracted trajectories is used as the measure of
-variability.
+We evaluated the robustness of the two control strategies primarily by looking
+at the number of falls experienced by each subject in the no disturbance and
+disturbance cases. As a baseline, we also compared to the no prosthesis case. As
+a secondary measures of gait robustness, we also measured the variability of the
+torso pitch and roll angles. The variability is measured by subtracting the
+median torso angle trajectory over the strides in a condition from the
+corresponding torso angle trajectories. Then the interquartile range (IQR) of
+the median subtracted trajectories is used as the measure of variability.

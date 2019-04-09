@@ -7,8 +7,8 @@ the neuromuscular control more highly than impedance control and using impedance
 control led to significantly more falls compared to walking without a
 prosthesis. While we did observe more falls with the impedance control across
 all subjects than with the neuromuscular controller, when considering the
-question ``did individual users fall more often with impedance control than with
-neuromuscular control?'', these differences were not significant. The only
+question, ``Did individual users fall more often with impedance control than
+with neuromuscular control?'', these differences were not significant. The only
 measure of gait stability in which a significant difference between the
 neuromuscular and impedance controllers was measured was the torso pitch
 variability, which neuromuscular control significantly reduced in the
@@ -116,7 +116,7 @@ subjects to achieve reliable handrail-free walking with the prosthesis.
 Furthermore, there were several \todo{get number} subjects who could not proceed
 past the first day of the experimental procedure as they could not manage to
 walk without the handrails or experienced excessive discomfort in the prosthesis
-adaptor. While researcher's should eventually perform adequately powered studies
+adaptor. While researchers should eventually perform adequately powered studies
 comparing prosthesis controllers in the future, at this point in the development
 of these controllers, there are still significant issues in the prosthesis
 control that can be discovered and addressed with small $n$ studies. In the case
@@ -125,18 +125,19 @@ systematically addressed even if they are rare and their frequency cannot be
 established to a high degree of confidence.
 
 Second, we tested very specific implementations of the impedance and
-neuromuscular controllers. Specifically, we tested the impedance control from
-\citet{lawson2014robotic}, which uses linear impedance functions and angle
-thresholds to transition between phases. However, other variations on the
-impedance control have been suggested as well, including those that use
-nonlinear impedance functions \citep{sup2007design,shultz2016variable}, and
-those using ground reaction signals for the transitions between phases
-\citep{sup2009preliminary}. The neuromuscular control structure we used was
-described in \cref{sec:nm_control_prosthesis} and based on
-\citet{song2015neural}. This structure encodes a specific set of reflexes.
-However, there are many other feedback pathways that could be incorporated into
-this model as well that may improve performance. Additional experiments will be
-needed to compare amongst variations in these control strategies.
+neuromuscular controllers. Specifically, our impedance control implementation
+utilized linear impedance functions, as in \citet{sup2009preliminary}, and phase
+transition rules based on joint angle thresholds, as in
+\citet{lawson2014robotic}. However, other variations on the impedance control
+have been suggested as well, including those that use nonlinear impedance
+functions \citep{sup2007design,shultz2016variable} and those using ground
+reaction signals for the transitions between phases \citep{sup2009preliminary}.
+The neuromuscular control structure we used was described in
+\cref{sec:nm_control_prosthesis} and based on \citet{song2015neural}. This
+structure encodes a specific set of reflexes. However, there are many other
+feedback pathways that could be incorporated into this model as well that may
+improve performance. Additional experiments will be needed to compare amongst
+variations in these control strategies.
 
 Finally, in this experiment, users needed to pick parameters out of a
 pre-generated discrete set of possibilities. It is possible and likely that there
@@ -154,12 +155,12 @@ computation.
 Second, it is unclear what objective function to use in the optimization. For
 example, \citet{wen2019online} target a desired knee angle trajectory. However,
 perfect tracking of this trajectory may come at the expense of robustness or
-comfort. In this experiment, we allowed users to specify their own objective by
-using their preferences. In future work, similar preference based approaches could
-be used to identify a user's objective function based on multiple gait metrics.
-An optimization approach, such as \citet{wen2019online}, could then be used to
-target this objective function if it can be scaled to the required number of
-dimensions.
+comfort. In this experiment, we allowed users to specify their own objective
+through their preferences. In future work, similar preference-based approaches
+could be used to identify an objective function, made up of weighted gait
+features, that aligns with user preferences.  An optimization approach, such as
+\citet{wen2019online}, could then be used to target this objective function if
+it can be scaled to the required number of dimensions.
 
 The final challenge for performing the full optimization is that many important
 features we would use to quantify gait are difficult to measure. For example, to

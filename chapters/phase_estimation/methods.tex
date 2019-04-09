@@ -1,4 +1,4 @@
-\section{Methods}\label{sec:methods}
+\section{Methods}\label{sec:phase_est_methods}
 
 The proposed prosthesis controller consists of two components. The first is an
 Extended Kalman Filter (EKF) that estimates the gait phase, defined as the
@@ -80,8 +80,7 @@ every five completed steps. To ensure that the test-time performance of the
 Gaussian Process models does not degrade as more training data accumulates, we
 employ the fully independent training conditional (FITC) approximation of the
 GP~\citep{snelson2007local}. This approximation represents the GP using a
-fixed-size active set of training points. (We use 25 points in our
-approximation).
+fixed-size active set of training points. We use 25 points in our approximation.
 
 With the learned GP observation models, we follow the GP-EKF procedure proposed
 by~\citet{ko2009gp} to obtain an estimate of phase and phase velocity. In this
