@@ -31,7 +31,7 @@ color2      = '#A0468F'
 color2light = '#EA9ADB'
 color3      = '#DFAE62'
 color3light = '#F8D6A3'
-color_grey = [0.75, 0.75, 0.75]
+color_grey = [0.85, 0.85, 0.85]
 
 data = sio.loadmat('nm_fit_data.mat', squeeze_me=True)
 
@@ -39,8 +39,8 @@ fig, ax = plt.subplots(1, 2, figsize=(4,2), sharex=True, sharey=True)
 
 num_steps = data['sim_torques'].shape[0]
 
-hum_line_props = {'color':color_grey, 'zorder':1, 'alpha':.1}
-nm_line_props = {'color':color0, 'alpha':0.1}
+hum_line_props = {'color':color_grey, 'zorder':1, 'alpha':.5}
+nm_line_props = {'color':color0, 'alpha':0.5}
 ax[0].plot(data['sim_time'], data['sim_torques'][0].T, 
     **hum_line_props)
 ax[0].plot(data['sim_time'], data['sim_torques'][2].T, 

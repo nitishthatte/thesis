@@ -205,13 +205,12 @@ information. In contrast, the EKF without LIDAR information has an error of
     lines.}\label{fig:ekf}
 \end{marginfigure}
 
-\subsection{Gaussian Process Hip Trajectory Prediction}
+\subsection{Gaussian Process Hip Trajectory Prediction}\label{sec:predict_gp}
 
-\label{sec:predict_gp}
 To predict the future hip angle and height trajectories, we train sparse
 Gaussian process models using the FITC approximation \citep{snelson2007local}.
 The sparse approximation ensures the computational complexity at test time is
-independent of the training data set size, providing consistent real time
+independent of the training data set size, providing consistent real-time
 performance. Throughout the swing phase, the learned hip angle and height
 distributions are conditioned on the swing trajectories completed so far to
 predict the distribution of the future trajectories for the rest of the swing
@@ -322,16 +321,16 @@ from below.
 Often, the valid leg configurations span disjointed regions in the configuration
 space (green and red regions in \cref{fig:planning}B and D). Therefore, the
 planner next identifies a valid sequence of regions for the trajectory to
-traverse in a four step procedure.  First, the planner identifies critical
+traverse in a four-step procedure.  First, the planner identifies critical
 points along the predicted trajectory at which any bound activates or
 deactivates. Second, at each critical point, the planner sorts the bound angles
 from largest to smallest and iterates through them to define regions between
 successive upper and lower bounds. Third, the planner defines a graph over the
 regions with edge weights equal to the average squared angle minus the volume of
 the child region. This cost favors a sequence of regions that are large and thus
-safe to travel trough and avoids regions that require excessive joint flexion or
-extension. Dijkstra's algorithm is then used to find a valid sequence of regions
-that minimizes this cost~\citep{dijkstra1959note}. Finally, so that the
+safe to travel through and avoids regions that require excessive joint flexion
+or extension. Dijkstra's algorithm is then used to find a valid sequence of
+regions that minimizes this cost~\citep{dijkstra1959note}. Finally, so that the
 generated trajectories do not get too close to the identified bounds, a buffer
 is added to the bounds. This buffer takes the form
 \begin{align}
@@ -402,7 +401,7 @@ standard minimum jerk trajectories that do not consider the tripping hazard. The
 user was not aware of which controller would be used in the upcoming swing.  The
 user completed a total of ten one minute walking trials.
 
-We examined several outcomes for evaluating the control performance. First, we
+We examined several outcomes for evaluating control performance. First, we
 examined the distribution of knee angles at the beginning of stance. Large knee
 angles at the beginning of stance indicate premature landing due to toe-strike
 instead of heel strike. Ideally, the landing angle is close to the desired final

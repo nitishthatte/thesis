@@ -18,7 +18,7 @@ Categorizing the falls by their type gives more insight into differences between
 the controllers. There were reasons for falls with each controller that did not
 exist for the other. For NM control, missed transitions between stance and swing
 caused three falls. While these falls could be directly attributed to the
-leg-angle threshold in the high level state machine that governs the
+leg-angle threshold in the high-level state machine that governs the
 stance/swing state transition (\cref{fig:stance_swing_state_machine}), that
 these falls only occurred with neuromuscular control suggests a causal
 difference in the two strategies. One possible reason that these falls did not
@@ -50,7 +50,7 @@ generation swing control strategy. However, these trips occurred three times
 more frequently with impedance stance control than with neuromuscular stance
 control. Many of the trips that occurred with impedance control were preceded by
 a missed transition between the second and third stance phases. Neuromuscular
-control, in contrast, is smooth throughout stance with no discrete transitions,
+control, in contrast, is smooth throughout stance with no discrete transitions
 and thus may transition to swing more consistently and cause fewer swing trips.
 Nevertheless, even with its smoother stance phase, subjects still tripped during
 swing several times with the Neuromuscular control. Therefore, in
@@ -79,10 +79,11 @@ Therefore, in order to achieve the potential benefits of a smooth controller
 that does not have discrete stance phases, while avoiding excessive complexity,
 in \cref{sec:phase_estimation}, we explore an alternative approach to stance
 control. This approach relies on a continuous estimate of phase and easily
-interpretable models for the output behavior as a function this phase estimate.
+interpretable models for the output behavior as a function of this phase
+estimate.
 
 A surprising result of this experiment is the lack of substantial differences
-between suboptimal and optimal controllers. Only the in the case of impedance
+between suboptimal and optimal controllers. Only in the case of impedance
 control under disturbances did subjects unanimously restate their preference for
 the control parameter sets they had preferred on the optimization day. The lack
 of clear differences between the neuromuscular parameter sets could be the
@@ -97,7 +98,7 @@ $\unit[\sim10]{sec}$ bouts of walking with each parameter set. In contrast, on
 the data collection day, parameter sets were independently rated on a 1-10 scale
 after 2 minutes of walking. In future work, we should check for consistency of
 the preferred parameters by performing the dueling bandits optimization
-procedure on multiple days in order to see if the users preferences are
+procedure on multiple days in order to see if the users' preferences are
 consistent from day to day.
 
 Our simulated results presented in \cref{sec:control_sim} predicted a larger
@@ -140,8 +141,8 @@ improve performance. Additional experiments will be needed to compare amongst
 variations in these control strategies.
 
 Finally, in this experiment, users needed to pick parameters out of a
-pre-generated discrete set of possibilities. It is possible and likely that there
-exists parameters for each control that are more robust, comfortable, and
+pre-generated discrete set of possibilities. It is possible and likely that
+there are parameters for each control that are more robust, comfortable, and
 efficient. However, finding these parameters by solving a high dimensional
 optimization problem using real prosthesis feedback remains an unsolved problem
 for three reasons: First, optimizations suffer from the curse of dimensionality.
@@ -167,7 +168,7 @@ features we would use to quantify gait are difficult to measure. For example, to
 measure gait robustness using treadmill velocity disturbances, we required many
 minutes of walking under disturbances just to observe a few falls. Metabolic
 energy consumption typically takes several minutes to observe, even when using a
-predictive model of its steady state value \citep{zhang2017human}. Other gait
+predictive model of its steady-state value \citep{zhang2017human}. Other gait
 features such as comfort are not directly quantifiable. Identification of
 quickly measurable stand-ins for these metrics should be a focus of future
 research.

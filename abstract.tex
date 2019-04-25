@@ -21,18 +21,18 @@ Next, we test a hypothesis that a stance control approach based on a model of
 the human neuromuscular system may help improve gait robustness and user
 satisfaction over the commonly used impedance control method. This hypothesis
 stems from previous research applying neuromuscular control to simulated biped
-models and to powered ankle prostheses that suggests that this approach can adapt
-to changes in speed, incline, and rough ground. While our experiment did not
-find a significant reduction in falls using neuromuscular control, it did reveal
-that a lack of robust gait phase estimation caused a large number of falls for
-the impedance control strategy and that both controllers suffered from trips
-during swing.
+models and to powered ankle prostheses that suggests that this approach can
+adapt to changes in speed, incline, and rough ground. While our experiment did
+not find a significant reduction in falls using neuromuscular control, it did
+reveal that a lack of robust gait phase estimation caused a large number of
+falls for the impedance control strategy and that both controllers suffered from
+trips during swing.
 
 Therefore, we next proposed and tested two new control strategies that directly
 address these causes of falls. In the first, we use information from an inertial
-measurement unit and LIDAR distance sensor to estimate the position, orientation
-and future trajectory of the hip. This information is then used to plan
-trajectories for the prosthesis' knee and ankle that avoid tripping during
+measurement unit and a LIDAR distance sensor to estimate the position,
+orientation and future trajectory of the hip. This information is then used to
+plan trajectories for the prosthesis' knee and ankle that avoid tripping during
 swing. Second, we propose using an extended Kalman filter to improve phase
 estimation during stance. We show the resulting control strategy significantly
 reduced the number of falls compared impedance control when users step on uneven

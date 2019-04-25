@@ -40,7 +40,7 @@ compensation in proportion to the knee velocity is added to the desired knee
 torque to compensate for friction and damping in the knee bearing. Finally,
 after saturation and friction compensation, a low pass filter is applied to
 ensure the derivatives of the desired torque are smooth and to remove
-frequencies that may excite the SEA spring. For both joints we use second order
+frequencies that may excite the SEA spring. For both joints we use second-order
 Butterworth filters with a cutoff frequency of \unit[25]{Hz} at the knee and
 \unit[20]{Hz} at the ankle.
 
@@ -123,6 +123,6 @@ further constraint violation. For the knee joint, the flexion limit is set to
 \unit[90]{degrees} and the extension limit is \unit[-2]{degrees}. For the ankle
 joint the flexion/extension limits are set to $\unit[\pm 30]{degrees}$
 respectively. The saturated desired motor velocities and feed forward motor
-torques are then low pass filtered with second order Butterworth filters. For
-the knee, we use a cutoff frequency of \unit[100]{Hz} and for the ankle we use a
-cutoff frequency of \unit[50]{Hz}.
+torques are then low pass filtered with second-order Butterworth filters. For
+the knee, we use a cutoff frequency of \unit[100]{Hz} and for the ankle, we use
+a cutoff frequency of \unit[50]{Hz}.

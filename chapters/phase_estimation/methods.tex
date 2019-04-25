@@ -5,8 +5,8 @@ Extended Kalman Filter (EKF) that estimates the gait phase, defined as the
 percent of stance completed so far (\cref{sec:gpekf}). Ideally, the phase
 estimate starts at zero at heel strike and reaches one precisely at toe-off. The
 second component is a set of control surfaces, which are functions of phase and
-phase velocity, that provide desired knee and ankle angles, velocities, and feed
-forward torques for generating the prosthesis stance behavior
+phase velocity, that provide desired knee and ankle angles, velocities, and
+feedforward torques for generating the prosthesis stance behavior
 (\cref{sec:ctrl_surfs}).
 
 \subsection{GP-EKF for estimating phase}\label{sec:gpekf}
@@ -25,7 +25,7 @@ velocity during stance. The EKF assumes the linear, discrete time phase dynamics
         &= \begin{bmatrix} 1 & \Delta t \\ 0 & 1 \end{bmatrix} 
             \begin{bmatrix} \phi_{t-1} \\ \dot{\phi}_{t-1} \end{bmatrix} + w_t
             \label{eq:dyn_mdl} \\
-        &= A x_{t-1}, \notag
+        &= A x_{t-1} + w_t, \notag
 \end{align}
 where $\phi$ is the phase, $\dot{\phi}$ is the rate of change of phase, $\Delta
 t$ is the integration time step and $w_t \sim \mathcal{N}(0, Q)$. We set
@@ -73,7 +73,7 @@ of stance gait data. The training data set includes the joint angles and
 velocities (in units of $\nicefrac{d \theta_j}{d\phi}$) sampled at
 \unit[100]{Hz} as well as the actual corresponding phases and phase velocities
 during stance. We assume that, in hindsight, the actual phase increased linearly
-from zero at heel strike to one at toe off and that the actual phase velocity
+from zero at heel strike to one at toe-off and that the actual phase velocity
 was constant during stance and equal to $1/T_n$, where $T_n$ is the duration of
 the completed stance phase. We retrain the GP models using this gait data after
 every five completed steps. To ensure that the test-time performance of the
@@ -182,7 +182,7 @@ where $T_{n-1}$ is the duration of the previous stance.
 
 We use the mean estimates of the phase $\phi$ and phase velocity $\dot{\phi}$ as
 the inputs into learned control surfaces that provide the desired knee and ankle
-angles, velocities, and feed-forward torques (Fig.~\ref{fig:control_surf}). The
+angles, velocities, and feedforward torques (Fig.~\ref{fig:control_surf}). The
 final desired torques applied to the prosthesis are then given by 
 \begin{align}
     \tau_d = k_\tn{p} \left(\theta_\tn{d}(\phi, \dot{\phi}) - \theta \right) 
@@ -202,7 +202,7 @@ by~\citet{moore2015elaborate} for several subjects walking at three speeds,
 using the data from nine subjects. For each subject, we split the gait data into
 individual stance phases and extracted the knee and ankle angles, velocities,
 and joint torques.  We also assumed that during each stance, the actual phase
-increased linearly from zero at heel strike to one at toe off and the phase
+increased linearly from zero at heel strike to one at toe-off and the phase
 velocity during stance was constant and equal to $1/T$, where $T$ is the
 duration of stance. We again used sparse GP regression with the FITC
 approximation to regress the knee and ankle angles, velocities, and torques
@@ -232,9 +232,9 @@ the resulting control surfaces derived from one subject's data.
 \end{marginfigure}
 
 We evaluated the naturalness of gait and the robustness of our proposed
-controller in experiments conducted with seven able-bodied subjects, and an
+controller in experiments conducted with seven able-bodied subjects and an
 amputee subject. We additionally present data from an experienced user of the
-prosthesis (first author of paper), whose gait characteristics induced a
+prosthesis (thesis author), whose gait characteristics induced a
 different response from the prosthesis. All subjects provided informed consent
 to IRB-approved protocols. The amputee subject used the powered prosthesis
 prototype through his personal socket adapter, as shown
@@ -262,7 +262,7 @@ subjects walked with each of the nine control surfaces (parameter sets) for each
 controller and indicated their preferred settings. All three stance control
 strategies were paired with the same swing control strategy, in which minimum
 jerk trajectories for the knee and ankle are generated at toe-off and tracked
-with PD-feedback combined with a model-based feed forward term as
+with PD-feedback combined with a model-based feedforward term as
 in~\citep{lenzi2014speed}. In total, we conducted four experiments: 
 
 (1) A test of the ability of each control strategy to reproduce a normal walking

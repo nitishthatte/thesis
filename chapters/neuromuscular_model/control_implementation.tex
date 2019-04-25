@@ -1,5 +1,5 @@
 \section{Control for Simulation Experiments}
-In \cref{sec:control_sim}, in order to assess potential benefits of using the
+In \cref{sec:control_sim}, in order to assess the potential benefits of using the
 neuromuscular model for prosthesis control, we perform simulated experiments of
 an amputee walking with a powered knee and ankle prosthesis. In those
 experiments, to generate the reference torques for the SEAs, we use a hybrid
@@ -15,8 +15,8 @@ spans the hip joint as well, and we do not wish to instrument the torso of the
 amputee user, we assume that the torso angle remains fixed at $\phi_\tn{ref}$, 
 thereby reducing the hamstring stimulation to \cref{eq:ham_stim}.
 
-Additionally, we make make two modifications to the prosthesis-side swing leg
-control. First, on the prosthesis-side hip we remove the feed-forward term that
+Additionally, we make two modifications to the prosthesis-side swing leg
+control. First, on the prosthesis-side hip, we remove the feed-forward term that
 neutralizes the disturbance created by the knee's stop and extend phase
 (\cref{eq:hipfeedforward}), requiring that feedback control deal with this
 torque.  Second, we do not use the adaptive leg placement policy of the swing
@@ -90,18 +90,18 @@ While our simulated experiments used the idealized reflexive swing control
 described in \cref{sec:neuro_swing_reflexes}, in our prosthesis experiments we
 instead use the minimum-jerk trajectory swing controller proposed by
 \citet{lenzi2014speed}, which automatically adapts to walking speed and produces
-human-like trajectories. In our implementation, at every toeoff the control method
-generates a pair of minimum jerk trajectories for each joint: one that starts at
-the toeoff angle, velocity and acceleration and reaches peak knee flexion or
-ankle dorsiflexion and another that goes from the peak flexion state to the heel
-strike state. The knee and ankle joints are set to \unit[65 and 2]{deg} at peak
-flexion and \unit[2 and -5]{deg} at heel strike respectively. The prosthesis
-then follows these desired joint angles via proportional/derivative feedback
-plus a model-based feedforward term. Combined, the feedback and feedforward
-terms specify the desired joint torques which the low-level SEA control tries to
-achieve (\cref{sec:sea_control}). The use of the feed forward term and SEA
-torque control during swing allows the system to maintain a level of impact
-compliance despite following a trajectory.
+human-like trajectories. In our implementation, at every toe-off, the control
+method generates a pair of minimum jerk trajectories for each joint: one that
+starts at the toe-off angle, velocity, and acceleration and reaches peak knee
+flexion or ankle dorsiflexion and another that goes from the peak flexion state
+to the heel strike state. The knee and ankle joints are set to \unit[65 and
+2]{deg} at peak flexion and \unit[2 and -5]{deg} at heel strike respectively.
+The prosthesis then follows these desired joint angles via
+proportional/derivative feedback plus a model-based feedforward term. Combined,
+the feedback and feedforward terms specify the desired joint torques which the
+low-level SEA control tries to achieve (\cref{sec:sea_control}). The use of the
+feed forward term and SEA torque control during swing allows the system to
+maintain a level of impact compliance despite following a trajectory.
 
 The swing phase duration is set to 60\% of the previous stance phase duration.
 In the \cref{sec:preference_optimization,sec:nm_vs_imp}, we specified that the
@@ -123,7 +123,7 @@ extension of the knee. In our SEA design (\cref{sec:pros_mech_design}), small
 errors in the torque measurement can build up over time due to encoder shift and
 thermal expansion.  While these torque errors are insignificant during stance,
 they appeared to affect the behavior of idealized swing control. In contrast, a
-trajectory based approach can compensate for these errors through its explicit
+trajectory-based approach can compensate for these errors through its explicit
 position feedback. Second, in our simulated experiments, we held the target
 angle $\alpha_\tn{tgt}$ constant. However, in a real system, the target angle
 prediction should adapt to specific users and to variations in speed, terrain,

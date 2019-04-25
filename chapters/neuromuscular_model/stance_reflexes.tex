@@ -69,16 +69,17 @@ the complete vastus stimulation
             \left( \dot \phi_\tn{knee}(t_\tn{m}) < 0\right)
 \end{align}
 \end{fullwidth}
-where $^\tn{off}\phi_\tn{knee}$ is the angle beyond which the vastus is inhibited.
+where $^\tn{off}\phi_\tn{knee}$ is the angle beyond which the vastus is
+inhibited.
 
 The reflexes achieve the final function of balancing the trunk by
 proportional-derivative control that produces stimulations for the hip muscles
 (hip flexors, gluteus, and hamstrings) to stabilize the trunk at a reference
-lean. Because muscles can only provide pulling force, the proportional derivative
-control signal is distributed as hip flexor stimulation if the signal represents
-flexion torque and as simultaneous stimulation for the gluteus and hamstrings if
-it represents hip extension torque. For example, the complete hamstrings
-stimulation becomes
+lean. Because muscles can only provide a pulling force, the
+proportional-derivative control signal is distributed as hip flexor stimulation
+if the signal represents flexion torque and as simultaneous stimulation for the
+gluteus and hamstrings if it represents hip extension torque. For example, the
+complete hamstrings stimulation becomes
 \begin{align}
     \func{S}[][\tn{ham}]{t} &= S_0^\tn{ham} + 
         G_\tn{ham}^\tn{ham} \func{F}[\tn{ham}][]{t_\tn{s}} \notag\\

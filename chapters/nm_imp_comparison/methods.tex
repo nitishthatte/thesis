@@ -59,7 +59,7 @@ one subject's joint moments.
     model.}\label{fig:treadmill_nm_fit}
 \end{figure}
 
-The impedance stance control strategy we implemented, is similar to those
+The impedance stance control strategy we implemented is similar to those
 reviewed in \cref{sec:back_walk_fsm}. We paired this stance control strategy
 with the same minimum jerk swing control as we used with neuromuscular control
 (\cref{sec:nm_control_prosthesis}). \Cref{fig:impedance_control_ours} shows the
@@ -78,7 +78,7 @@ output torque of a joint and the joint angle/velocity
     swing.}\label{fig:impedance_control_ours}
 \end{marginfigure}
 
-To generate parameters for impedance control, we followed a two step procedure:
+To generate parameters for impedance control, we followed a two-step procedure:
 In the first step, we identified appropriate joint angle thresholds that define
 the impedance controller's finite state machine transition rules. In the
 impedance controller, the transition from phase 1 to phase 2 of stance is based
@@ -143,7 +143,7 @@ between the joint angles in the gait dataset and the joint angles of the
 prosthesis, we applied hand-tuned offsets to the measured prosthesis joint
 angles before calculating the neuromuscular model torques
 (\cref{eq:bias_param}). These offsets helped ensure the prosthesis achieved
-comfortable levels of ankle dorsiflexion, and prevented knee over extension (or
+comfortable levels of ankle dorsiflexion and prevented knee overextension (or
 flexion) during stance. In this experiment, in order to reduce the potential for
 bias induced by hand tuning, we take a more systematic, iterative learning
 approach to tuning these offsets.
@@ -199,13 +199,13 @@ six-day procedure:
 \begin{days}
     \item\label{list:exp_day_1} \emph{Practice Session} Subjects practiced
     walking on the prosthesis until they could achieve consistent gait without
-    the use of hand-rails. Subjects who could not achieve hands free walking by
+    the use of handrails. Subjects who could not achieve hands-free walking by
     the end of the two-hour practice session did not continue with the
     experiment.
 
-    \item\label{list:exp_day_2} \emph{Practice Session} On the second day
+    \item\label{list:exp_day_2} \emph{Practice Session} On the second day,
     subjects continued to practice walking on the prosthesis without the use of
-    hand rails. In addition, on this day subjects practiced walking with the
+    handrails. In addition, on this day subjects practiced walking with the
     disturbance described in \cref{sec:treadmill_exp_disturbance}. This session
     lasted for 2 hours.
 
@@ -232,7 +232,7 @@ six-day procedure:
     control parameters along with a set of suboptimal parameters for one
     controller type. Odd numbered subjects tested a suboptimal neuromuscular
     parameter set, while even numbered subjects tested a suboptimal impedance
-    parameter set. For the suboptimal parameter set we chose the parameter set
+    parameter set. For the suboptimal parameter set, we chose the parameter set
     that ranked $7^\tn{th}$ out of 9 in terms of cumulative Copeland score
     (defined in \cref{sec:bandit_optimization}) at the end of the dueling
     bandits tuning procedure.
@@ -242,7 +242,7 @@ six-day procedure:
     During these trials, a Vicon motion capture system captured the motion of
     the legs. Additionally, subjects wore an IMU that measured the roll and
     pitch of the torso during walking. During trials, we recorded the number of
-    falls (measured as the number of times subjects needed to use the hand rails
+    falls (measured as the number of times subjects needed to use the handrails
     or the ceiling-mounted hardness to recover balance) and the user ratings for
     both the undisturbed and disturbed conditions of each trial. 
 \end{days}
@@ -250,7 +250,7 @@ six-day procedure:
 We evaluated the robustness of the two control strategies primarily by looking
 at the number of falls experienced by each subject in the no disturbance and
 disturbance cases. As a baseline, we also compared to the no prosthesis case. As
-a secondary measures of gait robustness, we also measured the variability of the
+secondary measures of gait robustness, we also measured the variability of the
 torso pitch and roll angles. The variability is measured by subtracting the
 median torso angle trajectory over the strides in a condition from the
 corresponding torso angle trajectories. Then the interquartile range (IQR) of

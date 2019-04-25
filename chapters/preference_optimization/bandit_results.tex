@@ -53,14 +53,14 @@ torque in late stance among users.
 
 \begin{comment}
 We found that most subjects produced relatively little ankle dorsiflexion as
-they walked. Consequently, for most subjects the neuromuscular model control
-produced less ankle plantarflexion torque than is average for able-bodied
+they walked. Consequently, for most subjects, the neuromuscular model control
+produced less ankle plantarflexion torque than is the average for able-bodied
 subjects.  We believe the low level of ankle dorsiflexion was caused by the
 relatively short foot of the prosthesis, which we plan to rectify for future
 experiments. However, this effect also betrays a potential weakness of the
 approach: optimizing to match able-bodied kinetics given able-bodied kinematics
-may not be able to rectify some types of discrepancies between the human and
-the prosthesis.
+may not be able to rectify some types of discrepancies between the human and the
+prosthesis.
 \end{comment}
 
 \subsection{Control Performance at Higher Gait Speeds}
@@ -69,9 +69,9 @@ the prosthesis.
     \includegraphics[width=\columnwidth]{net_work_vs_speed_new_annotated}
     \caption[Average net ankle work for each subject at each speed]{Average net
     ankle work for each subject at each speed. Purple bars indicate trials where
-    speed-adaptive gains were used whereas green bars indicate trials performed
+    speed-adaptive gains were used, whereas green bars indicate trials performed
     with the gains for \unitfrac[0.8]{m}{s}. Stars indicate statistically
-    significant differences between the work produced by the speed adaptive
+    significant differences between the work produced by the speed-adaptive
     gains and that produced by the \unitfrac[0.8]{m}{s} gains $(p <
     0.05)$.}\label{fig:net_work_vs_speed}
 \end{figure}
@@ -80,7 +80,7 @@ the prosthesis.
 within the torque versus angle plot of the ankle over a stride.} produced by the
 control strategy at speeds ranging from \unitfrac[0.8 to 1.6]{m}{s}. Data from
 subjects 1, 2, and 3, who chose parameter sets 5, 9, and 3 respectively, show a
-clear downwards trend in ankle work as speed increases when using a constant set
+clear downward trend in ankle work as speed increases when using a constant set
 of gains. On the other hand, with the adaptive gains, as speed increases ankle
 work increases, mimicking the behavior of the biological ankle
 \citep{herr2012bionic}. All three of these subjects preferred the behavior of
@@ -91,16 +91,16 @@ Subjects 4 and 5 both chose parameter set six and show no clear trend in ankle
 work as speed increases. For this parameter set, the speed adapted gains only
 increased ankle work significantly over baseline at \unitfrac[1.6]{m}{s} for
 both subjects. Additionally, these two subjects indicated no trend in
-preference between the adapted and unadapted parameters at the higher speeds.
+preference between the adapted and unadapted parameters at higher speeds.
 These two subjects produced different amounts of net work despite using the same
 parameter set. This is likely due to kinematic differences between the subjects
 as well as differently tuned bias settings for the ankle joint.
 
-From this result we can conclude that the offline optimization approach can
+From this result, we can conclude that the offline optimization approach can
 produce improved responses at speeds other than that at which we conduct the
 online optimization, but that the improvement needs to be confirmed on a
 per-parameter basis. It is not currently clear why parameter set six does not
 exhibit increasing ankle work as speed increases as the underpinning human data
 for this parameter set does indeed exhibit the desired trend. The issue could
-possibly lie with the structure of the high level control or with local minimums
+possibly lie with the structure of the high-level control or with local minimums
 obtained by the CMA-ES method. 

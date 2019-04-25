@@ -6,7 +6,6 @@ import pdb
 mpl.use("pgf")
 import matplotlib.pyplot as plt
 from palettable.cartocolors.qualitative import Prism_9 as color_pallette
-#import omnigraffle
 
 pgf_with_custom_preamble = {
     "pgf.texsystem": "xelatex",

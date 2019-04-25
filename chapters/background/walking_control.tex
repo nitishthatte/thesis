@@ -12,23 +12,23 @@ to take an odd number of steps, and all steps must be initiated with the sound
 leg. Third, the control is primarily, kinematic as measuring torques of the
 sound side leg to use as a feedforward control on the prosthesis is infeasible.
 Consequently, it may require high-gain feedback, which may cause discomfort and
-gait instability due to a lack of compliance to the environment.  
+gait instability due to a lack of compliance with the environment.  
 
 Another form of time-based control, which we will use later in this thesis, is
 the minimum jerk trajectory swing control presented in \citet{lenzi2014speed}.
-This swing control strategy calculates at toeoff three minimum jerk
+This swing control strategy calculates at toe-off three minimum jerk
 trajectories, parameterized by $5^\tn{th}$ order polynomials, which dictate the
 movement of the knee and ankle joints. For the knee joint, two trajectories are
 computed, one that starts at the position, velocity, and acceleration of the
-knee at toeoff and goes to a peak flexion angle with zero velocity, and one that
-starts at the peak flexion state and goes to a final state of zero angle,
-velocity and acceleration. The peak knee angle is tuned to ensure adequate foot
+knee at toe-off and goes to a peak flexion angle with zero velocity, and one
+that starts at the peak flexion state and goes to a final state of zero angle,
+velocity, and acceleration. The peak knee angle is tuned to ensure adequate foot
 clearance while the acceleration at the peak angle is based on able-bodied data.
 For the ankle, one minimum jerk trajectory is used that starts at the position
-and velocity at toeoff and proceeds to a final position, velocity, and
-acceleration of zero. The durations of the trajectories are based on fixed
-percentages of the stance duration thereby automatically adapting swing phase to
-different gait speeds. Unlike the previously described echo control, this
+and velocity at toe-off and proceeds to a final position, velocity, and
+acceleration of zero. The duration of the trajectories is based on a fixed
+percentage of the stance duration thereby automatically adapting the swing phase
+to different gait speeds. Unlike the previously described echo control, this
 control strategy takes advantage of the simple double-pendulum dynamics during
 swing to derive a strong feedforward term that allows the use of small,
 compliant feedback gains.
@@ -70,7 +70,7 @@ can be made to suit sloped walking \citep{sup2011upslope} and speed variations
 have also been a number of variations on this general control scheme including
 those with nonlinear impedance functions at the ankle
 \citep{sup2007design,shultz2014walking} and some using high-gain position
-control for the late stance push off phase of gait \citep{lawson2014robotic}.
+control for the late stance push-off phase of gait \citep{lawson2014robotic}.
 \citet{lenzi2014speed} presents a similar strategy named \emph{quasi-stiffness
 control} that substitutes the parameterized impedance functions given by
 \cref{eq:impedance_func} with lookup tables that provide the torque vs angle
@@ -132,7 +132,7 @@ achieve a consistent gait with this control scheme.
 As a possible solution, \citet{rezazadeh2018phase} recently proposed a method
 that eliminates the thigh angle integral and instead uses the thigh angle only.
 This method relies on the insight that, for the most part, during gait the thigh
-angle decreases monotonically from heel strike to shortly before toeoff, and
+angle decreases monotonically from heel strike to shortly before toe-off, and
 then increases from that point until the next heel strike. Therefore, one can
 define two different relationships between the hip angle and phase for these two
 portions of gait and use a finite state machine to transition between them.
@@ -144,7 +144,7 @@ Finally, \citet{azimi2019model} propose another approach to continuous
 phase-based control of prostheses uses the forward translational hip position to
 parameterize the desired gait trajectory. The trajectory is designed in
 simulation subject to a partial hybrid zero dynamics constraint that allows one
-to use a adaptive, control Lyapunov function-based, controllers with convergence
+to use an adaptive, control Lyapunov function-based, controllers with convergence
 guarantees. However, to date, this control has only been used to actuate the
 knee of a powered prosthesis while the ankle remained passive, perhaps due to
 the additional complexity of dealing with multiple hybrid dynamics transitions
@@ -162,16 +162,16 @@ automatic transitions to standing mode.
 
 So far, all walking controllers we reviewed keep track of either a discrete or
 continuous estimate of phase during gait. However, researchers have also
-proposed prosthesis controllers that do not take this approach. For example the
+proposed prosthesis controllers that do not take this approach. For example, the
 complementary limb motion estimation (CLME) approach proposed by
-\citet{vallery2011complementary} uses linear regression to learn a direct
+\citet{vallery2011complementary} uses linear regression to learn direct
 mappings between the angles and velocities of the user's limbs to the
 prosthesis' joint angles and velocities. However, this approach used many IMUs
-mounted to the torso and sound side leg to measure the user's kinematics, and
+mounted to the torso and sound side leg to measure the user's kinematics and
 thus may be impractical for everyday use by an amputee.
 
 Another class of non-phase based control uses neuromuscular models that simulate
-the dynamics of the muscle tendon units in the leg and hypothesized reflex
+the dynamics of the muscle-tendon units in the leg and hypothesized reflex
 pathways to generate the desired torques for walking. Prior work in simulation
 of biped walking controlled by neuromuscular models has demonstrated that this
 control approach can produce very natural and robust gait patterns
@@ -182,21 +182,21 @@ control approach can produce very natural and robust gait patterns
     \caption[Neuromuscular model used by \citet{eilenberg2010control} to control
     an active ankle prosthesis.]{Neuromuscular model used by
     \citet{eilenberg2010control} to control an active ankle prosthesis. During
-    stance, a virtual muscle driven by positive force feedback, generates
-    plantarflexion torque. During swing, a virtual spring and damper provides
+    stance, a virtual muscle driven by positive force feedback generates
+    plantar flexion torque. During swing, a virtual spring and damper provides
     dorsiflexion torque to prevent toe scuffing.}\label{fig:eilenberg_diagram}
 \end{marginfigure}
 Motivated by the robustness and natural gait achievable by neuromuscular reflex
 control, past research has applied this model to active ankle prostheses.
 \citet{eilenberg2010control} applied a simplified version of the control to a
 powered ankle prosthesis (\cref{fig:eilenberg_diagram}). In this work, the
-neuromuscular model was reduced to a single ankle plantarflexor muscle driven by
+neuromuscular model was reduced to a single ankle plantar flexor muscle driven by
 a positive force feedback reflex during stance. During swing, the control
 applies torque to dorsiflex the ankle according to a virtual spring-damper
-model. In amputee testing of a prosthesis controlled by the neuromuscular model
+model. In amputee testing of a prosthesis controlled by the neuromuscular model,
 the control produced ankle kinematics and kinetics similar to those observed in
 healthy human walking. Significantly, \citeauthor{eilenberg2010control} found
-evidence that the robustness  properties observed in neuromuscular model
+evidence that the robustness properties observed in neuromuscular model
 simulations may carry over to amputee gait as well. The author's note that the
 prosthesis automatically adapts torque output when walking on slopes, producing
 more plantarflexion torque when walking up slopes and less when walking down

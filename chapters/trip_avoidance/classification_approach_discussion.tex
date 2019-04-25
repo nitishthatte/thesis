@@ -6,7 +6,7 @@ measurement unit during the late stance to early swing period to classify the
 upcoming swing as either normal or a trip avoidance attempt. Unlike previous
 work on obstacle negotiation for transfemoral prostheses
 \citep{lawson2010stumble, zhang2011towards, shirota2014recovery}, our system
-learns online on an actual transfemoral prostheses. We compared the
+learns online on an actual transfemoral prosthesis. We compared the
 classification performance of our online system with a hypothetical offline
 system using online trials to provide testing and training data for offline
 analysis. This comparison showed that the online learning system provided an
@@ -24,7 +24,7 @@ bigger obstacles would likely lead to greater flexion once the prosthesis
 learns, it is likely that only the first subject was able to incorporate and
 implement this information. The amputee may have concentrated on more
 rudimentary aspects of gait, as evidenced by his use of the handrails to walk,
-whereas the able-bodied subject did not need to use the hand rails. Moreover,
+whereas the able-bodied subject did not need to use the handrails. Moreover,
 the amputee's socket may have provided less control over the prosthesis than did
 the intact subject's able-bodied adapter (shown in
 \cref{fig:prosthesis_actual}).  Finally, we noted that the relationship between
@@ -39,7 +39,7 @@ avoidance classifier. Previous research showing that able-bodied subjects
 utilize stance leg musculature to help raise the hip during obstacle avoidance
 motivated this choice of EMG placement \citep{patla1995role}. However, as was
 found by \citet{spanias2018online}, using EMG data along with mechanical data in
-the forwards-backwards online learning algorithm did not seem to improve
+the forward-backward online learning algorithm did not seem to improve
 classification accuracy, which is already high. This lack of improvement may
 also result from a significant delay in our wireless EMG sensors (Delsys
 Trigno). It is possible that a low-latency wired EMG sensor would be able to
@@ -53,8 +53,8 @@ functions for the knee that explained obstacle avoidance trajectories. However,
 when used online, the generated trajectories tended to diverge and produce
 unexpected results because the initial toe-off state of the prosthesis did not
 match those in the able-bodied data set. For the obstacle avoidance classifier,
-we correct this sort of offline-online mismatch via the backwards classifier
-that provides labels to train the forwards classifier online. It is less clear
+we correct this sort of offline-online mismatch via the backward classifier
+that provides labels to train the forward classifier online. It is less clear
 how to update trajectories in hindsight as we never see the obstacle. For this
 reason, we used bang-bang trajectories during obstacle avoidance, which maximize
 the time the joints remain flexed.
@@ -64,7 +64,7 @@ sensor into the prosthesis. This sensor could enable precise measurement of the
 ground and obstacle shape during the initial part of swing as the hip moves
 forward. We could then use this information to explicitly plan knee and ankle
 trajectories that will avoid the obstacle and the floor until the appropriate
-touch down time. In the second half of this chapter, we present an initial step
+touchdown time. In the second half of this chapter, we present an initial step
 in this direction in which we incorporate information from a laser distance
 sensor to plan swing trajectories that help prevent trips on flat terrain.
 
@@ -76,6 +76,6 @@ classifier's sensitivity was relatively low, was that there were many more
 normal steps than obstacle avoidance attempts in the training data set. This may
 cause the SVM loss function's minimum to focus more heavily on classifying
 normal steps correctly. Deploying this system on a commercial prosthesis, for
-which trips are more rare, would exacerbate this issue. Therefore, future
+which trips are rarer, would exacerbate this issue. Therefore, future
 development should investigate how to train a classifier given heavily
 unbalanced class frequencies.

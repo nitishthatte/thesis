@@ -13,7 +13,7 @@ is an earlier version of the prosthesis design presented in
 \cref{sec:pros_design}, which uses the knee actuator design for both the knee
 and ankle joints. Our simulation of the prosthesis models the series elasticity,
 electrical dynamics, gear ratios, and resultant reflected inertias of the
-actuators, and assumes a low-level current-based SEA control achieves desired
+actuators and assumes a low-level current-based SEA control achieves desired
 torques \citep{pratt1995series}.
 
 As a baseline to compare the performance of the proposed control, we also
@@ -65,21 +65,21 @@ torques commanded by the neuromuscular swing control or the impedance control,
 $\tau_\tn{limit}$ is the sum of torques produced by the model's mechanical
 hard stops, which prevent knee and ankle hyperextension, $m$ is the mass of the
 amputee, $g$ is the gravitational acceleration, and $x$ is the distance
-travelled in 20 seconds. The hand tuned constants, $c_1 = 0.1$ and $c_2 = 0.01$,
+traveled in 20 seconds. The hand tuned constants, $c_1 = 0.1$ and $c_2 = 0.01$,
 ensure that the terms of the cost function have similar order-of-magnitude. 
 
-We ran the above optimization for 300 iterations, and used the best resulting set
+We ran the above optimization for 300 iterations and used the best resulting set
 of control parameters to seed an optimization for robustness to unexpected
 changes in ground height. For this second step, the cost function was
 \begin{align}
     \mathit{Cost} = -x + c_3 \int \tau_\tn{limit}^2 \tn{d}t,
 \end{align}
-rewarding the distance travelled and penalizing joint hyperextension ($c_3 =
+rewarding the distance traveled and penalizing joint hyperextension ($c_3 =
 0.0005$). Instead of level ground, the simulations evaluating the cost were
 performed on terrain that is flat for the first 10 meters (to allow the model to
 reach steady walking) and then features steps, spaced one meter apart and drawn
 from a uniform random distribution. The width of the distribution grew at a rate
-of \unit[2.5]{cm} per meter distance travelled, resulting in steps that grow
+of \unit[2.5]{cm} per meter distance traveled, resulting in steps that grow
 progressively rougher the farther the model walks. To avoid overfitting, we
 performed the evaluation on five different terrains, resulting in an average
 cost. Like in the first step, the optimization was stopped after 300 iterations,

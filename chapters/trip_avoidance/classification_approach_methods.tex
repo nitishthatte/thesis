@@ -1,15 +1,15 @@
 \section{Classification Approach Methods}
 \subsection{Forward-Backward Classifier}
 In order to learn to classify trips online with minimal hand-labeling of data,
-we rely primarily on the forward-backwards classifier approach first proposed by
+we rely primarily on the forward-backward classifier approach first proposed by
 \citet{spanias2018online} for the purpose of classifying different modes of gait
 such as level ground walking, standing, and stair climbing. In their work, a
 \emph{forward classifier} predicts the next step's gait mode using data in a
 window shortly before the transition. In parallel, a \emph{backward classifier}
 labels completed steps with their correct gait mode in hindsight. Because the
-backwards classifier has access to features from the completed step, it can
+backward classifier has access to features from the completed step, it can
 achieve accurate labels with a small amount of hand-annotated data. Once
-trained, the backwards classifier can provide labels for training the forward
+trained, the backward classifier can provide labels for training the forward
 classifier, obviating the need for further hand-labeling of steps. 
 
 In our work, the forward classifier predicts, shortly after toe-off, if the
@@ -22,15 +22,15 @@ ten steps using labels from the backward classifier.
 
 The backward classifier is another linear support vector machine, trained once
 for each user, which uses features extracted from the entire swing phase to
-label a step as an avoidance attempt after the fact. To train the backwards
+label a step as an avoidance attempt after the fact. To train the backward
 classifier we hand label obstacle avoidance attempts and normal steps for
 roughly ten obstacles. \Cref{fig:fwd_back} provides an overview of this system.
 
 \begin{figure}[tb]
     \centerline{\includegraphics[width=\columnwidth]{Forward-Backward_Block_Diagram}}
     \caption[Forward-Backward Classifier Overview]{Forward-Backward Classifier
-    Overview. The backwards classifier uses features from the entire swing to
-    provide training class labels to a forwards classifier. The forwards
+    Overview. The backward classifier uses features from the entire swing to
+    provide training class labels to a forward classifier. The forward
     classifier uses features from late stance and early swing in order to
     predict if an upcoming swing will be an obstacle avoidance
     attempt.}\label{fig:fwd_back}
@@ -73,21 +73,21 @@ the regression using this data set every ten trip-avoidance steps.
     \caption[Knee Angle Regression Feedback]{Knee Angle Regression Feedback. In
     order to enable volitional control of the knee and ankle flexion angles to
     allow users to achieve greater flexion angles for larger obstacles, we
-    implement a feedback system that uses the backwards classifier class score
-    to quantify obstacle difficulty. After each step, the system increases the
+    implement a feedback system that uses the backward classifier class score to
+    quantify obstacle difficulty. After each step, the system increases the
     desired target angle for that step's forward features proportionally to the
     normalized back classifier score. We also decay the current desired target
-    angle for those features to prevent continual growth of the target angle.
-    The regression is retrained every ten avoidance
+    angle for those features to prevent the continual growth of the target
+    angle. The regression is retrained every ten avoidance
     attempts.}\label{fig:knee_reg}
 \end{figure}
 
 \subsection{Feature Extraction}
-For the forwards and backwards classifiers, as well as the target knee angle
+For the forward and backward classifiers, as well as the target knee angle
 regression, we use features of the thigh angle, angular velocity, and linear
 accelerations in a time window. Specifically, we use the mean, standard
 deviation, minimum value, and maximum value of each signal. For forward
-classification and regression the time window begins \unit[210]{ms} before
+classification and regression, the time window begins \unit[210]{ms} before
 toe-off and ends \unit[90]{ms} after toe-off, while for the backward
 classification we use a window consisting of the entire swing phase between
 toe-off and heel strike.
@@ -96,7 +96,7 @@ toe-off and heel strike.
 
 To generate the knee and ankle motions for unperturbed swing, we use the minimum
 jerk swing control outlined in \cref{sec:nm_control_prosthesis} and first
-proposed by \citet{lenzi2014speed}. This swing control scheme  generates and
+proposed by \citet{lenzi2014speed}. This swing control scheme generates and
 follows human-like trajectories for the knee and ankle joints that start at the
 toe-off angle, angular velocity, and angular acceleration of each joint, go to
 target flexion states, and then extend to desired final angles at the estimated
@@ -140,8 +140,8 @@ the treadmill belt in front of each subject's prosthetic leg, necessitating an
 obstacle avoidance reaction. To obtain a baseline performance level for
 non-reactive prosthetic swing control, we also performed obstacle avoidance
 trials with the minimum jerk swing trajectories designed for undisturbed swing.
-Before the online trials, the backwards classifier was trained for the
-prosthesis user with 75 steps. The able bodied subject completed 446 total
+Before the online trials, the backward classifier was trained for the
+prosthesis user with 75 steps. The able-bodied subject completed 446 total
 steps, with 53 box avoidance steps, while the amputee completed 222 total steps,
 with 40 box avoidance steps. The amputee subject performed trials in an ABBA
 order, where A is minimum jerk control and B is the reactive control, in order

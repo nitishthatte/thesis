@@ -1,10 +1,10 @@
 \section{Prosthesis Optimization}\label{sec:back_optimization}
 
 Optimizing control policies for prostheses presents a challenging task due to
-four key issues. First, there is significant variability gait characteristics
+four key issues. First, there is significant variability in gait characteristics
 that precludes using the same parameters for all users. Recently,
 \citet{zhang2017human} demonstrated the effect of gait variability on lower limb
-assistive device optimizatoin. In this work the researchers optimized an ankle
+assistive device optimization. In this work, the researchers optimized an ankle
 exoskeleton's torque trajectory for specific users. The authors found that
 optimized torque trajectories could reduce metabolic energy consumption beyond
 that provided by a generic assistance strategy.
@@ -20,7 +20,7 @@ the exoskeleton. In other work, \citet{huang2016cyber} optimize a transfemoral
 leg prosthesis assuming the objective is to improve the ability of the knee to
 track an able-bodied trajectory. In this work, the authors use a
 \emph{cyber-expert system} (CES) that encodes how a human expert's tuning of
-impedance parameters effects the trajectory error. With this strategy, the
+impedance parameters affects the trajectory error. With this strategy, the
 author's improved trajectory tracking of a knee prosthesis, but also note that
 other metrics might be important such as metabolic energy, symmetry, and
 disturbance rejection. This approach was later improved by using adaptive
@@ -28,7 +28,7 @@ reinforcement learning to circumvent predefining the tuning rules
 \citep{wen2016adaptive,wen2019online}. 
 
 If we choose to optimize more than one outcome simultaneously, we need to
-assign weights to each feature to each feature that reflect the users individual
+assign weights to each feature to each feature that reflect the user's individual
 needs. Moreover, other aspects of gait may also be important but difficult to
 quantify, such as the amputee's comfort and sense of stability. In any case,
 measuring gait features require a high level of technical expertise and
@@ -87,7 +87,7 @@ optimize the gait parameters of a robotic snake~\citep{tesch2011using} and a
 dynamic bipedal robot~\citep{calandra2014bayesian}. In
 \cref{sec:preference_optimization} we present a new Bayesian optimization method
 that uses learning from preferences between pairs of control parameters to avoid
-priori definition of features and to consider unquantifiable qualities of the
+a priori definition of features and to consider unquantifiable qualities of the
 desired behavior. We apply this method to optimize several simulated tasks.
 
 However, we also find through these experiments that the proposed Bayesian

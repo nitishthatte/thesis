@@ -50,7 +50,7 @@ the last five strides.
     seconds of walking. Drift in the integral term caused irregularities in the
     phase angle plot.}\label{fig:phase_var_polar}
 \end{figure}
-\Cref{fig:phase_var_polar} shows an example phase portrait from an eight second
+\Cref{fig:phase_var_polar} shows an example phase portrait from an eight-second
 walking bout. From this figure, we see that towards the latter end of the trial,
 the integral term tends to drift towards the end of stance before being reset to
 zero at heel strike. These irregularities step from the sensitivity of the
@@ -90,32 +90,32 @@ in black. The phase estimate only remained within the bounds for the first step.
 After that, the phase estimate needed to be constrained by the upper bound
 earlier and earlier in each step.
 
-The hip angle plot in the second row, shows there is significant variability in
+The hip angle plot in the second row shows there is significant variability in
 the hip angle trajectory from step to step. Consequently, the hip angle integral
 (row 3) does not reach zero at the beginning of each stance (stance phase
-designated by grey shaded regions). The drift in the integral term occurs
+designated by the grey shaded regions). The drift in the integral term occurs
 despite updates to the shifted hip angle (purple row 2) and zero-mean hip angle
 (green row 2). 
 
-The resultant control action on the prosthesis, seemed to drive a positive
+The resultant control action on the prosthesis seemed to drive a positive
 feedback loop wherein increased phase angle in late stance drives knee flexion
-and ankle push off leading into swing. Increased knee flexion torque and ankle
+and ankle push-off leading into swing. Increased knee flexion torque and ankle
 plantarflexion also flex the hip more, which further drives the phase estimate
 forward. Consequently, the gait was driven faster and faster, as shown by
-decreasing duration of stance (grey shaded regions). Also, a potential
+the decreasing duration of stance (grey shaded regions). Also, a potential
 contributor to this positive feedback loop was an over-reliance on integral
 action in the ankle, which is slow to build up the required plantarflexion
 torque; a feedforward torque term might be helpful for generating torque as a
 function of phase. The changing duration of stance also caused variation in hip
 integral leading to more gait instability. Due to these issues, we were not able
-to achieve hands free-walking for any duration of time, and only managed walking
-with hand rail support for a few seconds at a time.
+to achieve hands free-walking for any duration of time and only managed walking
+with handrail support for a few seconds at a time.
 
 While these problems could be rectified with tighter bounds on the phase, this
 would make the controller closer to a time-based strategy, which would make
-volitional control impossible. Therefore, in the following sections we propose
+volitional control impossible. Therefore, in the following sections, we propose
 using a more established method of state estimation, an extended Kalman filter,
 to estimate the phase during gait. Using a Kalman allows us to specify dynamics
 for the phase, which help keep its trajectory smooth. Furthermore, it allows us
-to incorporate information from more than two sources, while considering the
-intrinsic variation of each signal.
+to incorporate information from multiple sources while considering the intrinsic
+variation of each signal.

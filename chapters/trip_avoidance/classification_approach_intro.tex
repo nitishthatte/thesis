@@ -3,7 +3,7 @@
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{avoid_frames}
-\caption[Comparison of minimum jerk and adaptive swing contrls when stepping
+\caption[Comparison of minimum jerk and adaptive swing controls when stepping
 over obstacle]{a)~Utilizing minimum jerk trajectories during swing does not
 allow for appropriate adaptation of swing trajectories to enable obstacle
 avoidance. b)~Our adaptive system learns online to detect the presence of an
@@ -20,13 +20,13 @@ obstacles, as shown in \Cref{fig:avoid_frames}, as current prosthesis technology
 relies on mechanically passive knees that necessitate significant compensation
 at the hip in order to replicate able-bodied trip recovery strategies
 \citep{shirota2015transfemoral}. Compromised ability to avoid and recover from
-trips may contribute to the large number of falls that leg amputees suffer. For
+trips may contribute to a large number of falls that leg amputees suffer. For
 instance, 58\% of unilateral amputees reported a fall within a year
 \citep{kulkarni1996falls}. Moreover, the fear of falling can cause amputees to
 avoid activity, leading to further deterioration of their physical condition
 \citep{miller2001prevalence}.
 
-An increasing availability of powered prostheses in research labs provides the
+The increasing availability of powered prostheses in research labs provides the
 opportunity to study active obstacle avoidance strategies in prosthetics,
 although so far only a limited number of studies exist on this topic. These
 studies focus on detecting and classifying the correct response strategy after
@@ -42,9 +42,9 @@ trip recovery strategies after their occurrence is a necessary step towards
 improving gait robustness, it does not provide a proactive prosthesis control
 strategy that prevents obstacle encounters in the first place.
 
-Another major drawback of the previous studies is that they train and test 
+Another major drawback of the previous studies is that they train and test
 classifiers offline. However, a deployed trip classifier needs to function
-online and deal with temporal adaptation of the learner and amputee. The
+online and deal with the temporal adaptation of the learner and amputee. The
 adaptation is required as the obstacle avoidance behavior triggered by a trip
 classifier alters the amputee's movements and, therefore, the data used to train
 the classifier. Consequently, trip classifiers trained offline may be

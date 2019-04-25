@@ -31,7 +31,7 @@ color2      = '#A0468F'
 color2light = '#EA9ADB'
 color3      = '#DFAE62'
 color3light = '#F8D6A3'
-color_grey = [0.75, 0.75, 0.75]
+color_grey = [0.85, 0.85, 0.85]
 
 data = sio.loadmat('impedance_fit_data.mat', squeeze_me=True)
 
@@ -39,10 +39,10 @@ fig, ax = plt.subplots(1, 2, figsize=(4,2), sharex=True, sharey=True)
 
 num_steps = data['stance_on'].shape[0]
 
-hum_line_props = {'color':color_grey, 'zorder':1, 'alpha':.1}
-phase_1_line_props = {'color':color0, 'alpha':0.1}
-phase_2_line_props = {'color':color1, 'alpha':0.1}
-phase_3_line_props = {'color':color2, 'alpha':0.1}
+hum_line_props = {'color':color_grey, 'zorder':1, 'alpha':.5}
+phase_1_line_props = {'color':color0, 'alpha':0.5}
+phase_2_line_props = {'color':color1, 'alpha':0.5}
+phase_3_line_props = {'color':color2, 'alpha':0.5}
 for step in range(num_steps):
     ax[0].plot(data['sim_time'][data['stance_on'][step]==1],  
         data['sim_torques'][0, step, data['stance_on'][step]==1], 
@@ -79,7 +79,8 @@ phase_3_leg_line = lines.Line2D([0], [0], color=color2)
 
 ax[0].legend((hum_leg_line, phase_1_leg_line, phase_2_leg_line,
     phase_3_leg_line), ('subject data', 'phase 1 fit', 
-    'phase 2 fit','phase 3 fit'), fontsize=7, frameon=False)
+    'phase 2 fit','phase 3 fit'), fontsize=7, frameon=False, ncol=4, 
+    loc='lower center', bbox_to_anchor=(1, 1.1))
 
 title_props = {'weight':'heavy', 'position':(0.5,1.0)}
 ax[0].set_title('Knee', **title_props) 
@@ -132,6 +133,6 @@ for axis in ax.flatten():
 fig.align_ylabels()
 
 #fig.subplots_adjust(hspace = 1.0, wspace = 0.4)
-plt.tight_layout()
+#plt.tight_layout()
 fig.savefig('imp_fit.pdf', bbox_inches='tight')
 plt.close(fig)

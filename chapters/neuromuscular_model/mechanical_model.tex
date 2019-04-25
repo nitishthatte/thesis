@@ -33,7 +33,7 @@ The mechanical model interacts with the environment through ground reaction
 forces on the toes and balls of the feet. Specifically, we use a 2-dimensional
 reduction of the 3D ground contact model presented in
 \citet{song2013generalization} to calculate forces in the normal and
-tangential directions with respect to the terrain. In the normal direction the
+tangential directions with respect to the terrain. In the normal direction, the
 force is
 \begin{align}
     F_\tn{n} = k_\tn{n} \Delta n_\tn{c} 
@@ -71,7 +71,7 @@ $| F_{\tn{t,static}} | < \mu_\tn{static} | F_\tn{n} |$, where $\mu_\tn{static} =
 
 Finally, the biped skeletal model includes soft joint limits to represent
 the skeletal joint limits on the knee, ankle, and hip joints. The functional
-form form the soft limit joint torque is identical to that of the normal ground
+form of the soft limit joint torque is identical to that of the normal ground
 reaction force given by \cref{eq:grf_n}.
 \begin{align}
     \tau_\tn{jl} = k_\tn{jl} \Delta \phi_\tn{jl} 
@@ -103,7 +103,7 @@ engagement angles for the joint limits.
 
 To obtain simulation results, we simulate the mechanical system with the
 \verb+ode15s+
-variable step solver. We set the maximum step size to $\unit[10]{ms}$, relative
+variable-step solver. We set the maximum step size to $\unit[10]{ms}$, relative
 error tolerance to $10^{-4}$, and absolute error to $10^{-6}$.
 
 \section{Hill Muscle Models}\label{sec:neuro_hill_muscle}
@@ -150,11 +150,10 @@ fibers.
 
 The binding sites are where overlapping actin and myosin filaments attach and
 generate pulling force. The contractile element length of $l_\tn{opt}$
-corresponds to maximum overlap between these filaments. Therefore, as as the
-muscle length moves away from $l_\tn{opt}$, its force production capacity
-decreases leading to the force-length relationship shown in
-\cref{fig:force_length_ce}. We model the force-length relationship via a bell
-curve
+corresponds to maximum overlap between these filaments. Therefore, as the muscle
+length moves away from $l_\tn{opt}$, its force production capacity decreases
+leading to the force-length relationship shown in \cref{fig:force_length_ce}. We
+model the force-length relationship via a bell curve
 \begin{align}
     \func{f_l}{l_\tn{CE}} = \exp \left( \ln(0.05) \left|
     \frac{l_\tn{CE} - l_\tn{opt}}{w l_\tn{opt}}
@@ -206,7 +205,7 @@ contractile force when it is lengthening and less as it contracts.
 
 We model both passive elements, the PE and SE, using the same functional form
 representing a unidirectional, stiffening spring, the behavior of which is shown
-in \cref{fig:force_length_pese}. The expressions for the elastic force produces
+in \cref{fig:force_length_pese}. The expressions for the elastic force produced
 by these elements are
 \begin{align}
     \func{F_\tn{PE}}{l_\tn{CE}} &= F_\tn{max} \left( \frac{l_\tn{CE} -

@@ -1,5 +1,5 @@
 \section{Prosthesis Design}\label{sec:back_pros_design}
-We can trace efforts to build an active knee-ankle prostheses to the seventies
+We can trace efforts to build active knee-ankle prostheses to the seventies
 when \citet{flowers1974use} created an active knee-ankle prosthesis to test
 potential control schemes. This prosthesis used a hydraulic actuator capable of
 producing $\unit[90]{N \cdot m}$ of torque and $\unitfrac[0.5]{rev}{s}$ of
@@ -10,10 +10,11 @@ design has occurred only in the last ten years. The recent interest in active
 knee ankle prostheses has been spurred by hardware improvements that allow
 designs to approach the strength, speed, and low weight of the biological leg.
 Enabling technologies include power-dense brushless motors, motor controllers,
-and lithium-ion batteries, inexpensive microcontrollers and inertial measurement
-units (IMUs), and strong but light composite materials such as carbon fiber.
-With these advancements, engineers have successfully designed prostheses to meet
-or exceed the requirements for walking~(\cref{tab:walking_requirements}).
+and lithium-ion batteries, inexpensive microcontrollers, and inertial
+measurement units (IMUs), and strong but light composite materials such as
+carbon fiber.  With these advancements, engineers have successfully designed
+prostheses to meet or exceed the requirements for
+walking~(\cref{tab:walking_requirements}).
 \begin{margintable}[-2in]
   \centering
   \begin{tabular}{lll}
@@ -49,7 +50,7 @@ belts, ball screws, and four-bar-mechanisms in order to increase the torque
 output of the actuator, at the expense of speed, in order to satisfy the
 requirements listed in \cref{tab:walking_requirements}. A successful line of
 transfemoral prostheses following this design paradigm comes from Vanderbilt
-university. The first prosthesis in this line
+University. The first prosthesis in this line
 (\cref{fig:vanderbilt_prostheses}a) used a pair of ball screw transmissions and
 brushless motors capable of \unit[200]{W} of continuous power output to drive
 its knee and ankle joints
@@ -87,7 +88,7 @@ its knee and ankle joints
 With these actuators, the knee motor can achieve the required peak torque and
 peak power intermittently (\cref{tab:walking_requirements}). However, the ankle
 motor may be overly stressed due to the high requirements of walking. To remedy
-this, this prosthesis includes of a unidirectional parallel spring in the ankle
+this, the prosthesis includes a unidirectional parallel spring in the ankle
 that reduces the required ankle motor torque. As shown in figure
 \cref{fig:ankle_torque_vs_angle}, during level ground walking, a linear torsion
 spring accounts for a significant portion of the ankle's torque versus angle
@@ -117,12 +118,12 @@ two 374 W motors coupled to Harmonic Drive transmissions.
 constraint controller. The Össur Power Knee features an electric motor that can
 provide torque to facilitate sit-to-stand motions, stair climbing, and active
 extension and flexion during walking. The Proprio Foot also features electric
-actuation that allows it to adapt to terrain and dorsiflex the ankle during
+actuation that allows it to adapt to the terrain and dorsiflex the ankle during
 swing to help avoid trips. 
 
 \subsubsection{Torque Control Strategies for Rigid Transmission Prostheses}
 In order to achieve dynamic locomotion capabilities, it is crucial that
-prosthesis designs allow for closed loop control of torques. To do this, the
+prosthesis designs allow for closed-loop control of torques. To do this, the
 control system must be able to accurately measure the torque at the joint
 output. There are two main strategies for torque measurement used by prostheses
 with rigid transmissions.
@@ -132,7 +133,7 @@ is related linearly to the motor torque. One can then multiply this measurement
 by the gear ratio to obtain an estimate of the output joint torque. This is the
 method used by Generations 2 and 3 of the Vanderbilt prosthesis as well as the
 AMPRO prosthesis. The benefit of this method is that it utilizes existing
-hardware and allows one to use high frequency current control modes of motor
+hardware and allows one to use high-frequency current control modes of motor
 drivers. However, a drawback of this method is that it measures the torque
 before the transmission. Consequently, it does not account for frictional
 losses, which can be difficult to model, especially for geared systems. A
@@ -184,8 +185,8 @@ inertia of the encoder, bearings, and gearing. Consequently, we can estimate
 that the reflected inertia may be on the order of the leg itself. At the ankle,
 the reflected inertia of the rotor alone is several orders of magnitude more
 than that of the foot and more than twice that of the shank and foot. When we
-also consider reflected damping and friction, the dynamics of prosthesis system
-may be significantly slower than assumed.
+also consider reflected damping and friction, the dynamics of the prosthesis
+system may be significantly slower than assumed.
 \begin{table}[t]
   \centering
   \begin{tabular}{lll}
@@ -213,13 +214,13 @@ may be significantly slower than assumed.
 
 
 The increase in joint impedance created by transmissions could present an issue
-when attempting to execute dynamic behaviors involving impact such as running or
-trip recovery. In an impact event, the impulse will move through the system at
-the speed of sound through metal, roughly \unitfrac[6420]{m}{s} for aluminum
+when attempting to execute dynamic behaviors involving impacts such as running
+or trip recovery. In an impact event, the impulse will move through the system
+at the speed of sound through metal, roughly \unitfrac[6420]{m}{s} for aluminum
 \citep{lide2004crc}. If the prosthesis is \unit[0.5]{m} long, the shock will
 traverse its length in \unit[0.00008]{seconds}. This is about 10 times faster
 than the typical \unit[1000]{Hz} control frequency of prosthesis control
-systems, rendering closed loop torque control with load cells unresponsive. The
+systems, rendering closed-loop torque control with load cells unresponsive. The
 impact shock could cause damage to gearing and discomfort for the amputee.
 
 %Reflected Inertia
@@ -271,9 +272,9 @@ reducing force control bandwidth. Therefore, a trade-off exists between the
 compliance of the actuator and speed with which it can generate desired torques.
 
 \citet{au2007biomechanical, au2008powered} design powered ankle prostheses with
-this trade off in mind. In these publications, the authors find that using a
+this trade-off in mind. In these publications, the authors find that using a
 SEA spring soft enough to protect the ball screw transmission results in
-insufficient closed loop torque control bandwidth. To overcome this shortcoming,
+insufficient closed-loop torque control bandwidth. To overcome this shortcoming,
 the authors incorporate a parallel spring into the ankle as was done for some of
 the knee and ankle prostheses discussed in \cref{sec:back_rigid_trans}. Because
 the parallel spring offsets the motor's torque requirements,
@@ -286,7 +287,7 @@ connected to a light-weight prosthesis end-effector via a Bowden cable
 transmission. The Bowden cable applies forces to one end of a fiberglass leaf
 spring strain gauges measure its deflection. The author's note that the series 
 springs isolate the prosthesis end effector from the motor's rotor inertia. With
-this system the authors achieve a large peak output torque ($\unit[175]{N \cdot
+this system, the authors achieve a large peak output torque ($\unit[175]{N \cdot
 m}$) and high bandwidth (\unit[17]{Hz}), allowing them to rapidly test the
 effects of different control strategies and emulate prosthesis hardware
 \citep{caputo2015informing}.
@@ -294,15 +295,15 @@ effects of different control strategies and emulate prosthesis hardware
 \subsubsection{Springs for energy efficiency}
 Designers can also tune series elasticity in order to improve energy efficiency
 by mimicking the role of tendons in the biological human leg. In the human
-ankle, the Achilles tendon, which is in series with the ankle plantarflexor
+ankle, the Achilles tendon, which is in series with the ankle plantar flexor
 muscles, stores energy throughout stance and releases it just prior to toe-off,
-producing a surge of mechanical power. During this process, the ankle
-plantarflexor muscles hold the proximal end of the tendon nearly stationary via
+producing a surge of mechanical power. During this process, the ankle plantar
+flexor muscles hold the proximal end of the tendon nearly stationary via
 isometric contraction. This kind of length-preserving muscle contraction
 consumes relatively little metabolic energy compared to concentric or
 length-shortening contractions \citep{rall1984energetic}. Consequently, ankle
-elasticity helps store and release energy, thereby improving metabolic cost of
-walking \citep{sawicki2009pays}.
+elasticity helps to store and release energy, thereby improving the metabolic
+cost of walking \citep{sawicki2009pays}.
 
 Similarly, the SPARKy prosthesis uses a \emph{Robotic Tendon} comprised of
 helical springs in series with the motor to store and release energy ankle
@@ -323,14 +324,14 @@ single spring relationship explains a significant portion of ankle joint
 behavior (\cref{fig:ankle_torque_vs_angle}), as shown in
 \cref{fig:knee_torque_vs_angle}, the knee joint requires two springs: one for
 early stance and one for pre-swing and swing. Two prostheses that tackle this
-design problem are AAAKP (agonist-antagonist active knee prosthesis)
-\citep{martinez2008design, martinez2011antagonistic} and the CSEA (clutchable
-series elastic actuator) knee \citep{rouse2014clutchable, rouse2015design}.
+design problem are the agonist-antagonist active knee prosthesis (AAAKP)
+\citep{martinez2008design, martinez2011antagonistic} and the clutchable series
+elastic actuator (CSEA) knee \citep{rouse2014clutchable, rouse2015design}.
 
 The AAAKP prosthesis uses two unidirectional springs, one for extension and one
 for flexion, each in series with its own actuator. With this setup,
 AAAKP is able to store energy during the knee flexion phase just after heel
-strike, and transfer it to a flexion spring for use during pre-swing and swing.
+strike and transfer it to a flexion spring for use during pre-swing and swing.
 The prosthesis consumes just \unitfrac[5.6]{J}{stride}. However, the downside of
 this design is inefficient use of actuator mass, as two electric motors are
 required, one for extension and one for flexion.
@@ -350,7 +351,7 @@ A second concept is to use a series elastic actuator with a clutch on the motor
 \citep{rouse2014clutchable, rouse2015design} The clutch saves energy by holding
 the motor side of the series spring stationary while the spring is loaded in
 early stance; no electrical energy is consumed holding the rotor in place. In
-this design the spring-like behavior of the knee during swing is reproduced by
+this design, the spring-like behavior of the knee during swing is reproduced by
 the electric motor alone unlike in the AAAKP prosthesis. Despite this, the
 CSEA knee consumes less energy than the AAAKP, just \unitfrac[3.6]{J}{stride}.
 Moreover, the simplified design of the CSEA has a mass of \unit[2.7]{kg} vs

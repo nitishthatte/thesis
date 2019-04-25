@@ -1,6 +1,6 @@
 \section{High-Level Control}\label{sec:back_high_level_control}
 
-In the previous section we reviewed mid-level controllers that produce desired
+In the previous section, we reviewed mid-level controllers that produce desired
 torques given a specific mode of walking. Here, we describe high-level
 controllers that classify the current walking mode, such as standing, level
 ground walking and stair and ramp ascent/descent, so that the appropriate
@@ -29,11 +29,11 @@ trained a single time, and offline classification accuracy was reported
 \citet{hargrove2015intuitive} show that when classifiers trained in this fashion
 are deployed on the real prosthesis, classification errors are worse in the
 online setting than in the offline setting. This is because the high
-level-controller governed by the classifier, effects the behavior of the system,
+level-controller governed by the classifier affects the behavior of the system,
 and changes the distribution of data from that on which the classifier is
 trained. To overcome this issue, \citet{spanias2018online} provide a method for
 updating the classifier online so that the training and testing data
-distributions converge. In this method a forwards classifier, provides labels
-for gait modes for use in real time and a backwards classifier labels gait modes
-in hindsight with more data. The labels from the backwards classifier are then
+distributions converge. In this method, a forward classifier provides labels
+for gait modes for use in real time and a backward classifier labels gait modes
+in hindsight with more data. The labels from the backward classifier are then
 used to update the forward classifier. 

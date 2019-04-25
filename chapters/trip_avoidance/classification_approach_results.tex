@@ -3,8 +3,8 @@
 \subsection{Results}
 \Cref{tab:able_class_perf,tab:amputee_class_perf} show the overall
 classification accuracies, sensitivities, and specificities for the forward and
-backwards classifiers for the able-bodied and amputee subjects respectively. The
-forward and backwards classifiers for both subjects achieve high specificity
+backward classifiers for the able-bodied and amputee subjects respectively. The
+forward and backward classifiers for both subjects achieve high specificity
 (the number of normal steps classified correctly) and accuracy $(>95\%)$. The
 sensitivity, the percentage of true trips classified correctly, of the
 classifiers for both subjects is substantially lower than the specificity or
@@ -92,7 +92,7 @@ Amputee\protect\footnotemark[\value{footnote}]}\label{tab:offline}
 
 Finally, we examined the ability of the knee angle regression to choose a target
 knee angle that is appropriate for the object size. The feedback law proposed in
-\cref{eq:tgt_angle} assumes we can use the backwards classifier score as a
+\cref{eq:tgt_angle} assumes we can use the backward classifier score as a
 metric of obstacle difficulty. For the able-bodied subject, this assumption
 seems warranted, as there is a strong relationship between the obstacle height
 and the classifier score (\cref{fig:reg_and_height}a, $R^2 = 0.50$). However,
@@ -112,16 +112,16 @@ $R^2 = 0.10$).
 \begin{figure*}[tb]
 \centering
     \includegraphics[width=\textwidth]{reg_and_height}
-    \caption[Obstacle height vs backwards classifier score, knee angle training
-    data, realized knee angles]{Obstacle height vs backwards classifier score
-    for (a) the able-bodied and (b) amputee subjects. The system uses the
-    backwards classifier score as a metric for obstacle avoidance difficulty.
-    This score is used in a feedback loop that forms the training set for the
-    flexion target angle regression (c-d). With this feedback system, the able
-    bodied user (e) is able to achieve a degree of volitional control over
-    flexion angle as evidenced by the linear relationship between knee flexion
-    angle and obstacle height $(R^2=0.31)$. However, the amputee (f) was not
-    able to achieve meaningful control over the flexion of the prosthesis
-    $(R^2=0.10)$, possibly due to the decreased experience level of this
+    \caption[Obstacle height vs backward classifier score, knee angle training
+    data, realized knee angles]{Obstacle height vs backward classifier score for
+    (a) the able-bodied and (b) amputee subjects. The system uses the backward
+    classifier score as a metric for obstacle avoidance difficulty.  This score
+    is used in a feedback loop that forms the training set for the flexion
+    target angle regression (c-d). With this feedback system, the able-bodied
+    user (e) is able to achieve a degree of volitional control over flexion
+    angle as evidenced by the linear relationship between knee flexion angle and
+    obstacle height $(R^2=0.31)$. However, the amputee (f) was not able to
+    achieve meaningful control over the flexion of the prosthesis $(R^2=0.10)$,
+    possibly due to the decreased experience level of this
     subject.}\label{fig:reg_and_height}
 \end{figure*}

@@ -31,7 +31,7 @@ the cause for many of the observed falls with IMP control.
 NM control too can result in unexpected falls due to incorrect phase estimation.
 The experienced user fell a total of eight times when stepping on blocks with
 the NM control (see square marker~\cref{fig:num_block_falls}). These falls were
-the result of a modelled reflex that reduces knee extensor muscle stimulation in
+the result of a modeled reflex that reduces knee extensor muscle stimulation in
 late stance in proportion to ankle plantarflexion, thereby allowing for passive
 knee flexion leading into swing. In contrast to less experienced subjects, the
 experienced user was able to control the knee over-extension during stance and
@@ -41,7 +41,7 @@ knee flexion during normal walking may have increased the prosthesis'
 susceptibility to premature knee collapse when disturbed. While the modeled
 neuromuscular reflexes seem to work well during steady-state walking and during
 disturbed walking for inexperienced users, the large increase in falls for the
-experienced user, exposes the difficulty of relying on heuristic reflexes to
+experienced user exposes the difficulty of relying on heuristic reflexes to
 obtain robust control across a range of gait characteristics. In contrast, the
 proposed EKF approach takes a principled approach to phase estimation and thus
 resulted in the fewest falls.
@@ -57,18 +57,18 @@ The normal walking experiments show that the ankle trajectories produced by the
 GP-EKF control are less natural than those produced by NM or IMP control
 (see~\cref{fig:kinematic_errors}b). The GP-EKF ankle trajectories
 in~\cref{fig:controller_comparison} show that peak ankle flexion is achieved
-later in stance and that the ankle insufficiently plantarflexes at toeoff.
-There were two reasons for these issues. First, in hindsight the cutoff between
+later in stance and that the ankle insufficiently plantarflexes at toe-off.
+There were two reasons for these issues. First, in hindsight, the cutoff between
 stance and swing in the data used to train the control surfaces was set too
 early in the gait cycle. Second, the ankle impedance, especially in the push off
 phase was too low. \Cref{fig:gp_ekf_fixed} shows the trajectories for all 9
-control surfaces with corrected control surfaces and with and ankle stiffness
+control surfaces with corrected control surfaces and with an ankle stiffness
 ($k_p$ \cref{eq:pdandff}) that is roughly double of that used for the previous
 results. These changes substantially improve the ankle kinematics in the push
 off phase.
 
 However, increasing the ankle stiffness throughout stance may make an overly
-ridged controller that does not comply to rough terrain. Recent research has
+ridged controller that does not comply with rough terrain. Recent research has
 investigated how impedance varies continuously throughout
 gait~\citep{lee2016summary}. These results could be used to parameterize
 impedance as a function of phase. Taking this step could help improve the
