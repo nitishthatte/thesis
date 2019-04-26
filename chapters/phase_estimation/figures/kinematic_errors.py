@@ -31,7 +31,7 @@ colors = color_pallette.mpl_colors
 
 data = sio.loadmat('kinematic_error_data.mat')
 
-fig, ax = plt.subplots(2, 2, figsize=(3,3.5), sharex='all', sharey='row')
+fig, ax = plt.subplots(2, 2, figsize=(4,4.5), sharex='all', sharey='row')
 
 ax[0,0].set_ylabel('Angle  Error\n(deg)')
 ax[1,0].set_ylabel("Moment Error\n"r"(\unitfrac{N-m}{kg})")

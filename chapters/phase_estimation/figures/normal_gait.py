@@ -10,7 +10,7 @@ from palettable.cartocolors.qualitative import Prism_9 as color_pallette
 pgf_with_custom_preamble = {
     "pgf.texsystem": "xelatex",
     "font.family": "sans-serif", # use san serif/main font for text elements
-    "font.size": 6,
+    "font.size": 8,
     "text.usetex": False,    # use inline math for ticks
     "pgf.rcfonts": False,   
     "pgf.preamble": [
@@ -36,7 +36,7 @@ for axis in ax[3,:]:
 ax[0,0].set_ylabel('Knee Angle\n(deg)')
 ax[1,0].set_ylabel('Ankle Angle\n(deg)')
 ax[2,0].set_ylabel("Knee Moment\n"r"(\unitfrac{N-m}{kg})")
-ax[3,0].set_ylabel(r"Ankle Moment (\unitfrac{N-m}{kg})")
+ax[3,0].set_ylabel("Ankle Moment\n"r"(\unitfrac{N-m}{kg})")
 
 title_props = {'weight':'semibold'}
 ax[0,0].set_title('GP-EKF control', **title_props)
@@ -185,6 +185,10 @@ ax[3].set_xticks(np.arange(-1, 11, 1))
 ax[1].set_yticks(np.arange(0, 2.0, 0.5))
 ax[2].set_ylim((-5, 20))
 '''
+ax[0,0].set_yticks(np.arange(0, 60.0, 20.0))
+ax[1,0].set_yticks(np.arange(-20.0, 40.0, 20.0))
+ax[2,0].set_yticks(np.arange(-0.5, 1.0, 0.5))
+ax[3,0].set_yticks(np.arange(-1.5, 0.5, 0.5))
 
 #center all axis labels in bounds
 
