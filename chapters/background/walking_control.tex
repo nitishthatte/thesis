@@ -85,7 +85,7 @@ reaction forces measured by the prosthesis. Alternatively, If one is willing to
 instrument the sound-side leg, then \citet{liu2014improving} provides a method
 to improve transition rules by using online learning and gait events of the
 sound-side leg. In this thesis, however, we focus on control strategies that do
-not require extra instrumentation of the body. Therefore, in later chapters we
+not require extra instrumentation of the body. Therefore, in later chapters, we
 will explore, through simulations (\cref{sec:control_sim}) and experiments with
 our robotic prosthesis (\cref{sec:nm_vs_imp,sec:phase_estimation}), the
 consequences of mistimed phase transitions in a finite state impedance control
@@ -131,11 +131,11 @@ achieve a consistent gait with this control scheme.
 
 As a possible solution, \citet{rezazadeh2018phase} recently proposed a method
 that eliminates the thigh angle integral and instead uses the thigh angle only.
-This method relies on the insight that, for the most part, during gait the thigh
-angle decreases monotonically from heel strike to shortly before toe-off, and
-then increases from that point until the next heel strike. Therefore, one can
-define two different relationships between the hip angle and phase for these two
-portions of gait and use a finite state machine to transition between them.
+This method relies on the insight that, for the most part, during gait, the
+thigh angle decreases monotonically from heel strike to shortly before toe-off,
+and then increases from that point until the next heel strike. Therefore, one
+can define two different relationships between the hip angle and phase for these
+two portions of gait and use a finite state machine to transition between them.
 However, reintroducing a finite state machine into the controller necessitates
 tuning of transitions rules between phases and may cause similar issues as in
 finite state impedance control.
@@ -158,7 +158,7 @@ does not need a finite state machine. Moreover, we show the resulting control
 can use the phase estimate to adapt to different gait speeds and enable
 automatic transitions to standing mode. 
 
-\subsection{Non Phase-Based Control}
+\subsection{Non-Phase-Based Control}
 
 So far, all walking controllers we reviewed keep track of either a discrete or
 continuous estimate of phase during gait. However, researchers have also
@@ -170,7 +170,7 @@ prosthesis' joint angles and velocities. However, this approach used many IMUs
 mounted to the torso and sound side leg to measure the user's kinematics and
 thus may be impractical for everyday use by an amputee.
 
-Another class of non-phase based control uses neuromuscular models that simulate
+Another class of non-phase-based control uses neuromuscular models that simulate
 the dynamics of the muscle-tendon units in the leg and hypothesized reflex
 pathways to generate the desired torques for walking. Prior work in simulation
 of biped walking controlled by neuromuscular models has demonstrated that this
