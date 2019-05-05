@@ -82,8 +82,8 @@ Making the total desired velocity,
 \end{align}
 
 The motor controllers used on the prosthesis (Elmo Motion Control Gold Series)
-also accept a feed forward torque command, which can help achieve desired
-velocities more quickly. To derive the feed forward motor torque we refer to the
+also accept a feedforward torque command, which can help achieve desired
+velocities more quickly. To derive the feedforward motor torque we refer to the
 motor dynamics depicted in \cref{fig:sea_diagram_ctrl}. The dynamics of the
 motor rotor are
 \begin{align}
@@ -105,7 +105,7 @@ equation, we calculate the second derivative of the desired load torque
         + \ddot \theta_\tn{l},\label{eq:motor_accel_from_tau_des}
 \end{align}
 and substitute \cref{eq:motor_vel_from_tau_des,eq:motor_accel_from_tau_des} into
-\cref{eq:motor_torque_nosub} to arrive at the final feed forward motor torque
+\cref{eq:motor_torque_nosub} to arrive at the final feedforward motor torque
 \begin{align}
     \tau_\tn{m} = \frac{1}{\eta} \left( J_\tn{m} 
         \left( \frac{\ddot \tau_\tn{des}}{k} + \ddot \theta_\tn{l} \right)
@@ -114,7 +114,7 @@ and substitute \cref{eq:motor_vel_from_tau_des,eq:motor_accel_from_tau_des} into
 \end{align}
 
 The final two steps of the SEA control are to saturate and low pass filter the
-desired joint velocities and feed forward motor torques to ensure safety and
+desired joint velocities and feedforward motor torques to ensure safety and
 suppress excitatory frequencies. Knee velocities are saturated to lie within
 $\unitfrac[\pm 9.95]{rad}{sec}$ and ankle velocities are saturated to lie within
 $\unitfrac[\pm 6.96]{rad}{sec}$. Furthermore, if a joint violates specified hard
@@ -122,7 +122,7 @@ constraint limits, the desired velocities are saturated to zero to prevent
 further constraint violation. For the knee joint, the flexion limit is set to
 \unit[90]{degrees} and the extension limit is \unit[-2]{degrees}. For the ankle
 joint the flexion/extension limits are set to $\unit[\pm 30]{degrees}$
-respectively. The saturated desired motor velocities and feed forward motor
+respectively. The saturated desired motor velocities and feedforward motor
 torques are then low pass filtered with second-order Butterworth filters. For
 the knee, we use a cutoff frequency of \unit[100]{Hz} and for the ankle, we use
 a cutoff frequency of \unit[50]{Hz}.

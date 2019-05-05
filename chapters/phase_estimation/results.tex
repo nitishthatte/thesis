@@ -51,7 +51,7 @@ largely due to (1) a lack of plantar flexion in the push-off phase and (2) a
 lack of dorsiflexion during mid-stance for 3 out of 8 subjects, who all chose
 the same control surface set.
 
-Finally, the third and fourth-row of~\cref{fig:controller_comparison} show the
+Finally, the third and fourth rows of~\cref{fig:controller_comparison} show the
 knee and ankle moments for the three controllers. IMP control produced the most
 natural knee moments by a significant margin (\cref{fig:kinematic_errors}c),
 whereas the GP-EKF and NM controllers performed comparably. Although the GP-EKF
@@ -65,14 +65,18 @@ small (\cref{fig:kinematic_errors}d).
     \caption[Robustness to ground height disturbances]{Robustness to ground
     height disturbances. Number of falls accrued for each controller during
     ground height disturbance trials. GP-EKF control significantly reduced the
-    number of falls compared to IMP control.}\label{fig:num_block_falls}
+    number of falls compared to IMP control. $*: p <
+    0.05$.}\label{fig:num_block_falls}
 \end{marginfigure}
 
 \Cref{fig:num_block_falls} shows the number of times able-bodied subjects fell
-with each control strategy when stepping on blocks. Subjects fell significantly
-more often with the IMP control compared to either the GP-EKF or NM controllers.
-However, when using the neuromuscular control the experienced user fell 8 times,
-more than any other subject in any condition.
+with each control strategy when stepping on blocks. The grey bars show the
+median of the inexperienced able-bodied subjects' data, the circle markers
+indicate inexperienced able-bodied subject data points, and the square markers
+indicate experienced able-bodied user data. Inexperienced subjects fell
+significantly more often with the IMP control compared to either the GP-EKF or
+NM controllers.  However, when using the neuromuscular control the experienced
+user fell 8 times, more than any other subject in any condition.
 
 \subsection{Adaptability of Phase Estimate}
 
@@ -82,15 +86,18 @@ more than any other subject in any condition.
     \caption[Adaptability of phase estimate]{Adaptability of phase estimate.
     Mean phase error of EKF versus time-based phase estimation when walking with
     sinusoidally varying treadmill speed. The EKF significantly improves phase
-    tracking compared to the time-based
-    estimate.}\label{fig:speed_phase_err_mean}
+    tracking compared to the time-based estimate. **: $p <
+    0.01$.}\label{fig:speed_phase_err_mean}
 \end{marginfigure}
 The adaptability of the phase estimate was tested by sinusoidally varying the
 treadmill speed during walking. \Cref{fig:speed_phase_err_mean} shows the
 average RMS errors of the EKF-based phase estimate and time-based phase estimate
-compared to the ground-truth phase obtained in hindsight. For all subjects, the
-EKF tracked the true phase significantly more accurately than did the time-based
-phase estimate.
+compared to the ground-truth phase obtained in hindsight. The grey bars show the
+median of the inexperienced able-bodied subjects' data, the circle markers
+indicate inexperienced able-bodied subject data points, and the square markers
+indicate experienced able-bodied user data. For all subjects, the EKF tracked
+the true phase significantly more accurately than did the time-based phase
+estimate.
 
 For a more specific example, \cref{fig:speed_phase_est_sub_1} shows the phase
 estimates during the treadmill speed variation experiment for a single subject.

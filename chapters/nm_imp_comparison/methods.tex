@@ -1,6 +1,6 @@
 \section{Methods}
 
-\subsection{Parameter Generation}
+\subsection{Parameter Generation}\label{sec:param_gen_nm_imp}
 \begin{margintable}    
     \centering
     \normalsize
@@ -37,11 +37,12 @@ parameters. We used the dataset provided by \citet{moore2015elaborate}, which
 provides gait data for undisturbed walking and walking with treadmill velocity
 disturbances. 
 
-For the neuromuscular control, we used the black-box CMA-ES optimizer
-\citep{hansen2006cma} to obtain parameters that can reproduce the behavior of
-each subject in the gait dataset. We optimized the parameters listed in
-\cref{tab:nm_params_treadmill_exp} so the model's output torques match those in
-the gait dataset. Specifically, we minimized the following cost function:
+For the neuromuscular control, we used the black-box covariance matrix
+adaptation evolution strategy (CMA-ES) \citep{hansen2006cma} to obtain
+parameters that can reproduce the behavior of each subject in the gait dataset.
+We optimized the parameters listed in \cref{tab:nm_params_treadmill_exp} so the
+model's output torques match those in the gait dataset. Specifically, we
+minimized the following cost function:
 \begin{align}
     \Gamma &= \argmin_\Gamma \left(\tau_\tn{h} - \tau_\tn{nm} \right)^T
     \left(\tau_\tn{h} - \tau_\tn{nm} \right) + \alpha \xi_\tn{nm}^T \xi_\tn{nm}
@@ -73,7 +74,7 @@ output torque of a joint and the joint angle/velocity
     \caption[Finite state machine used for impedance control scheme]{Finite
     state machine used for impedance control scheme. In each state the control
     employs linear impedance functions that determine the behavior of the ankle
-    and knee joints. At toeoff, the controller generates minimum-jerk
+    and knee joints. At toe-off, the controller generates minimum-jerk
     trajectories for the knee and ankle to follow during
     swing.}\label{fig:impedance_control_ours}
 \end{marginfigure}
@@ -114,10 +115,10 @@ is
 To calculate the impedance parameters for each phase we minimized the squared
 error subject to the constraints $k>0$ and ${b > 0}$, which ensures that the
 resulting impedance models are stable. Finally, to obtain model parameters that
-are robust to outlier steps in the dataset, we utilized the RANSAC procedure,
-which iteratively solves the above optimization on randomly sampled subsets of
-the data in order to classify outliers and fit to inliers only
-\citep{fischler1981random}.
+are robust to outlier steps in the dataset, we utilized the Random sample
+consensus (RANSAC) procedure, which iteratively solves the above optimization on
+randomly sampled subsets of the data in order to classify outliers and fit to
+inliers only \citep{fischler1981random}.
 
 \Cref{fig:treadmill_imp_fit} shows an example of the impedance control model
 optimized to match one subject's gait data. In this figure, the color of the
