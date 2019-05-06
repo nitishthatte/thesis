@@ -45,7 +45,7 @@ prosthesis prototype.  This challenge would be significantly reduced with
 standardization of the interface between the low-level controls and the
 mid-level behavior controls. Standardizing this interface would more easily
 allow researchers to share code and try controllers on their own prostheses.
-Standardizing the hardware design too would also help in this effort and
+Standardizing the hardware design would also help in this effort and
 substantially decrease the time required to make progress in this field. The
 recent development of open source knee and ankle prosthesis designs should help
 significantly in this regard \citep{azocar2018design}.
@@ -90,14 +90,14 @@ A potential solution for this limitation is to treat the able-bodied gait data
 we use to generate parameters as a set of \emph{basis gaits}. We could then
 perform continuous optimization of controller parameters in the gait space
 spanned by this basis. For example, given $N$ basis gaits $\theta = [\theta_1,
-\theta_2, \ldots, \theta_N]^T$, where each $\theta_n$ is a collection of gait
-data for a specific subject, we could optimize over a vector of weights $w =
-[w_1, w_2, \ldots, w_N]^T$. These weights would synthesize a new gait as
-$\theta_\tn{new} = w^T \theta$ from which we could derive parameters using the
-methods discussed in \cref{sec:param_gen_nm_imp,sec:ctrl_surfs}. These
-parameters could be then be evaluated on the prosthesis. Performing the
-optimization in this way could ensure that the optimization procedure selects
-parameters from a safe subspace and would reduce the dimensionality of the
+\theta_2, \ldots, \theta_N]^T$, where each $\theta_n$ is a collection of data
+for a specific gait, we could optimize over a vector of weights $w = [w_1, w_2,
+\ldots, w_N]^T$. These weights would synthesize a new gait as $\theta_\tn{new} =
+w^T \theta$ from which we could derive parameters using the methods discussed in
+\cref{sec:param_gen_nm_imp,sec:ctrl_surfs}. These parameters could then be
+evaluated on the prosthesis. Performing the optimization in this way could
+ensure that the optimization procedure selects parameters from a safe subspace
+spanned by actual gait data and would reduce the dimensionality of the
 optimization to $N$, which could be selected to be feasible for the chosen
 optimization algorithm. This proposed optimization approach would be feasible
 for the impedance and GP-EKF controllers as we can generate parameters for these
@@ -109,9 +109,9 @@ Finally, an innovation provided by the planning-based swing control described in
 \crefrange{sec:swing_control_planning_intro}{sec:swing_control_planning_discuss}
 is that it considers environmental information in real-time within the mid-level
 controller. The environmental information directly and precisely impacts the
-trajectories that are generated during swing. In contrast, previous prosthesis
-controllers that have considered environmental information have primarily only
-done so at the high-level for gait mode recognition (see
+trajectories the controller generates during swing. In contrast, previous
+prosthesis controllers that have considered environmental information have
+primarily only done so at the high-level for gait mode recognition (see
 \cref{sec:back_high_level_control}). These high-level strategies switch the
 mid-level control parameters within a discrete set of options. Similarly, the
 phase-based stance control described in
@@ -129,7 +129,7 @@ This dissertation moved the field forward by performing the first direct
 comparison of prosthesis controllers on identical prosthesis hardware to explore
 the pros and cons of different control methods. By performing this comparison,
 we gained important insights that motivated further development of prosthesis
-controllers that proactively avoid trips and can robustly estimate the gait
+controllers that can proactively avoid trips and robustly estimate the gait
 phase, thereby enabling rapid adaptation to changes in gait. Future researchers
 should continue to attempt to compare prosthesis controllers directly, despite
 the difficulties of implementing multiple prosthesis controllers and comparing
